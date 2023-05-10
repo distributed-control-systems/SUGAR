@@ -10,7 +10,7 @@ function basis(signature)
         vv=zeros(1,2^m);
         vv(1)=1;
         
-        fprintf("Declaring e"+strrep(test.Basis{k},",","")+" as syntatic sugar, e0=1\n")
+        fprintf("Declaring e"+strrep(test.Basis{k},",","")+" as syntactic sugar, e0=1\n")
         assignin('base',"e"+strrep(test.Basis{k},",",""),b)
   
     for k=2:2^m

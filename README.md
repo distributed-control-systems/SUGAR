@@ -1,23 +1,24 @@
 # SUGAR
-Wellcome to shugar lib, sugar stands for **Slow** and **Ugly** Geometric Algebra Routines, so, you are advised.
+Wellcome to sugar lib, sugar stands for **Slow** and **Ugly** Geometric Algebra Routines, so, you are advised.
 
 #Basic functions
+Next we explain the basic operations in sugar environment
 
 ## basis(), declare a set of basis with a given signature
-This is usefull for shorthand multivector creation, for instance:
+This is useful for shorthand multi-vector creation, for instance:
 
 	>>basis([1,0,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 
 If we want to create a basis for complex numbers
 
 	>>basis([0,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 
-## Declaring multivectors
-There are two ways to declare a multivector, the first one is to provide the complete set of coefficients of the multivectors and the signature 
+## Declaring multi-vectors
+There are two ways to declare a multi-vector, the first one is to provide the complete set of coefficients of the multi-vectors and the signature 
 
 	>> MV([1 1 2 3],[2,0,0])
 
@@ -27,7 +28,7 @@ There are two ways to declare a multivector, the first one is to provide the com
 The second one is to use a shorthand notation after calling the basis function
 	
 	>> basis([2,0,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
 	Declaring e12 such that e12·e12=-1
@@ -36,9 +37,9 @@ The second one is to use a shorthand notation after calling the basis function
 	ans = 
 	
 	 ( 1 )e0 ( 1 )e1 ( 2 )e2 ( 3 )e12
-which turns to be the same multivector as before.
+which turns to be the same multi-vector as before.
 
-Sugar also suports symbolic coefficients, but some care must be taken (the **ugly** part of sugar), For instance, we will face problems whenever a symbolic variable precedes a multivector basis:
+Sugar also supports symbolic coefficients, but some care must be taken (the **ugly** part of sugar), For instance, we will face problems whenever a symbolic variable precedes a multi-vector basis:
 
 	>>syms x
 	>>x*e1
@@ -66,20 +67,20 @@ but it is allowed to
 
 	 ( x )*e1	
 
-which allows you to declare multivectors with symbolic coefficiens
+which allows you to declare multi-vectors with symbolic coefficients
 
-## Multivector properties
-The properties asociated with a multivector are:
+## Multi-vector properties
+The properties associated with a multi-vector are:
 
 * The signature
-* The vector coeficients
+* The vector coefficients
 * The matrix representation
-* The basis related to the multivector
+* The basis related to the multi-vector
 
-Lets show them by exemple
+Lets show them by example
 
 	>> basis([2,0,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
 	Declaring e12 such that e12·e12=-1
@@ -88,7 +89,7 @@ Lets show them by exemple
 	a = 
 	
 	 ( 1 )e0 ( 1 )e1 ( 1 )e2 ( -1 )e12
-	>>% Retrive the algebra signature to which it belongs
+	>>% Retrieve the algebra signature to which it belongs
 	>> a.Lsignature 
 	
 	ans =
@@ -102,7 +103,7 @@ Lets show them by exemple
 	
 	       1              1              1             -1       
 	
-	>>% Matrix representation of the coeficients
+	>>% Matrix representation of the coefficients
 	>> a.matrix	
 	 
 	ans =
@@ -120,11 +121,11 @@ Lets show them by exemple
 	
 	    {["0"]}    {["1"]}    {["2"]}    {["1,2"]}
 
-## Blades, Grades and coefficients as multivectors
-"element()" is a method in the multivector object that allows you to retrive any elemenent or sets of elements as a multivector
+## Blades, Grades and coefficients as multi-vectors
+"element()" is a method in the multi-vector object that allows you to retrieve any element or sets of elements as a multi-vector
 
 	>> basis([2,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
 	Declaring e3 such that e3·e3=-1
@@ -162,7 +163,7 @@ Lets show them by exemple
 Alternatively you may need the expressions as an array, to such end there is the function "coefficients()"
 
 	>> basis([2,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
 	Declaring e3 such that e3·e3=-1
@@ -201,11 +202,11 @@ Alternatively you may need the expressions as an array, to such end there is the
 	       7       
 
 
-## Basic multivector operations
-Plus and Minus operations are allowed among multivectors
+## Basic multi-vector operations
+Plus and Minus operations are allowed among multi-vectors
 
 	>> basis([1,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=-1
 	Declaring e12 such that e12·e12=1
@@ -231,12 +232,12 @@ Plus and Minus operations are allowed among multivectors
 	 ( 1 )e0 ( 1 )e1 ( 1 )e2 ( 4 )e12
 
 
-The most important operation over multivectors is the geometric product denoted by "*"
+The most important operation over multi-vectors is the geometric product denoted by "*"
 
 We can check that CL[0,1,0] is really the complex number system making a geometric product
 
 	>>basis([0,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 	
 	>> C1=1+2*e1;
@@ -256,11 +257,11 @@ Doing the same operation in complex notation
 	ans =
 	
 	       7        +    9i      
-Due to the fact that symbolic coefficients are supported is easy to retrive the expression of the geometric product in this algebra, going back to the exemple on complex numbers:
+Due to the fact that symbolic coefficients are supported is easy to retrieve the expression of the geometric product in this algebra, going back to the example on complex numbers:
 	
 	>>syms a b c d real
 	>>basis([0,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 	
 	>>C1=e0*a+e1*b 
@@ -287,14 +288,14 @@ Due to the fact that symbolic coefficients are supported is easy to retrive the 
 
 On the other hand (the **ugly** part of sugar), there is no (yet) inner or exterior product declaration, you need to do them using the geometric product and elements() operation
 
-Also, there is no general divission ("/") operator, due to de fact that the "/" does not define the precedence of the operands. Whenever you need to perform divissions you should first retrive the inverse of the divisor, and the perform a standard geometric product. (even more **ugly**, isn't it?)
+Also, there is no general division ("/") operator, due to de fact that the "/" does not define the precedence of the operands. Whenever you need to perform divisions you should first retrieve the inverse of the divisor, and the perform a standard geometric product. (even more **ugly**, isn't it?)
 
-## Powers of multivectors to integer numbers
+## Powers of multi-vectors to integer numbers
 
-There are many ways in shugar to perform this operation (look into the section "functions of multivectors") , but the operator ^os overloaded to perform powers of multivectors. Remeber a^b performs $a^b$, is not a shorthand to exterior product. The nice thing is that it is easy to find multivector inverses. (**This section is still under development**)
+There are many ways in sugar to perform this operation (look into the section "functions of multi-vectors") , but the operator ^os overloaded to perform powers of multi-vectors. Remember a^b performs $a^b$, is not a shorthand to exterior product. The nice thing is that it is easy to find multi-vector inverses. (**This section is still under development**)
 
 	>> basis([1,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=-1
 	Declaring e12 such that e12·e12=1
@@ -321,10 +322,10 @@ There are many ways in shugar to perform this operation (look into the section "
 	
 	 ( 1 )*e0 
 
-But, as you should know, you may encounter multivectors that don't have inverse, for instance:
+But, as you should know, you may encounter multi vectors that don't have inverse, for instance:
 
 	>> basis([1,0,1])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=0
 	Declaring e12 such that e12·e12=0
@@ -369,20 +370,20 @@ But, as you should know, you may encounter multivectors that don't have inverse,
 	
 	 ( Inf )*e0
 
-There are other cases where this situation may reproduce. Specially on algebras or multivectors with negative basis.
+There are other cases where this situation may reproduce. Specially on algebras or multi vectors with negative basis.
 
-## Powers of multivectors to multivectors
+## Powers of multi-vectors to multi-vectors
 
 Look into next section 
 
 
-## Functions of multivectors
-Sugar allows you to compute (the **slow** part of sugar) a function of a multivector. The way to do it is to use the method "apply()" which gets as agrument a lambda function. For instance, using the well-known algebra CL([0,1,0]) for the complex numbers, lets copmpute the exponential of a function:
+## Functions of multi-vectors
+Sugar allows you to compute (the **slow** part of sugar) a function of a multi-vector. The way to do it is to use the method "apply()" which gets as argument a lambda function. For instance, using the well-known algebra CL([0,1,0]) for the complex numbers, lets compute the exponential of a function:
 
 
 	>> syms a b x y real
 	>> basis([0,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 	>> y=e1*b
 	
@@ -399,7 +400,7 @@ Sugar allows you to compute (the **slow** part of sugar) a function of a multive
 But in CL([1,0,0]) the same operation turns out to be
 
 	>> basis([1,0,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	>> y=e1*b
 	
@@ -412,13 +413,13 @@ But in CL([1,0,0]) the same operation turns out to be
 	
 	 ( cosh(b) )*e0 ( sinh(b) )*e1
 
-General functions on multivectors are allowed, but the expressions may becom really nasty.
+General functions on multi-vectors are allowed, but the expressions may become really nasty.
 
-Using double lambda functions we can declare our oun functions on multivectors, take care to avoid shading standard matlab functions. For instance:
+Using double lambda functions we can declare our own functions on multi-vectors, take care to avoid shading standard Matlab functions. For instance:
 
 	>> syms a b x y real
 	>> basis([0,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 	>> expMV=@(y)y.apply(@(x)exp(x))
 	
@@ -435,7 +436,7 @@ Using double lambda functions we can declare our oun functions on multivectors, 
 	
 	 ( cos(2) )*e0 ( sin(2) )*e1
 
-Symbolic coeficients are also allowed
+Symbolic coefficients are also allowed
 
 	>> syms a b x y w t real
 	>> expMV=@(y)y.apply(@(x)exp(x))
@@ -452,15 +453,15 @@ Symbolic coeficients are also allowed
 	
 	 ( cos(t*w) )*e0 ( sin(t*w) )*e1
 
-This is in general supported on any multivector with real or symbolic coefficients (but uses to be **slow**)
+This is in general supported on any multi-vector with real or symbolic coefficients (but uses to be **slow**)
 
-## Matrices of multivectors
-Sugar allows you to create matrices where the components are multivectors (Do no use mixed components).
+## Matrices of multi-vectors
+Sugar allows you to create matrices where the components are multi-vectors (Do no use mixed components).
 
 For instance:
 
 	>> basis([1,1,0])
-	Declaring e0 as syntatic sugar, e0=1
+	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=-1
 	Declaring e12 such that e12·e12=1
@@ -479,7 +480,7 @@ And then, (matrix) multiplication
 	
 	 (1)*e12     (-1)*e0 (3)*e12    
 	 (-1)*e0 (-2)*e12     (-1)*e0 (-1)*e12  
-And, in some cases (this is still under development), matrix inverssion
+And, in some cases (this is still under development), matrix inversion
 
 	>> M2=M^-1
 	
@@ -500,4 +501,4 @@ And, in some cases (this is still under development), matrix inverssion
 	 (1)*e0     0     
 	 0      (1)*e0    
 
-We still miss the operation of matrix functions over matrices of multivectors...  
+We still miss the operation of matrix functions over matrices of multi-vectors...  
