@@ -1,8 +1,13 @@
 # SUGAR
 Wellcome to sugar lib, sugar stands for **Slow** and **Ugly** Geometric Algebra Routines, so, you are advised.
 
-#Basic functions
-Next we explain the basic operations in sugar environment
+SUGAR was created to fulfill my personal requirements for symbolic geometric algebra computations, which may not align with your specific needs. If you require additional functionality that is not currently implemented, I encourage you to implement it yourself. Please refrain from burdening me with your specific requirements, as I am uninterested and unwilling to invest any of my time in solving your problems, so, you are advised.
+
+I provide this introduction with candor to ensure transparency about the library's capabilities. My intention is to present the information in an unbiased manner, allowing you to make an informed decision about whether it aligns with your requirements. We kindly ask you to read the accompanying documentation to evaluate if the library is suitable for your specific needs.
+
+# Basic functions
+
+In the following section, we will outline the fundamental operations within the sugar environment.
 
 ## basis(), declare a set of basis with a given signature
 This is useful for shorthand multi-vector creation, for instance:
@@ -17,6 +22,14 @@ If we want to create a basis for complex numbers
 	Declaring e0 as syntactic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 
+Or for instance, quaternion-based algebra
+
+	>> basis([0,2,0])
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=-1
+	Declaring e2 such that e2·e2=-1
+	Declaring e12 such that e12·e12=-1
+
 ## Declaring multi-vectors
 There are two ways to declare a multi-vector, the first one is to provide the complete set of coefficients of the multi-vectors and the signature 
 
@@ -25,6 +38,7 @@ There are two ways to declare a multi-vector, the first one is to provide the co
 	ans = 
 	
 	 ( 1 )e0 ( 1 )e1 ( 2 )e2 ( 3 )e12
+	 
 The second one is to use a shorthand notation after calling the basis function
 	
 	>> basis([2,0,0])
@@ -37,37 +51,17 @@ The second one is to use a shorthand notation after calling the basis function
 	ans = 
 	
 	 ( 1 )e0 ( 1 )e1 ( 2 )e2 ( 3 )e12
-which turns to be the same multi-vector as before.
+which turns out to be the same multi-vector as before.
 
-Sugar also supports symbolic coefficients, but some care must be taken (the **ugly** part of sugar), For instance, we will face problems whenever a symbolic variable precedes a multi-vector basis:
+Sugar also supports symbolic coefficients, which allows you to make generalized computations and to solve some parameter based problems. For instance :
 
 	>>syms x
 	>>x*e1
-	Error using sym>tomupad
-	Unable to convert 'MV' to 'sym'.
-	
-	Error in sym (line 397)
-	                S.s = tomupad(x);
-	
-	Error in sym/privResolveArgs (line 1184)
-	                    argout{k} = sym(arg);
-	
-	Error in sym/privBinaryOp (line 1216)
-	            args = privResolveArgs(A, B);
-	
-	Error in  *  (line 497)
-	        X = privBinaryOp(A, B, 'symobj::mtimes');
-	
-	Related documentation
-
-but it is allowed to
-	
-	>>e1*x
 	ans = 	
 
 	 ( x )*e1	
 
-which allows you to declare multi-vectors with symbolic coefficients
+this is the corner stone that grants you the extraordinary abilities you may be searching for.
 
 ## Multi-vector properties
 The properties associated with a multi-vector are:
@@ -288,11 +282,11 @@ Due to the fact that symbolic coefficients are supported is easy to retrieve the
 
 On the other hand (the **ugly** part of sugar), there is no (yet) inner or exterior product declaration, you need to do them using the geometric product and elements() operation
 
-Also, there is no general division ("/") operator, due to de fact that the "/" does not define the precedence of the operands. Whenever you need to perform divisions you should first retrieve the inverse of the divisor, and the perform a standard geometric product. (even more **ugly**, isn't it?)
+Also, there is no general division ("/") operator, due to de fact that the "/" does not define the precedence of the operands. Whenever you need to perform divisions you should first retrieve the inverse of the divisor, and then, perform a standard geometric product. (even more **ugly**, isn't it?)
 
 ## Powers of multi-vectors to integer numbers
 
-There are many ways in sugar to perform this operation (look into the section "functions of multi-vectors") , but the operator ^os overloaded to perform powers of multi-vectors. Remember a^b performs $a^b$, is not a shorthand to exterior product. The nice thing is that it is easy to find multi-vector inverses. (**This section is still under development**)
+There are many ways in sugar to perform this operation (look into the section "functions of multi-vectors") , but the operator ^ is overloaded to perform powers of multi-vectors. Remember a^b performs $a^b$, is not a shorthand to exterior product. The nice thing is that it is easy to find multi-vector inverses. 
 
 	>> basis([1,1,0])
 	Declaring e0 as syntactic sugar, e0=1
@@ -329,7 +323,7 @@ But, as you should know, you may encounter multi vectors that don't have inverse
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=0
 	Declaring e12 such that e12·e12=0
-	>> x=1+2*e1+3*e12
+	>> x=1+2*e1+3*e12. %This one works as expected
 	
 	x = 
 	
@@ -339,27 +333,8 @@ But, as you should know, you may encounter multi vectors that don't have inverse
 	x_inv = 
 	
 	 ( -1/3 )*e0 ( 2/3 )*e1 ( 1 )*e12
-	>> x=1+2*e1+3*e2
 	
-	x = 
-	
-	 ( 1 )e0 ( 2 )e1 ( 3 )e2
-	>> x_inv=x^-1
-	
-	x_inv = 
-	
-	 ( -1/3 )*e0 ( 2/3 )*e1 ( 1 )*e2
-	>> x=1+3*e2
-	
-	x = 
-	
-	 ( 1 )e0 ( 3 )e2
-	>> x_inv=x^-1
-	
-	x_inv = 
-	
-	 ( 1 )*e0 ( -3 )*e2
-	>> x=3*e2
+	>> x=3*e2 % This one fails in this algebra
 	
 	x = 
 	
@@ -501,4 +476,58 @@ And, in some cases (this is still under development), matrix inversion
 	 (1)*e0     0     
 	 0      (1)*e0    
 
-We still miss the operation of matrix functions over matrices of multi-vectors...  
+We still miss the operation of matrix functions over matrices of multi-vectors... 
+# Other functions
+
+## Latex(multi-vector)
+ 
+ In order to allow expresing a multi-vector in scientific documentation we provide a latex() finction that translates a matrix of multi-vectors or a multi-vector to latex notation.
+ 
+ The usage is evident in next snippet
+ 
+	 >> basis([1,1,0])
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=-1
+	Declaring e12 such that e12·e12=1
+	>> M=[e1 e1+e2; e2 e2-e1]
+	
+	M = 
+	
+	 (1)e1     (1)e1 (1)e2    
+	 (1)e2     (-1)e1 (1)e2    
+	>> latex(M)
+	
+	
+	ans = 
+	
+	    "\left[\begin{array}{cc}\left(1\right)e_{1}  &  \left(1\right)e_{1}+\left(1\right)e_{2}  \\ \left(1\right)e_{2}  &  \left(-1\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]"
+
+
+which should be interpreted by a latex engine as 
+
+$\left[\begin{array}{cc}\left(1\right)e_{1}  &  \left(1\right)e_{1}+\left(1\right)e_{2}  \\ \left(1\right)e_{2}  &  \left(-1\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]$
+
+This feature also works for symbolic coefficients
+
+	>> syms a b c d
+	>> basis([1,1,0])
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=-1
+	Declaring e12 such that e12·e12=1
+	>> M=[e1*a e1+e2*(b+c); e2*c e2-e1*a]
+	
+	M = 
+	
+	 (a)*e1     (1)*e1 (b + c)*e2    
+	 (c)*e2     (-a)*e1 (1)*e2    
+	>> latex(M)
+	
+	ans = 
+	
+	    "\left[\begin{array}{cc}\left(a\right)e_{1}  &  \left(1\right)e_{1}+\left(b+c\right)e_{2}  \\ \left(c\right)e_{2}  &  \left(-a\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]"
+
+which should be interpreted by a latex engine as 
+
+$\left[\begin{array}{cc}\left(a\right)e_{1}  &  \left(1\right)e_{1}+\left(b+c\right)e_{2}  \\ \left(c\right)e_{2}  &  \left(-a\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]$

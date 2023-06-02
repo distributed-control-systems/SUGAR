@@ -1,4 +1,4 @@
-classdef MV
+classdef (InferiorClasses = {?sym}) MV
     properties
         Lsignature
         matrix
@@ -174,28 +174,156 @@ classdef MV
                 r.vec=r.matrix(:,1).';
             else
                 if (o1f==o1c)
-                    if(k==-1)
-                        %Matrix inversion, recursive and slow...
-
-                        A=obj(1,1);
-                        B=obj(1,2:end);
-                        C=obj(2:end,1);
-                        D=obj(2:end,2:end);
-                        Ai=A^(-1);
-                        L=(D-C*Ai*B)^-1;
-
-
-
-                        %L=D
-                        r=[Ai+Ai*B*L*C*Ai -1*Ai*B*L;-1*L*C*Ai L];
-                    end
+                    filas=o1f;
+                    columnas=o1c;
+                    SUPER_MATRIX=to_SUPER_MATRIX(obj);
+                    SUPER_POWER=SUPER_MATRIX^k;
+                    r=from_SUPER_MATRIX(obj,SUPER_POWER);
                 else
                     error("Non square matrices are not invertible")
                 end
             end
 
         end
+
         %------------------------------------------------------------------------------------------------
+
+
+        function determinante = det(self)
+            % Verificar si la matriz es cuadrada
+            [filas, columnas] = size(self);
+            if filas ~= columnas
+                error('In order to compute a determinant it is required to provide a sqyare matriz.');
+            end
+
+            % Caso base: matriz 1x1
+            if filas == 1
+                determinante = self(1, 1);
+                return;
+            end
+
+            % Calcular el determinante recursivamente utilizando el método de cofactores
+            determinante = 0;
+            for i = 1:filas
+                cofactor = (-1)^(i+1) * self(1, i) * det(self.Submatrix(1, i));
+                determinante = determinante + cofactor;
+            end
+        end
+        %------------------------------------------------------------------------------------------------
+        function inversa = inv(self)
+            %The inverse of a MV or a matrix of MVs
+            [filas, columnas] = size(self);
+            if filas ~= columnas
+                error('In order to compute the inverse a square matrix is required, otherwise try with pinv');
+            end
+            % Caso base: matriz 1x1
+            if filas == 1
+                r=MV();
+                r.Basis=self.Basis;
+                r.Lsignature=self.Lsignature;
+
+                r.matrix=self.matrix^(-1);
+                r.vec=r.matrix(:,1).';
+                inversa = r;
+                return;
+            end
+
+            % Calcular la inversa con el algoritmo de "me lo he scado de la
+            % manga"
+
+            %construimos una matriz de matrices
+            dimension=2^sum(self(1,1).Lsignature);
+            SUPER_MATRIX=to_SUPER_MATRIX(self);
+%             SUPER_MATRIX=zeros(filas*dimension,columnas*dimension);
+%             f=0;
+%             for i=1:dimension:filas*dimension
+%                 f=f+1;
+%                 c=0;
+%                 for j=1:dimension:columnas*dimension
+%                     c=c+1;
+%                     SUPER_MATRIX(i:i+dimension-1,j:j+dimension-1)=self(f,c).matrix;
+%                 end
+%             end
+            SUPER_INVERSE=inv(SUPER_MATRIX);
+            %construimos la matriz resultante
+            inversa=from_SUPER_MATRIX(self,SUPER_INVERSE);
+%             inversa=self*0;
+%             f=0;
+%             for i=1:dimension:filas*dimension
+%                 f=f+1;
+%                 c=0;
+%                 for j=1:dimension:columnas*dimension
+%                     c=c+1;
+%                     inversa(f,c).matrix=SUPER_INVERSE(i:i+dimension-1,j:j+dimension-1);
+%                     inversa(f,c).vec=inversa(f,c).matrix(:,1).';
+%                 end
+%             end
+
+
+        end
+        %------------------------------------------------------------------------------------------------
+        function inversa = pinv(self)
+            %The inverse of a MV or a matrix of MVs
+            [filas, columnas] = size(self);
+            if filas ~= columnas
+                
+                SUPER_MATRIX=to_SUPER_MATRIX(self);
+                SUPER_INVERSE=pinv(SUPER_MATRIX);
+                inversa=from_SUPER_MATRIX(self.',SUPER_INVERSE);
+                return
+            end
+            % Caso base: matriz 1x1
+            if filas == 1
+                r=MV();
+                r.Basis=self.Basis;
+                r.Lsignature=self.Lsignature;
+
+                r.matrix=self.matrix^(-1);
+                r.vec=r.matrix(:,1).';
+                inversa = r;
+                return;
+            end
+
+            % Calcular la inversa con el algoritmo de "me lo he scado de la
+            % manga"
+
+            %construimos una matriz de matrices
+            %dimension=2^sum(self(1,1).Lsignature);
+            SUPER_MATRIX=to_SUPER_MATRIX(self);
+%             SUPER_MATRIX=zeros(filas*dimension,columnas*dimension);
+%             f=0;
+%             for i=1:dimension:filas*dimension
+%                 f=f+1;
+%                 c=0;
+%                 for j=1:dimension:columnas*dimension
+%                     c=c+1;
+%                     SUPER_MATRIX(i:i+dimension-1,j:j+dimension-1)=self(f,c).matrix;
+%                 end
+%             end
+            SUPER_INVERSE=inv(SUPER_MATRIX);
+            %construimos la matriz resultante
+            inversa=from_SUPER_MATRIX(self,SUPER_INVERSE);
+%             inversa=self*0;
+%             f=0;
+%             for i=1:dimension:filas*dimension
+%                 f=f+1;
+%                 c=0;
+%                 for j=1:dimension:columnas*dimension
+%                     c=c+1;
+%                     inversa(f,c).matrix=SUPER_INVERSE(i:i+dimension-1,j:j+dimension-1);
+%                     inversa(f,c).vec=inversa(f,c).matrix(:,1).';
+%                 end
+%             end
+
+
+        end
+
+
+
+        %------------------------------------------------------------------------------------------------
+        
+        %------------------------------------------------------------------------------------------------
+        
         function r=mtimes(obj1,obj2)
             % Determine product kind,
             % Matrix-Matrix,Matrix-scalar,scalar-Matrix, scalar-scalar
@@ -402,38 +530,38 @@ classdef MV
         %-------------------------------------------------------------------------------------------------
         function r=str(obj1)
             r="";
-                for k=1:length(obj1.vec)
-                    if obj1.vec(k)~=0
-                        if class(obj1.vec(k))=="double"
-                            r=r+" ("+obj1.vec(k)+")e"+strrep(obj1.Basis{k},",","");
-                        else
-                            r=r+" ("+char(obj1.vec(k))+")*e"+strrep(obj1.Basis{k},",","");
-                        end
+            for k=1:length(obj1.vec)
+                if obj1.vec(k)~=0
+                    if class(obj1.vec(k))=="double"
+                        r=r+" ("+obj1.vec(k)+")e"+strrep(obj1.Basis{k},",","");
+                    else
+                        r=r+" ("+char(obj1.vec(k))+")*e"+strrep(obj1.Basis{k},",","");
                     end
+                end
 
-                end
-                if r==""
-                    r=" 0 ";
-                end
+            end
+            if r==""
+                r=" 0 ";
+            end
         end
         %-------------------------------------------------------------------------------------------------
-        
+
         function r=latex_str(obj1)
             r="";
-                for k=1:length(obj1.vec)
-                    if obj1.vec(k)~=0
-                        if class(obj1.vec(k))=="double"
-                            r=r+"+\left("+obj1.vec(k)+"\right)e"+strrep(obj1.Basis{k},",","");
-                        else
-                            r=r+"+\left("+latex(obj1.vec(k))+"\right)e_{"+strrep(obj1.Basis{k},",","")+"}";
-                        end
+            for k=1:length(obj1.vec)
+                if obj1.vec(k)~=0
+                    if class(obj1.vec(k))=="double"
+                        r=r+"+\left("+obj1.vec(k)+"\right)e_{"+strrep(obj1.Basis{k},",","")+"}";
+                    else
+                        r=r+"+\left("+latex(obj1.vec(k))+"\right)e_{"+strrep(obj1.Basis{k},",","")+"}";
                     end
+                end
 
-                end
-                if r==""
-                    r="  0 ";
-                end
-                r=extractAfter(r,1);
+            end
+            if r==""
+                r="  0 ";
+            end
+            r=extractAfter(r,1);
         end
         %-------------------------------------------------------------------------------------------------
         function disp(obj1)
@@ -472,36 +600,96 @@ classdef MV
                 end
             end
         end
-    
-    %---------------------------------------------------------------------
-    function r=element(self,obj)
-        if class(obj)~="MV"
-            error("When asking for components the parameter must be a multivector")
-        else
-            mascara=(obj.vec==0);
-            nv=self.vec;
-            nv(mascara)=0;
-            r=MV(nv,self.Lsignature);
+
+        %---------------------------------------------------------------------
+        function r=element(self,obj)
+            if class(obj)~="MV"
+                error("When asking for components the parameter must be a multivector")
+            else
+                mascara=(obj.vec==0);
+                nv=self.vec;
+                nv(mascara)=0;
+                r=MV(nv,self.Lsignature);
 
 
+            end
         end
-    end
-    %---------------------------------------------------------------------
-    function r=coefs(self,obj)
-        if class(obj)~="MV"
-            error("When asking for components the parameter must be a multivector")
-        else
-            mascara=(obj.vec~=0);
-            r=self.vec(mascara).';
+        %---------------------------------------------------------------------
+        function r=coefs(self,obj)
+            if class(obj)~="MV"
+                error("When asking for components the parameter must be a multivector")
+            else
+                mascara=(obj.vec~=0);
+                r=self.vec(mascara).';
 
+            end
         end
-    end
-    %---------------------------------------------------------------------
-    function r=latex(obj1)
-        [f,c]=size(obj1);
+        %---------------------------------------------------------------------
+        function r=simplify(self)
+
+            if class(self)~="MV"
+                error("When asking for simplify the parameter must be a multivector")
+            else
+                [f,c]=size(self);
+                if f*c==1
+                    r=MV(simplify(self.vec),self.Lsignature);
+                else
+                    %hay que ir fila a fila
+                    for k=1:f
+                        for kk=1:c
+                            r(k,kk)=simplify(self(k,kk));
+                        end
+                    end
+                end
+            end
+        end
+        %---------------------------------------------------------------------
+        function r=expand(self)
+            if class(self)~="MV"
+                error("When asking for expand the parameter must be a multivector")
+            else
+                [f,c]=size(self);
+                if f*c==1
+
+                    r=MV(expand(self.vec),self.Lsignature);
+                else
+                    %hay que ir fila a fila
+                    for k=1:f
+                        for kk=1:c
+                            r(k,kk)=expand(self(k,kk));
+                        end
+                    end
+                end
+
+            end
+        end
+        %---------------------------------------------------------------------
+        function r=collect(self)
+            if class(self)~="MV"
+                error("When asking for collect the object must be a multivector")
+            else
+                [f,c]=size(self);
+                if f*c==1
+
+                    r=MV(collect(self.vec),self.Lsignature);
+                else
+                    %hay que ir fila a fila
+                    for k=1:f
+                        for kk=1:c
+                            r(k,kk)=collect(self(k,kk));
+                        end
+                    end
+                end
+
+            end
+        end
+
+        %---------------------------------------------------------------------
+        function r=latex(obj1)
+            [f,c]=size(obj1);
             if f==1 && c==1
                 r=obj1.latex_str()
-               
+
             else
                 r="\left[\begin{array}{";
                 for i=1:c
@@ -511,7 +699,7 @@ classdef MV
                 for i=1:f
                     for j=1:c
                         r=r+obj1(i,j).latex_str();
-                        
+
                         r=r+"  &  ";
                     end
                     %size(r)
@@ -520,12 +708,50 @@ classdef MV
                 end
                 r=r+"\end{array}\right]";
             end
-
-
-
-
-
-
+        end
+       
+        %--------------------------------------------------------------
+        function r=super(self)
+            r=self.to_SUPER_MATRIX();
+        end
     end
+    methods (Access = private)
+        function submatriz = Submatrix(matriz, fila, columna)
+            submatriz = matriz;
+            submatriz(fila, :) = [];
+            submatriz(:, columna) = [];
+        end
+        function r=to_SUPER_MATRIX(self)
+            [filas,columnas]=size(self);
+            dimension=2^sum(self(1,1).Lsignature);
+            SUPER_MATRIX=zeros(filas*dimension,columnas*dimension);
+            f=0;
+            for i=1:dimension:filas*dimension
+                f=f+1;
+                c=0;
+                for j=1:dimension:columnas*dimension
+                    c=c+1;
+                    SUPER_MATRIX(i:i+dimension-1,j:j+dimension-1)=self(f,c).matrix;
+                end
+            end
+            r=sym(SUPER_MATRIX);
+        
+        end
+        function r=from_SUPER_MATRIX(self,M)
+            [filas,columnas]=size(self);
+            dimension=2^sum(self(1,1).Lsignature);
+            inversa=self*0;
+            f=0;
+            for i=1:dimension:filas*dimension
+                f=f+1;
+                c=0;
+                for j=1:dimension:columnas*dimension
+                    c=c+1;
+                    inversa(f,c).matrix=M(i:i+dimension-1,j:j+dimension-1);
+                    inversa(f,c).vec=inversa(f,c).matrix(:,1).';
+                end
+            end
+            r=inversa;
+        end
     end
 end
