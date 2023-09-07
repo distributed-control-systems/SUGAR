@@ -1,3 +1,12 @@
+dilluns,  4 de setembre de 2023, 13:31:12 CEST
+-----------------------------------------------------------------
+- added inner product
+- added outer product
+- added reverse, main involution and conjugate
+- added grade extraction
+- internal iprovements in terms of velocity for class constructor
+
+
 divendres,  2 de juny de 2023, 17:13:48 CEST
 -----------------------------------------------------------------
 - added powers of multivectors

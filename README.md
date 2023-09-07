@@ -1,9 +1,9 @@
 # SUGAR
 Wellcome to sugar lib, sugar stands for **Slow** and **Ugly** Geometric Algebra Routines, so, you are advised.
 
-SUGAR was created to fulfill my personal requirements for symbolic geometric algebra computations, which may not align with your specific needs. If you require additional functionality that is not currently implemented, I encourage you to implement it yourself. Please refrain from burdening me with your specific requirements, as I am uninterested and unwilling to invest any of my time in solving your problems, so, you are advised.
-
-I provide this introduction with candor to ensure transparency about the library's capabilities. My intention is to present the information in an unbiased manner, allowing you to make an informed decision about whether it aligns with your requirements. We kindly ask you to read the accompanying documentation to evaluate if the library is suitable for your specific needs.
+SUGAR was created to fulfill my personal requirements for symbolic geometric algebra computations, which may not align with your specific needs. If you require additional functionality that is not currently implemented, I encourage you to implement it yourself. Please avoid burdening me with your specific requirements, as I am uninterested and unwilling to invest any of my time in solving your problems, so, you are advised. If, for any reason, you implement new functionality to the library, I encourage you to publish them, as I have done for you. 
+ 
+I provide this introduction to ensure transparency about the library's capabilities. My intention is to present the information in an unbiased manner, allowing you to make an informed decision about whether it aligns with your requirements. We kindly ask you to read the accompanying documentation to evaluate if the library is suitable for your specific needs.
 
 # Basic functions
 
@@ -37,7 +37,7 @@ There are two ways to declare a multi-vector, the first one is to provide the co
 
 	ans = 
 	
-	 ( 1 )e0 ( 1 )e1 ( 2 )e2 ( 3 )e12
+	 ( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
 	 
 The second one is to use a shorthand notation after calling the basis function
 	
@@ -50,7 +50,7 @@ The second one is to use a shorthand notation after calling the basis function
 	
 	ans = 
 	
-	 ( 1 )e0 ( 1 )e1 ( 2 )e2 ( 3 )e12
+	 ( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
 which turns out to be the same multi-vector as before.
 
 Sugar also supports symbolic coefficients, which allows you to make generalized computations and to solve some parameter based problems. For instance :
@@ -82,7 +82,7 @@ Lets show them by example
 	
 	a = 
 	
-	 ( 1 )e0 ( 1 )e1 ( 1 )e2 ( -1 )e12
+	 ( 1 )e0+( 1 )e1+( 1 )e2+( -1 )e12
 	>>% Retrieve the algebra signature to which it belongs
 	>> a.Lsignature 
 	
@@ -131,7 +131,7 @@ Lets show them by example
 	
 	a = 
 	
-	 ( 1 )e0 ( 2 )e1 ( 5 )e2 ( 7 )e13
+	 ( 1 )e0+( 2 )e1+( 5 )e2+( 7 )e13
 	>> a.element(e0)
 	
 	ans = 
@@ -169,7 +169,7 @@ Alternatively you may need the expressions as an array, to such end there is the
 	
 	a = 
 	
-	 ( 1 )e0 ( 2 )e1 ( 5 )e2 ( 7 )e13
+	 ( 1 )e0+( 2 )e1+( 5 )e2+( 7 )e13
 	>> a.coefs(e0)
 	
 	ans =
@@ -194,6 +194,34 @@ Alternatively you may need the expressions as an array, to such end there is the
 	
 	       1       
 	       7       
+In order to get a grade from a multivector you can use the "grade(k)" function, wich is in charge of extracting the grade k from the multivector
+
+	>> basis([2,0,0])
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=1
+	Declaring e12 such that e12·e12=-1
+	>> syms x0 x1 x2 x12
+	>> a=x0+x1*e1+x2*e2+x12*e12
+	
+	a = 
+	
+	( x0 )e0+( x1 )e1+( x2 )e2+( x12 )e12
+	>> a.grade(0)
+	
+	ans = 
+	
+	( x0 )e0
+	>> a.grade(1)
+	
+	ans = 
+	
+	( x1 )e1+( x2 )e2
+	>> a.grade(2)
+	
+	ans = 
+	
+	( x12 )e12
 
 
 ## Basic multi-vector operations
@@ -240,7 +268,7 @@ We can check that CL[0,1,0] is really the complex number system making a geometr
 	
 	ans = 
 	
-	 ( 7 )*e0 ( 9 )*e1
+	 ( 7 )*e0+( 9 )*e1
 	>> 
 Doing the same operation in complex notation
 
@@ -280,7 +308,11 @@ Due to the fact that symbolic coefficients are supported is easy to retrieve the
 	a*c - b*d
 	a*d + b*c
 
-On the other hand (the **ugly** part of sugar), there is no (yet) inner or exterior product declaration, you need to do them using the geometric product and elements() operation
+The specific operations of inner (scalar) and outer (wedge) products may be done using the overloaded operators ".*" and ".^" (there is a dot in front of them, take care). Next example over quaternions may clarify it
+
+
+
+
 
 Also, there is no general division ("/") operator, due to de fact that the "/" does not define the precedence of the operands. Whenever you need to perform divisions you should first retrieve the inverse of the divisor, and then, perform a standard geometric product. (even more **ugly**, isn't it?)
 
@@ -298,13 +330,13 @@ There are many ways in sugar to perform this operation (look into the section "f
 	
 	x = 
 	
-	 ( 1 )e0 ( 2 )e1 ( 3 )e12
+	 ( 1 )e0+( 2 )e1+( 3 )e12
 	
 	>> x_inv=x^-1
 	
 	x_inv = 
 	
-	 ( -1/12 )*e0 ( 1/6 )*e1 ( 1/4 )*e12
+	 ( -1/12 )*e0+( 1/6 )*e1+( 1/4 )*e12
 	>> x*x_inv
 	
 	ans = 
