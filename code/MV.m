@@ -23,7 +23,9 @@ classdef (InferiorClasses = {?sym}) MV
                 if 2^n==m
                     obj.vec=val;
                     obj.Signs=Signs;
-                    obj.matrix=Msigns.*val(Stamp);%m;
+                    z=((Stamp)==0);
+                    obj.matrix=Msigns.*val(Stamp+z);%m;
+                    obj.matrix(z)=0;
                     obj.Basis=Basis;
                 else
                     error('The numer of elements of the vector do not match the Clifford algebra signature')
@@ -746,7 +748,7 @@ classdef (InferiorClasses = {?sym}) MV
         end 
         %--------------------------------------------------------------
         function r=times(obj1,obj2)
-            %inner product implementation
+            %Outer product implementation
             if obj1.Lsignature==obj2.Lsignature
                 n=sum(obj1.Lsignature);
                 B=MV.Blades(obj1.Lsignature);
@@ -765,6 +767,10 @@ classdef (InferiorClasses = {?sym}) MV
             end
 
         end 
+        function r=dual(self)
+            [stamp,sign]=self.dualizer(self.Lsignature);
+            r=MV(self.vec(stamp).*sign,self.Lsignature);
+        end
     end
     methods (Access = private)
         function r=copy(self)
@@ -778,7 +784,9 @@ classdef (InferiorClasses = {?sym}) MV
         function mx=get_matrix_repr(self)
             [Basis,Stamp,Msigns,Signs]=MV.structuredef(self.Lsignature);
             val=self.vec;
-            mx=Msigns.*val(Stamp);;
+            z=(Stamp==0);
+            mx=Msigns.*val(Stamp+z);
+            mx(z)=0;
         end
         function submatriz = Submatrix(matriz, fila, columna)
             submatriz = matriz;
@@ -817,6 +825,7 @@ classdef (InferiorClasses = {?sym}) MV
             end
             r=inversa;
         end
+        
     end
     methods (Static=true)
         function [Basis,Stamp,Msigns,Signs]=structuredef(sig)
@@ -916,7 +925,7 @@ classdef (InferiorClasses = {?sym}) MV
                     %matrix=m
                     % end stuff
                 end
-                stamps{sig(1)+1,sig(2)+1,sig(3)+1}=abs(matrix);
+                stamps{sig(1)+1,sig(2)+1,sig(3)+1}=abs(double(matrix));
                 signatures{sig(1)+1,sig(2)+1,sig(3)+1}=sig;
                 basis{sig(1)+1,sig(2)+1,sig(3)+1}=Basis;
                 msigns{sig(1)+1,sig(2)+1,sig(3)+1}=sign(matrix);
@@ -926,6 +935,45 @@ classdef (InferiorClasses = {?sym}) MV
             Basis=basis{sig(1)+1,sig(2)+1,sig(3)+1};
             Msigns=msigns{sig(1)+1,sig(2)+1,sig(3)+1};
             Signs=signs{sig(1)+1,sig(2)+1,sig(3)+1};
+
+        end
+        function [stamp,sign]=dualizer(sig)
+            persistent stamps
+            persistent signatures
+            persistent signs
+            if isempty(stamps)
+                stamps{10,10,10}=0;
+                signatures{10,10,10}=0;
+                signs{10,10,10}=0;
+            end
+            if isempty(signatures{sig(1)+1,sig(2)+1,sig(3)+1})
+                % Lets compute stamps, just reverse the vector
+                n=sum(sig);
+                dim=2^n;
+                v=dim:-1:1;
+                stamps{sig(1)+1,sig(2)+1,sig(3)+1}=v;
+
+                %lets compute the signs, to do so just multipy by
+                %pseudoscalar in a full positive equivalent basis
+                ss=zeros(1,2^n);
+                ps=zeros(1,2^n);
+                ps(end)=1;
+                ps=MV(ps,[n,0,0]);
+                for i=1:2^n
+                    z=zeros(1,2^n);
+                    zz=zeros(1,2^n);
+                    z(i)=1;
+                    zz(end-i+1)=1;
+                    elemento1=MV(z,sig);
+                    elemento2=MV(zz,sig);
+                    res=elemento1*elemento2;
+                    ss(i)=sum(res.vec);
+                end
+                signs{sig(1)+1,sig(2)+1,sig(3)+1}=ss;
+            end
+            
+            stamp=stamps{sig(1)+1,sig(2)+1,sig(3)+1};
+            sign=signs{sig(1)+1,sig(2)+1,sig(3)+1};
 
         end
         function B=Blades(sig)
