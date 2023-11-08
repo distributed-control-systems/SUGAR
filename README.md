@@ -59,7 +59,7 @@ Which ends up with a workspace containing thesse variables
 
 ![alt "Image of the workspace after executing the basis([2,0,0]) command"](./images/workspace1.png "Image of the workspace after executing the basis([2,0,0]) command")
 
-Which can be used in order to compose vectors or multivector. Lets inspect the created variables
+Which can be used in order to compose vectors or multivectors. Let's inspect the created variables
 
 	>> e1
 
@@ -366,11 +366,15 @@ In any case there is a multi-vector method to retrive a grade, namely
 ## Basic multi-vector operations
 Plus and Minus operations are allowed among multi-vectors
 
-	>> basis([1,1,0])
-	Declaring e0 as syntactic sugar, e0=1
+	>> basis([1,1,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=-1
 	Declaring e12 such that e12·e12=1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
 	>> A=1+e1+e2+e12
 	
 	A = 
@@ -397,9 +401,12 @@ The most important operation over multi-vectors is the geometric product denoted
 
 We can check that CL[0,1,0] is really the complex number system making a geometric product
 
-	>>basis([0,1,0])
-	Declaring e0 as syntactic sugar, e0=1
+	>> basis([0,1,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1 
 	
 	>> C1=1+2*e1;
 	>> C2=5-1*e1;
@@ -440,10 +447,10 @@ Due to the fact that symbolic coefficients are supported is easy to retrieve the
 	C3 = 
 	
 	 ( a*c - b*d )*e0 ( a*d + b*c )*e1
-	>> equations_of_product=C3.coefs(e0+e1)
-	 
+	>> equations_of_product=C3([1,2])'
+	
 	equations_of_product =
-	 
+	
 	a*c - b*d
 	a*d + b*c
 
