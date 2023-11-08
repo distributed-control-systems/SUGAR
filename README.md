@@ -10,50 +10,148 @@ I provide this introduction to ensure transparency about the library's capabilit
 In the following section, we will outline the fundamental operations within the sugar environment.
 
 ## basis(), declare a set of basis with a given signature
-This is useful for shorthand multi-vector creation, for instance:
+This is useful for shorthand multi-vector creation, if "verbose" option is prvides then you get the info of all the variables created into the matlab workspace, for instance:
 
-	>>basis([1,0,0])
-	Declaring e0 as syntactic sugar, e0=1
+	>> basis([1,0,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1 
 
 If we want to create a basis for complex numbers
 
-	>>basis([0,1,0])
-	Declaring e0 as syntactic sugar, e0=1
+	>> basis([0,1,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1 
 
 Or for instance, quaternion-based algebra
 
-	>> basis([0,2,0])
+	>> basis([2,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
-	Declaring e1 such that e1·e1=-1
-	Declaring e2 such that e2·e2=-1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=1
 	Declaring e12 such that e12·e12=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
+
+Alterntively, you can call it without the "verbose" option, which majes it silent (no text written to the output)
+
+The effects of calling "basis" is a set of new variables declared into the workspace. Try this, clean up all variables and make a call to basis with an specific algebra to check which variables are created
+
+	>> clear all
+	>> basis([2,0,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=1
+	Declaring e12 such that e12·e12=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
+
+Which ends up with a workspace containing thesse variables
+![alt "Image of the workspace after executing the basis([2,0,0]) command"](./images/workspace1.png "Image of the workspace after executing the basis([2,0,0]) command")
+Which can be used in order to compose vectors or multivector. Lets inspect the created variables
+
+	>> e1
+
+	e1 = 
+
+	( 1 )e1
+	>> e2
+
+	e2 = 
+
+	( 1 )e2
+	>> e12
+
+	e12 = 
+
+	( 1 )e12
+
+you can operate thesse variables in different ways
+	>> e1*e2
+
+	ans = 
+
+	( 1 )e12
+	>> e2*e1
+
+	ans = 
+
+	( -1 )e12
+	>> e1+e2
+
+	ans = 
+
+	( 1 )e1+( 1 )e2
+	>> e2+e12
+
+	ans = 
+
+	( 1 )e2+( 1 )e12
+And the algebra basic properties behave as expected
+	>> e1*e1
+
+	ans = 
+
+	( 1 )e0
+	>> e2*e2
+
+	ans = 
+
+	( 1 )e0
+	>> e12*e12
+
+	ans = 
+
+	( -1 )e0 
+Note the *e0* presence in order to indicate that is a multivector with scalar part. The scalar part is allways folowed by a *e0* component, which is just 1.
 
 ## Declaring multi-vectors
-There are two ways to declare a multi-vector, the first one is to provide the complete set of coefficients of the multi-vectors and the signature 
+There are two ways to declare a multi-vector, the first one is to provide the complete set of coefficients of the multi-vector and the signature ([p,q,r]) of the algebra towhich it belongs. 
 
 	>> MV([1 1 2 3],[2,0,0])
 
 	ans = 
 	
 	 ( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
-	 
+This way of declaring multivectors is usefull in some cases, but it turns out to be dificult for big algebras.	 
 The second one is to use a shorthand notation after calling the basis function
-	
-	>> basis([2,0,0])
-	Declaring e0 as syntactic sugar, e0=1
+	>> basis([2,0,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
 	Declaring e12 such that e12·e12=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
+	
 	>> 1+e1+2*e2+3*e12
-	
+
 	ans = 
-	
-	 ( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
+
+	( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
 which turns out to be the same multi-vector as before.
 
-Sugar also supports symbolic coefficients, which allows you to make generalized computations and to solve some parameter based problems. For instance :
+This multivector can be assigned to a variable into the workspace
+
+	>>A=1+e1+2*e2+3*e12
+
+	A = 
+
+	( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
+
+which can be used to perform computations.
+
+Sugar also supports symbolic coefficients in the multivector, which allows you to make generalized computations and to solve some parameter based problems. For instance :
 
 	>>syms x
 	>>x*e1
@@ -68,161 +166,200 @@ The properties associated with a multi-vector are:
 
 * The signature
 * The vector coefficients
-* The matrix representation
+* The matrix representation (in ortogonal basis vectors)
 * The basis related to the multi-vector
 
 Lets show them by example
 
-	>> basis([2,0,0])
-	Declaring e0 as syntactic sugar, e0=1
-	Declaring e1 such that e1·e1=1
-	Declaring e2 such that e2·e2=1
-	Declaring e12 such that e12·e12=-1
-	>> a=1+e1+e2-e12 %Declare a simple multivector
-	
-	a = 
-	
-	 ( 1 )e0+( 1 )e1+( 1 )e2+( -1 )e12
-	>>% Retrieve the algebra signature to which it belongs
-	>> a.Lsignature 
-	
-	ans =
-	
-	       2              0              0      
-	        
-	>>% Vector representation of the coefficients
-	>> a.vec  	
-	
-	ans =
-	
-	       1              1              1             -1       
-	
-	>>% Matrix representation of the coefficients
-	>> a.matrix	
-	 
-	ans =
-	 
-	[ 1,  1,  1,  1]
-	[ 1,  1, -1, -1]
-	[ 1,  1,  1,  1]
-	[-1, -1,  1,  1]
-
-	>> a.Basis 	%Set of basis of the vector's algebra
-	
-	ans =
-	
-	  1×4 cell array
-	
-	    {["0"]}    {["1"]}    {["2"]}    {["1,2"]}
-
-## Blades, Grades and coefficients as multi-vectors
-"element()" is a method in the multi-vector object that allows you to retrieve any element or sets of elements as a multi-vector
-
-	>> basis([2,1,0])
-	Declaring e0 as syntactic sugar, e0=1
-	Declaring e1 such that e1·e1=1
-	Declaring e2 such that e2·e2=1
-	Declaring e3 such that e3·e3=-1
-	Declaring e12 such that e12·e12=-1
-	Declaring e13 such that e13·e13=1
-	Declaring e23 such that e23·e23=1
-	Declaring e123 such that e123·e123=1
-	>> a=1+2*e1+5*e2+7*e13
-	
-	a = 
-	
-	 ( 1 )e0+( 2 )e1+( 5 )e2+( 7 )e13
-	>> a.element(e0)
-	
-	ans = 
-	
-	 ( 1 )e0
-	>> a.element(e13)
-	
-	ans = 
-	
-	 ( 7 )e13
-	>> a.element(e12)
-	
-	ans = 
-	
-	 0 
-	>> a.element(e0+e13)
-	
-	ans = 
-	
-	 ( 1 )e0 ( 7 )e13
-
-## Blades, Grades and coefficients as arrays
-Alternatively you may need the expressions as an array, to such end there is the function "coefficients()"
-
-	>> basis([2,1,0])
-	Declaring e0 as syntactic sugar, e0=1
-	Declaring e1 such that e1·e1=1
-	Declaring e2 such that e2·e2=1
-	Declaring e3 such that e3·e3=-1
-	Declaring e12 such that e12·e12=-1
-	Declaring e13 such that e13·e13=1
-	Declaring e23 such that e23·e23=1
-	Declaring e123 such that e123·e123=1
-	>> a=1+2*e1+5*e2+7*e13
-	
-	a = 
-	
-	 ( 1 )e0+( 2 )e1+( 5 )e2+( 7 )e13
-	>> a.coefs(e0)
-	
-	ans =
-	
-	       1       
-	
-	>> a.coefs(e13)
-	
-	ans =
-	
-	       7       
-	
-	>> a.coefs(e12)
-	
-	ans =
-	
-	       0       
-	
-	>> a.coefs(e0+e13)
-	
-	ans =
-	
-	       1       
-	       7       
-In order to get a grade from a multivector you can use the "grade(k)" function, wich is in charge of extracting the grade k from the multivector
-
-	>> basis([2,0,0])
+	>> basis([2,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
 	Declaring e12 such that e12·e12=-1
-	>> syms x0 x1 x2 x12
-	>> a=x0+x1*e1+x2*e2+x12*e12
 	
-	a = 
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
 	
-	( x0 )e0+( x1 )e1+( x2 )e2+( x12 )e12
-	>> a.grade(0)
-	
-	ans = 
-	
-	( x0 )e0
-	>> a.grade(1)
-	
-	ans = 
-	
-	( x1 )e1+( x2 )e2
-	>> a.grade(2)
-	
-	ans = 
-	
-	( x12 )e12
+	>> a=1+e1+e2-e12 %Declare a simple multivector
 
+	a = 
+
+	( 1 )e0+( 1 )e1+( 1 )e2+( -1 )e12
+	>> % Retrieve the algebra signature to which it belongs
+	>> a.Lsignature
+
+	ans =
+
+		2     0     0
+
+	>> % Vector representation of the coefficients
+	>> a.vector
+
+	ans =
+
+		1     1     1    -1
+
+	>> % Matrix representation of the coefficients
+	>> a.matrix
+
+	ans =
+
+		1     1     1     1
+		1     1    -1    -1
+		1     1     1     1
+		-1    -1     1     1
+
+	>> a.BasisNames	%Set of basis of the vector's algebra
+
+	ans =
+
+	1×4 cell array
+
+		{["e0"]}    {["e1"]}    {["e2"]}    {["e12"]}
+
+## Slicing, and recovering components of a multi-vector
+Sugar allows a natural slicing of the multi-vector, but the indexing is vector-based and decopuled from the name of the basis
+
+	>> syms x y z t real
+	>> basis([2,0,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=1
+	Declaring e12 such that e12·e12=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
+	
+	>> A=x*e0 + y*e1 + z*e2 + t*e12 % declare a MV with symbolic coefficients 
+
+	A = 
+
+	( x )e0+( y )e1+( z )e2+( t )e12
+	>> A(1)
+	
+	ans =
+	
+	x
+	
+	>> A(2)
+	
+	ans =
+	
+	y
+
+Its possible to make the slicing (coefficients selection) using standard matlab notation
+
+	>> A(1:2)
+	
+	ans =
+	
+	[x, y]
+	
+	>> A(2:4)
+	
+	ans =
+	
+	[y, z, t]
+
+Also, slicing refered to the basis names is possible
+
+	>> A(e1)
+	
+	ans =
+	
+	y
+	
+	>> A(e12)
+	
+	ans =
+	
+	t
+But we are still working in this feature, as a consecuence you cannot ask for a range
+
+	>> A(e1:e12)
+	Operator ':' is not supported for operands of type 'MV'.
+
+Instead use a multi-vector to get this 
+
+	>> A(e1+e2+e12)
+	
+	ans =
+	
+	[y, z, t]
+
+In case that you wnat to retrive the multivector instead of the coefficients of the multi-vector you are allowed to use curly brackets
+
+	>> A{1}
+
+	ans = 
+
+	( x )e0
+	>> A{2}
+
+	ans = 
+
+	( y )e1
+	>> A{1:2}
+
+	ans = 
+
+	( x )e0+( y )e1
+	>> A{2:4}
+
+	ans = 
+
+	( y )e1+( z )e2+( t )e12
+	>> A{e1}
+
+	ans = 
+
+	( y )e1
+	>> A{e2}
+
+	ans = 
+
+	( z )e2
+	>> A{e1+e2}
+
+	ans = 
+
+	( y )e1+( z )e2
+
+This nice feature allows you to retrive any grade from a multi-vector, because *Sugar* declared the variables G... into the workspace, if you remember 
+
+	>> basis([2,0,0],"verbose")
+	Declaring e0 as syntatic sugar, e0=1
+	Declaring e1 such that e1·e1=1
+	Declaring e2 such that e2·e2=1
+	Declaring e12 such that e12·e12=-1
+	
+	Declaring G0 for grade slicing as (1)e0 
+	Declaring G1 for grade slicing as (1)e1+(1)e2 
+	Declaring G2 for grade slicing as (1)e12 
+
+So when retiving  garde coefficients you can operate with both methods
+
+	>> A(G1)
+	
+	ans =
+	
+	[y, z]
+	
+	>> A{G1}
+
+	ans = 
+
+	( y )e1+( z )e2
+
+In any case there is a multi-vector method to retrive a grade, namely
+
+	>> A.grade(1)
+
+	ans = 
+
+	( y )e1+( z )e2
 
 ## Basic multi-vector operations
 Plus and Minus operations are allowed among multi-vectors
