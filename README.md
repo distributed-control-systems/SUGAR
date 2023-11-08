@@ -56,7 +56,9 @@ The effects of calling "basis" is a set of new variables declared into the works
 	Declaring G2 for grade slicing as (1)e12 
 
 Which ends up with a workspace containing thesse variables
+
 ![alt "Image of the workspace after executing the basis([2,0,0]) command"](./images/workspace1.png "Image of the workspace after executing the basis([2,0,0]) command")
+
 Which can be used in order to compose vectors or multivector. Lets inspect the created variables
 
 	>> e1
