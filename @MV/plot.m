@@ -1,4 +1,4 @@
-function r= plot(self)
+function  plot(self)
     if self.Lsignature==[3,1,0]
         cgaplot2(self);
     elseif self.Lsignature==[4,1,0]

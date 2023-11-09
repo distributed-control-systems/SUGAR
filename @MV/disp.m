@@ -11,7 +11,12 @@ function disp(obj1)
         for k=1:length(obj1.vec)
             if obj1.vec(k)~=0
                 if class(obj1.vec(k))=="double"
-                    r=r+"+( "+obj1.vec(k)+" )<strong>"+obj1.Basis{k}+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    if isnan(obj1.vec(k))
+                        val="NaN";
+                    else
+                        val=obj1.vec(k);
+                    end
+                    r=r+"+( "+val+" )<strong>"+obj1.Basis{k}+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 else
                     r=r+"+( "+char(obj1.vec(k))+" )<strong>"+obj1.Basis{k}+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end

@@ -57,6 +57,8 @@ classdef (InferiorClasses = {?sym}) MV
                 end
             end
         r= abs(self)
+        r= sin(self)
+        r=tan(self)
         r= and(obj1,obj2)
         r= apply(obj,f)
         asCGA(obj)
@@ -82,7 +84,7 @@ classdef (InferiorClasses = {?sym}) MV
         r= normalize(self)
         n = numargumentsfromsubscript(obj,s,indexingcontext)
         inversa = pinv(self)
-        r= plot(self)
+         plot(self)
         r= plus(obj1,obj2)
         r= power(obj1,obj2)
         r= reverse(self)

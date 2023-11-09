@@ -79,12 +79,12 @@ function varargout= subsref(objs,subs)
                 %[varargout{1:nargout}]=builtin('subsref',objs,subs);
             end
         otherwise
-            %try
-            [varargout{1:nargout}]=builtin('subsref',objs,subs);
-%             catch
-%                 f=evalin('base',"@"+subs.subs);
-%                 [varargout{1:nargout}]=objs.apply(f);
-%             end
+            try
+            [varargout{1:nargout}]={builtin('subsref',objs,subs)};
+            catch
+                f=evalin('base',"@"subs.subs);
+                objs.apply(f);
+            end
             
     end
 end

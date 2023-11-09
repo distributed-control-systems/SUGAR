@@ -6,7 +6,12 @@ function r= str(obj1)
         for k=1:length(vec)
             if vec(k)~=0
                 if class(vec(k))=="double"
-                    r=r+"+( "+vec(k)+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    if isnan(vec(k))
+                        val="NaN";
+                    else
+                        val=vec(k);
+                    end
+                    r=r+"+( "+val+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 else
                     r=r+"+( "+char(vec(k))+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
