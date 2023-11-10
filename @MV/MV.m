@@ -58,6 +58,8 @@ classdef (InferiorClasses = {?sym}) MV
             end
         r= abs(self)
         r= sin(self)
+        r= cos(self)
+        r= log(self)
         r=tan(self)
         r= and(obj1,obj2)
         r= apply(obj,f)
