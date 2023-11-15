@@ -13,6 +13,7 @@ classdef (InferiorClasses = {?sym}) MV
         vec
     end
     
+    
     methods        
         function obj=MV(val, signature,representation)
                 if nargin==0
@@ -98,6 +99,8 @@ classdef (InferiorClasses = {?sym}) MV
         r= times(obj1,obj2)
         r= uminus(obj)
         v= vector(obj)
+        r=mrdivide(A,B)
+        r=ctranspose(obj)
 
     end
     methods (Access = private)
@@ -284,9 +287,26 @@ r=inner_product_3_3_0(a,b)
  r=inner_product_5_0_1(a,b)
  r=inner_product_5_1_0(a,b)
     r=inner_product_6_0_0(a,b)
+ loger(text,level)
+ 
 
     end
     methods (Static=true)
+    function out = LogLevel(data)
+         persistent level;
+         if nargin
+            if class(data)=="double" 
+                if data>=0 & data <4
+                level = data;
+                else
+                    error("LogLevels are integer numbers from 0 to 3")
+                end
+            else
+                error("LogLevels are integer numbers from 0 to 3")
+            end
+         end
+         out = level;
+      end
 function r=rand(signature)
             r=MV(rand(1,2^sum(signature)),signature);
 
