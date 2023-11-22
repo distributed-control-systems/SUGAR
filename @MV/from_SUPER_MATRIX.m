@@ -1,18 +1,22 @@
 function r= from_SUPER_MATRIX(self,M)
-    [filas,columnas]=size(self);
+    % This function recovers the matrix of MVs from a supermatrix
+    % decription
+    [rows,columns]=size(self);
+    % The algebra dimenssion
     dimension=2^sum(self(1,1).Lsignature);
-    inversa=self*0;
+    % Reserve some space
+    r=self*0;
     f=0;
-    for i=1:dimension:filas*dimension
+    % Go element by element reconstructing the MV
+    for i=1:dimension:rows*dimension
         f=f+1;
         c=0;
-        for j=1:dimension:columnas*dimension
+        for j=1:dimension:columns*dimension
             c=c+1;
-            inversa(f,c).matrix=M(i:i+dimension-1,j:j+dimension-1);
-            inversa(f,c).vec=inversa(f,c).matrix(:,1).';
+            r(f,c).matrix=M(i:i+dimension-1,j:j+dimension-1);
+            r(f,c).vec=r(f,c).matrix(:,1).';
         end
     end
-    r=inversa;
 end
 
 

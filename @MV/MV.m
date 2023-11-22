@@ -62,6 +62,7 @@ classdef (InferiorClasses = {?sym}) MV
         r= cos(self)
         r= log(self)
         r=tan(self)
+        r=sqrt(obj1)
         r= and(obj1,obj2)
         r= apply(obj,f)
         asCGA(obj)

@@ -1,6 +1,7 @@
-% Access vector elements as it where a simple vector ()->value,
-% {}-> MV
 function varargout= subsref(objs,subs)
+% Access vector elements as it where a simple vector.
+% ()->array value, of the coefficients or the elements of the matrix
+% {}-> MV returns a multivector
     switch subs(1).type
         case '()'
             [m,n]=size(objs);
@@ -71,21 +72,14 @@ function varargout= subsref(objs,subs)
 
 
                         M(i,j)=builtin('subsref',e.vector,s);
-                        %e(1)
-                        %{builtin('subsref',e.vector,s)}
+                       
                     end 
                 end
                 [varargout{1:nargout}]=M;
-                %[varargout{1:nargout}]=builtin('subsref',objs,subs);
+                
             end
         otherwise
-            %try
             [varargout{1:nargout}]=builtin('subsref',objs,subs);
-%             catch
-%                 f=evalin('base',"@"+subs.subs);
-%                 [varargout{1:nargout}]=objs.apply(f);
-%             end
-            
     end
 end
 

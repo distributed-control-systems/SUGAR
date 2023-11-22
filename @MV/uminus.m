@@ -1,4 +1,5 @@
 function r= uminus(obj)
+    % overload the unary minus operator, so you can erite -e1
     [f,c]=size(obj);
     if f==1 && c==1
         r=MV();

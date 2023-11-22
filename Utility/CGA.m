@@ -1,29 +1,30 @@
-function CGA(n,options)
+function CGA(signature,options)
 if nargin==1
     options="";
 end
 
-[f,c]=size(n);
+[f,c]=size(signature);
 if f*c==1
-    signature=[n+1,1,0];
+    sig=[signature+1,1,0];
 else
-    signature=n+[1,1,0];
+    sig=signature+[1,1,0];
 end
-fprintf('Be patient, this will take some time...\n')
+
 if options=="verbose"
-fprintf('\n ---- CGA BASIS -----\n')
+    fprintf('Be patient, this will take some time...\n')
+    fprintf('\n ---- CGA BASIS -----\n')
 end
 % fprintf('General basis declaration\n')
 
 elements=[];
-m=sum(signature);
+m=sum(sig);
 vec=zeros(1,2^m);
-test=MV(vec,signature,"CGA");
+test=MV(vec,sig,"CGA");
 Basis=test.BasisNames;
 k=1;
 vec=zeros(1,2^m);
 vec(k)=1;
-b=MV(vec,signature,"CGA");
+b=MV(vec,sig,"CGA");
 Q=b*b;
 vv=zeros(1,2^m);
 vv(1)=1;
@@ -35,11 +36,11 @@ assignin('base',Basis{k},b)
 elements=[elements b];
 vec=zeros(1,2^m);
 vec(k)=1;
-b=MV(vec,signature);
+b=MV(vec,sig);
 for k=2:2^m
     vec=zeros(1,2^m);
     vec(k)=1;
-    b=MV(vec,signature,"CGA");
+    b=MV(vec,sig,"CGA");
     Q=b*b;
     vv=zeros(1,2^m);
     vv(1)=1;
@@ -79,17 +80,17 @@ end
 %I=I*elements(k+1);
 %end
 %I=n0.^I.^ni;
-v=zeros(1,2^sum(signature));
+v=zeros(1,2^sum(sig));
 v(end)=1;
-I=MV(v,signature,"CGA");
+I=MV(v,sig,"CGA");
 assignin('base',"I",I)
 
 vec=ones(1,2^m);
-test=MV(vec,signature,"CGA");
+test=MV(vec,sig,"CGA");
 if options=="verbose"
 fprintf(" \n")
 end
-for k=0:sum(signature)
+for k=0:sum(sig)
 
     g=test.grade(k);
    if options=="verbose"
@@ -122,7 +123,7 @@ n0=elements(find(Basis=="n0"));
 ni=elements(find(Basis=="ni"));
 
 push=@(x)n0+x+1/2*x*x*ni;
-point  = @(coord) n0 +elements(3:n+2)*coord.' + 0.5*(coord*coord.')*ni;
+point  = @(coord) n0 +elements(3:signature+2)*coord.' + 0.5*(coord*coord.')*ni;
 E=n0.^ni;
 Ei=E^-1;
 pull=@(p)((p*(-p.*ni)^-1).^E)*Ei;
@@ -135,5 +136,5 @@ assignin('base',"pull",pull)
 assignin('base',"point",point)
 assignin('base',"normal",normal)
 if options=="verbose"
-fprintf("push, pull, normal and point are now available \n")
+    fprintf("push and pull functions are now available \n")
 end

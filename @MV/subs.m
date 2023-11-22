@@ -1,4 +1,10 @@
 function r= subs(self,varargin)
+    % Overload the subs function from symbolic class
+    % This just goes element by element or coefficient by coefficient
+    % aplying the required subs
+
+    % More work has to be done to cover all posibilities
+
     if class(self)=="MV"
         SM=self.to_SUPER_MATRIX();
         %%varargin

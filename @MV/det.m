@@ -1,21 +1,21 @@
-function determinante = det(self)
-    % Verificar si la matriz es cuadrada
-    [filas, columnas] = size(self);
-    if filas ~= columnas
+function determinant = det(self)
+    % Is this a square matrix
+    [f, c] = size(self);
+    if f ~= c
         error('In order to compute a determinant it is required to provide a square matrix.');
     end
 
-    % Caso base: matriz 1x1
-    if filas == 1
-        determinante = self(1, 1);
+    %  1x1 matrix.... trivial
+    if f == 1
+        determinant = self(1, 1);
         return;
     end
 
-    % Calcular el determinante recursivamente utilizando el método de cofactores
-    determinante = 0;
-    for i = 1:filas
+    % Cofactor based det computation
+    determinant = 0;
+    for i = 1:f
         cofactor = (-1)^(i+1) * self(1, i) * det(self.Submatrix(1, i));
-        determinante = determinante + cofactor;
+        determinant = determinant + cofactor;
     end
 end
 

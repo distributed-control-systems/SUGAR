@@ -1,6 +1,12 @@
 function f= precoded_outter_product_function(sig)
+    % This function returns the right implementetion for outter product
+    % Takes as argument the signature and returns a handler to the right
+    % function
+    % A persistent variable in order to know which function to use
     persistent functions
+    % Is this the firs time we enter here? 
     if isempty(functions)
+        % Yes, update all possible handlers
         for i=0:6
             for j=0:6-i
                 for k=0:6-i-j

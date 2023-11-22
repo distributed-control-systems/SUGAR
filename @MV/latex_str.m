@@ -1,7 +1,14 @@
 function r= latex_str(obj1)
+    % This function provides the latex string, taking into account that the
+    % MV may be a CGA MV
+
+    % Is it CGA?
     if obj1.REPR=="CGA"
+         % Yes
+         % Change of basis
         [Matrix,Labels]=obj1.CGA_matrix(obj1.Lsignature);
-        vec=obj1.vec*Matrix;  %%% CUIDADO
+        vec=obj1.vec*Matrix; 
+        % Lets go
         r="";
         for k=1:length(vec)
             if vec(k)~=0
@@ -18,11 +25,8 @@ function r= latex_str(obj1)
             r=" 0 ";
         end
         r=extractAfter(r,1);
-
     else
-
-
-
+    % Not CGA
         r="";
         for k=1:length(obj1.vec)
             if obj1.vec(k)~=0
