@@ -5,9 +5,20 @@ function r= plus(obj1,obj2)
     % An scalar scalar
     if f*c==1 
         % Check if both objects are MVs,
-        if class(obj1)=="double" || class(obj1)=="sym"
-            % Addition of sym/double to MV
+        if class(obj1)=="double" 
+            % Addition of double to MV
             v=obj2.vec*0;
+            v(1)=obj1;
+            obj1=MV();
+            obj1.Basis=obj2.Basis;
+            obj1.Lsignature=obj2.Lsignature;
+            obj1.vec=v;
+            obj1.Signs=obj2.Signs;
+            obj1.REPR=obj2.REPR;
+            obj1.matrix=obj1.get_matrix_repr();
+        elseif class(obj1)=="sym"
+            % Addition of sym to MV
+            v=sym(obj2.vec*0);
             v(1)=obj1;
             obj1=MV();
             obj1.Basis=obj2.Basis;
