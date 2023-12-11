@@ -2,6 +2,20 @@ function varargout= subsref(objs,subs)
 % Access vector elements as it where a simple vector.
 % ()->array value, of the coefficients or the elements of the matrix
 % {}-> MV returns a multivector
+
+% THIS FILE MUST BE REFORMATED!!!!
+if size(subs,2)>1
+  switch subs(1).type  
+    case '()' | '{}'
+            [varargout{1:nargout}]=builtin('subsref',objs,subs(1));
+            varargout{1:nargout}=builtin('subsref',varargout{end},subs(2:end));
+    otherwise
+        [varargout{1:nargout}]=builtin('subsref',objs,subs);  
+  end
+    
+%             o=varargout{end};
+%             varargout={o.subsref(subs(2:end))};
+else
 switch subs(1).type
     case '()'
         [m,n]=size(objs);
@@ -10,7 +24,7 @@ switch subs(1).type
             elements=subs(1).subs{1};
             c=class(elements);
             if c=="double"
-                varargout={builtin('subsref',objs.vector,subs(2:end))};
+                varargout={builtin('subsref',objs.vector,subs(1))};
             elseif c=="MV"
                 if class(elements.vector)=="double"
                     M=abs(elements.vector)>1e-6;
@@ -27,14 +41,14 @@ switch subs(1).type
                 error("Not known indexing")
             end
         else
-            [varargout{1:nargout}]=builtin('subsref',objs,subs(2:end));
+            [varargout{1:nargout}]=builtin('subsref',objs,subs);
         end
-        if size(subs,2)>1
-            %[varargout{1:nargout}]=builtin('subsref',varargout{end},subs(2:end));
-            o=varargout{end};
-            varargout={o.subsref(subs(2:end))};
+%         if size(subs,2)>1
+%             %[varargout{1:nargout}]=builtin('subsref',varargout{end},subs(2:end));
+%             o=varargout{end};
+%             varargout={o.subsref(subs(2:end))};
 
-        end
+%         end
     case '{}'
         [m,n]=size(objs);
         if m*n==1
@@ -93,7 +107,7 @@ switch subs(1).type
     otherwise
         [varargout{1:nargout}]=builtin('subsref',objs,subs);
 end
-
+end
 end
 
 

@@ -9,13 +9,13 @@ function r= to_SUPER_MATRIX(self)
     % multivectors will have any symbolic variable I create a symbolic
     % matrix in order to accomodate any symbolic component
     SUPER_MATRIX=sym(zeros(f*dimension,c*dimension));
-    f=0;
+    row=0;
     for i=1:dimension:f*dimension
-        f=f+1;
-        c=0;
+        row=row+1;
+        column=0;
         for j=1:dimension:c*dimension
-            c=c+1;
-            SUPER_MATRIX(i:i+dimension-1,j:j+dimension-1)=self(f,c).matrix;
+            column=column+1;
+            SUPER_MATRIX(i:i+dimension-1,j:j+dimension-1)=self(row,column).matrix;
         end
     end
     %try to convert to double, only if ALL the components are numeric....

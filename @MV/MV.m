@@ -56,11 +56,15 @@ classdef (InferiorClasses = {?sym}) MV
                         error('The numer of elements of the vector do not match the Clifford algebra signature')
                     end
                 end
-            end
+        end
+        r=laplace(self,varargin)
+        r=ilaplace(self,varargin)
+
         r= abs(self)
         r= sin(self)
         r= cos(self)
         r= log(self)
+        r= not(self)
         r=tan(self)
         r=sqrt(obj1)
         r= and(obj1,obj2)

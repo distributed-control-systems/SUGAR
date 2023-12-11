@@ -17,7 +17,7 @@ else
             R(i,j)=R(i,j).clean();
         end
     end
-    r=R
+    r=R;
 end
 end
 

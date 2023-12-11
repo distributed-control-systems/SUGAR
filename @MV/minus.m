@@ -2,16 +2,16 @@ function r= minus(obj1,obj2)
     [f,c]=size(obj1);
     if f==1 && c==1
         if class(obj1)=="double" || class(obj1)=="sym"
-            v=obj2.vec*0;
-            v(1)=obj1;
-            obj1=MV();
-            obj1.Basis=obj2.Basis;
-            obj1.Lsignature=obj2.Lsignature;
-            obj1.vec=v;
-            obj1.Signs=obj2.Signs;
-            obj1.REPR=obj2.REPR;
-            obj1.matrix=obj1.get_matrix_repr();
-            %obj1=MV(v,obj2.Lsignature);
+            %v=obj2.vec*0;
+            %v(1)=obj1;
+            obj1=MV([obj1 zeros(1,2^sum(obj2.Lsignature)-1)],obj2.Lsignature,obj2.REPR);
+%             obj1.Basis=obj2.Basis;
+%             obj1.Lsignature=obj2.Lsignature;
+%             obj1.vec=v;
+%             obj1.Signs=obj2.Signs;
+%             obj1.REPR=obj2.REPR;
+%             obj1.matrix=obj1.get_matrix_repr();
+%             %obj1=MV(v,obj2.Lsignature);
         end
         if class(obj2)=="double" || class(obj2)=="sym"
             v=obj1.vec*0;
