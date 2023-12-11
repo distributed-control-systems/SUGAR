@@ -177,13 +177,8 @@ else
         % END POINTS
     else
         %-----------------------------------------------------------------------------------------
-        % DIPOLE DUAL, if the MV has dual dipole structure and its outer
-        % product with itself is zero
-        if(((abs(ev)>1e-6).*M_dipolo_dual)==(abs(ev)>1e-6)) & ...
-          abs(a14*(a7/2 + a13) - a12*(a8/2 + a15) + a11*(a9/2 + a16) + a14*(a7/2 - a13) - a12*(a8/2 - a15) + a11*(a9/2 - a16))==0 & ...
-          abs(2*a10*a11 - 2*a8*a13 + 2*a7*a15)<1e-6 & ...
-          abs(2*a10*a12 - 2*a9*a13 + 2*a7*a16)<1e-6 & ...
-          abs(2*a8*a16 - 2*a9*a15 + 2*a10*a14)<1e-6 
+        % DIPOLE DUAL, if the MV has dual dipole structure 
+        if(((abs(ev)>1e-6).*M_dipolo_dual)==(abs(ev)>1e-6)) 
           
             %undualize the coeficients
             a7=  a20;
@@ -222,9 +217,14 @@ else
             % END DIPOLE DUAL
             %-----------------------------------------------------------------------------------------
             %-----------------------------------------------------------------------------------------
-            % DIPOLE OUTER, if the structure is the one of a dipole in
+            % DIPOLE OUTER, if the structure is the one of a dipole inner and its outer
+            % product with itself is zero
             
-        elseif ((abs(ev)>1e-6).*M_dipolo)==(abs(ev)>1e-6)
+        elseif ((abs(ev)>1e-6).*M_dipolo)==(abs(ev)>1e-6)& ...
+          abs(a14*(a7/2 + a13) - a12*(a8/2 + a15) + a11*(a9/2 + a16) + a14*(a7/2 - a13) - a12*(a8/2 - a15) + a11*(a9/2 - a16))==0 & ...
+          abs(2*a10*a11 - 2*a8*a13 + 2*a7*a15)<1e-6 & ...
+          abs(2*a10*a12 - 2*a9*a13 + 2*a7*a16)<1e-6 & ...
+          abs(2*a8*a16 - 2*a9*a15 + 2*a10*a14)<1e-6 
             
             %Get the squared radius
             RR=( a10^2 - 2*a8*a15 - 2*a7*a13 - a11^2 - a12^2 - a14^2 );
