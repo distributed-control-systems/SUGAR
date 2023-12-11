@@ -12,8 +12,8 @@ end
 %% ROUND STRUCTURES
 M_punto=       [0   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
 M_punto_dual = [0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   0];
-M_dipolo=      [0   0   0   0   0   0   1   1   0   1   1   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
-M_dipolo_dual= [0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   0   0   0   0   0   0];
+M_dipolo=      [0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
+M_dipolo_dual= [0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   0   0   0   0   0   0];
 M_circulo=     [0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   0   0   0   0   0   0];
 M_circulo_dual=[0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
 M_esfera=      [0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   0];
@@ -177,9 +177,14 @@ else
         % END POINTS
     else
         %-----------------------------------------------------------------------------------------
-        % DIPOLE DUAL, if the MV has dual dipole structure
-        if((abs(ev)>1e-6).*M_dipolo_dual)==(abs(ev)>1e-6)
-
+        % DIPOLE DUAL, if the MV has dual dipole structure and its outer
+        % product with itself is zero
+        if(((abs(ev)>1e-6).*M_dipolo_dual)==(abs(ev)>1e-6)) & ...
+          abs(a14*(a7/2 + a13) - a12*(a8/2 + a15) + a11*(a9/2 + a16) + a14*(a7/2 - a13) - a12*(a8/2 - a15) + a11*(a9/2 - a16))==0 & ...
+          abs(2*a10*a11 - 2*a8*a13 + 2*a7*a15)<1e-6 & ...
+          abs(2*a10*a12 - 2*a9*a13 + 2*a7*a16)<1e-6 & ...
+          abs(2*a8*a16 - 2*a9*a15 + 2*a10*a14)<1e-6 
+          
             %undualize the coeficients
             a7=  a20;
             a8= -a18;
