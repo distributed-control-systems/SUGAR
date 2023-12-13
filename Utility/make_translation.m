@@ -1,7 +1,7 @@
 function R=make_translation(amount,direction)
     bv=direction.grade(2);
-    % We make non general code to retrive the pure bivecto part, for shure ther
-    % is a more imteligent way to do this
+    % We make non general code to retrive the pure bivecto part, for shure
+    % there is a more imteligent way to do this
     M3=[0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     M2=[ 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
     % Filter based on signature
@@ -36,7 +36,7 @@ function R=make_translation(amount,direction)
     
     %Finally the exponential form, instead of precomputing it we make the slow
     %computation
-    bv
+
 
     k=exp((amount/2)*bv*ni);
     if class(k.vector)=="double"

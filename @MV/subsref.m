@@ -9,8 +9,12 @@ if size(subs,2)>1
     case '()' | '{}'
             [varargout{1:nargout}]=builtin('subsref',objs,subs(1));
             varargout{1:nargout}=builtin('subsref',varargout{end},subs(2:end));
-    otherwise
+      otherwise
+          try
         [varargout{1:nargout}]=builtin('subsref',objs,subs);  
+          catch
+              builtin('subsref',objs,subs)
+          end
   end
     
 %             o=varargout{end};
@@ -105,7 +109,12 @@ switch subs(1).type
 
         end
     otherwise
+        try
         [varargout{1:nargout}]=builtin('subsref',objs,subs);
+        catch
+            builtin('subsref',objs,subs);
+            varargout{1:nargout}="";
+        end
 end
 end
 end

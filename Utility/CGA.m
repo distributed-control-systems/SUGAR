@@ -20,31 +20,27 @@ elements=[];
 m=sum(sig);
 vec=zeros(1,2^m);
 test=MV(vec,sig,"CGA");
-Basis=test.BasisNames;
+Basis=test.BasisNames();
 k=1;
 vec=zeros(1,2^m);
 vec(k)=1;
 b=MV(vec,sig,"CGA");
 Q=b*b;
-vv=zeros(1,2^m);
-vv(1)=1;
+
 if options=="verbose"
-fprintf("Declaring "+Basis{k}+" as syntatic sugar, e0=1\n")
+    fprintf("Declaring "+Basis{k}+" as syntatic sugar, e0=1\n")
 end
 b.REPR="CGA";
 assignin('base',Basis{k},b)
 elements=[elements b];
-vec=zeros(1,2^m);
-vec(k)=1;
-b=MV(vec,sig);
+
 for k=2:2^m
     vec=zeros(1,2^m);
     vec(k)=1;
     b=MV(vec,sig,"CGA");
     Q=b*b;
-    vv=zeros(1,2^m);
-    vv(1)=1;
-    num=table(Q.vector).Var1(1);
+    
+    num=Q(1);
     %fprintf("Declaring "+Basis{k}+" such that "+Basis{k}+"·"+Basis{k}+"="+num2str(double(num))+ "\n")
     b.REPR="CGA";
     %assignin('base',Basis{k},b)

@@ -8,7 +8,7 @@ function asCGA(obj)
     [Matrix,Labels]=obj.CGA_matrix(obj.Lsignature);
 
     % Get the vector representation in the new basis
-    vec=obj.vec*Matrix;
+    vec=obj.vector;
 
     % Lets return a string that represents the vector into the screen... 
     [f,c]=size(obj);
@@ -21,7 +21,12 @@ function asCGA(obj)
         for k=1:length(vec)
             if class(vec(k))=="double" 
                 if vec(k)~=0
-                    r=r+"+( "+vec(k)+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    if isnan(vec(k))
+                        val="NaN";
+                    else
+                        val=vec(k);
+                    end
+                    r=r+"+( "+val+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             else
                 if ~isequal(vec(k),sym(0))
