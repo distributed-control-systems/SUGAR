@@ -244,6 +244,17 @@ else
             a14=  a19;
             a15= -a25;
             a16=  a24;
+            
+             a7=  a20/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+             a8= -a18/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+             a9=  a17/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a10=  a23/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a11=  a22/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a12= -a21/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a13=  a26/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a14= a19/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a15= -a25/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
+            a16=  a24/abs(a19^2 - (a18/2 - a25)^2 - (a20/2 - a26)^2 - (a17/2 - a24)^2 + a21^2 + a22^2 - a23^2 + (a17/2 + a24)^2 + (a18/2 + a25)^2 + (a20/2 + a26)^2)^(1/2);
 
             %squred radius
             RR=( a10^2 - 2*a8*a15 - 2*a7*a13 - a11^2 - a12^2 - a14^2 );
@@ -263,25 +274,29 @@ else
             y2=(a8*a11^2 - a8*a10^2 - a8*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16) - a8*a12^2 + a8*a14^2 + 2*a7^2*a15 + 2*a8^2*a15 + 2*a9^2*a15 - 2*a7*a11*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a8*a10*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a9*a14*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a7*a10*a11 + 2*a9*a11*a12 + 2*a7*a12*a14 - 2*a9*a10*a14)/(2*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2)*(a7^2 + a8^2 + a9^2));
             y3=(a9*a12^2 - a9*a10^2 - a9*a11^2 - a9*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16) + a9*a14^2 + 2*a7^2*a16 + 2*a8^2*a16 + 2*a9^2*a16 - 2*a7*a12*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a9*a10*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) - 2*a8*a14*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a7*a10*a12 + 2*a8*a11*a12 - 2*a7*a11*a14 + 2*a8*a10*a14)/(2*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2)*(a7^2 + a8^2 + a9^2));
 
-            
-
-            s.DIPOLE.Algebra="CGA3";
-            s.DIPOLE.Type="Round";
-            s.DIPOLE.Representation="Dual";
+            if abs(x1-y1)>1e-4 && abs(x2-y2)>1e-4 && abs(x3-y3)>1e-4 
+                dipole=true;
+            s.Algebra="CGA3";
+            s.Type="Round";
+            s.Representation="Dual";
             if color=="b"
-                s.DIPOLE.Object="Real Dipole";
+                s.Object="Real Dipole";
             else
-                s.DIPOLE.Object="Imaginary Dipole";
+                s.Object="Imaginary Dipole";
             end
-            s.DIPOLE.x1=x1;
-            s.DIPOLE.y1=x2;
-            s.DIPOLE.z1=x3;
-            s.DIPOLE.P1=MV([0 1 x1 x2 x3 0.5*x1^2+0.5*x2^2+0.5*x3^2 [7:32]*0],[4,1,0],"CGA");
-            s.DIPOLE.x2=y1;
-            s.DIPOLE.y2=y2;
-            s.DIPOLE.z2=y3;
-            s.DIPOLE.P2=MV([0 1 y1 y2 y3 0.5*y1^2+0.5*y2^2+0.5*y3^2 [7:32]*0],[4,1,0],"CGA");
-        end
+            s.x1=x1;
+            s.y1=x2;
+            s.z1=x3;
+            s.P1=MV([0 1 x1 x2 x3 0.5*x1^2+0.5*x2^2+0.5*x3^2 [7:32]*0],[4,1,0],"CGA");
+            s.x2=y1;
+            s.y2=y2;
+            s.z2=y3;
+            s.P2=MV([0 1 y1 y2 y3 0.5*y1^2+0.5*y2^2+0.5*y3^2 [7:32]*0],[4,1,0],"CGA");
+        else
+                dipole=false;
+            
+           end
+      end
             % END DIPOLE DUAL
             %-----------------------------------------------------------------------------------------
             %-----------------------------------------------------------------------------------------
@@ -308,31 +323,36 @@ else
             y2=(a8*a11^2 - a8*a10^2 - a8*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16) - a8*a12^2 + a8*a14^2 + 2*a7^2*a15 + 2*a8^2*a15 + 2*a9^2*a15 - 2*a7*a11*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a8*a10*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a9*a14*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a7*a10*a11 + 2*a9*a11*a12 + 2*a7*a12*a14 - 2*a9*a10*a14)/(2*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2)*(a7^2 + a8^2 + a9^2));
             y3=(a9*a12^2 - a9*a10^2 - a9*a11^2 - a9*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16) + a9*a14^2 + 2*a7^2*a16 + 2*a8^2*a16 + 2*a9^2*a16 - 2*a7*a12*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a9*a10*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) - 2*a8*a14*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2) + 2*a7*a10*a12 + 2*a8*a11*a12 - 2*a7*a11*a14 + 2*a8*a10*a14)/(2*abs(- a10^2 + a11^2 + a12^2 + a14^2 + 2*a7*a13 + 2*a8*a15 + 2*a9*a16)^(1/2)*(a7^2 + a8^2 + a9^2));
 
-            
+            if abs(x1-y1)>1e-4 && abs(x2-y2)>1e-4 && abs(x3-y3)>1e-4 
+                
+                dipole=true;
 
-            s.DIPOLE.Algebra="CGA3";
-            s.DIPOLE.Type="Round";
-            s.DIPOLE.Representation="Outer";
+            s.Algebra="CGA3";
+            s.Type="Round";
+            s.Representation="Outer";
             if color=="b"
-                s.DIPOLE.Object="Real Dipole";
+                s.Object="Real Dipole";
             else
-                s.DIPOLE.Object="Imaginary Dipole";
+                s.Object="Imaginary Dipole";
             end
-            s.DIPOLE.x1=x1;
-            s.DIPOLE.y1=x2;
-            s.DIPOLE.z1=x3;
-            s.DIPOLE.P1=MV([0 1 x1 x2 x3 0.5*x1^2+0.5*x2^2+0.5*x3^2 [7:32]*0],[4,1,0],"CGA");
-            s.DIPOLE.x2=y1;
-            s.DIPOLE.y2=y2;
-            s.DIPOLE.z2=y3;
-            s.DIPOLE.P2=MV([0 1 y1 y2 y3 0.5*y1^2+0.5*y2^2+0.5*y3^2 [7:32]*0],[4,1,0],"CGA");
+            s.x1=x1;
+            s.y1=x2;
+            s.z1=x3;
+            s.P1=MV([0 1 x1 x2 x3 0.5*x1^2+0.5*x2^2+0.5*x3^2 [7:32]*0],[4,1,0],"CGA");
+            s.x2=y1;
+            s.y2=y2;
+            s.z2=y3;
+            s.P2=MV([0 1 y1 y2 y3 0.5*y1^2+0.5*y2^2+0.5*y3^2 [7:32]*0],[4,1,0],"CGA");
+            else
+                dipole=false;
+            end
         end
             % END DIPOLE OUTER
             %-----------------------------------------------------------------------------------------
             %-----------------------------------------------------------------------------------------
             % CIRCLE OUTER, if the structure correspons to a circle in
             
-        if ((abs(ev)>1e-6).*M_circulo)==(abs(ev)>1e-6)
+        if ((abs(ev)>1e-6).*M_circulo)==(abs(ev)>1e-6) & ~dipole
             
             %Get the normal vector
             n=[a20,-a18,a17];
@@ -366,30 +386,30 @@ else
             b2=B(2);
             b3=B(3);
             
-            s.CIRCLE.Algebra="CGA3";
-            s.CIRCLE.Type="Round";
-            s.CIRCLE.Representation="Outer";
+            s.Algebra="CGA3";
+            s.Type="Round";
+            s.Representation="Outer";
             if color=="b"
-                s.CIRCLE.Object="Real Circle";
+                s.Object="Real Circle";
             else
-                s.CIRCLE.Object="Imaginary Circle";
+                s.Object="Imaginary Circle";
             end
-            s.CIRCLE.radius=r;
-            s.CIRCLE.xc=cx;
-            s.CIRCLE.yc=cy;
-            s.CIRCLE.zc=cz;
-            s.CIRCLE.C=MV([0 1 cx cy cz 0.5*cx^2+0.5*cy^2+0.5*cz^2 [7:32]*0],[4,1,0],"CGA");
-            s.CIRCLE.nx=n(1);
-            s.CIRCLE.ny=n(2);
-            s.CIRCLE.nz=n(3);
-            s.CIRCLE.n=MV([0 0 n(1) n(2) n(3) 1 [7:32]*0],[4,1,0],"CGA");
+            s.radius=r;
+            s.xc=cx;
+            s.yc=cy;
+            s.zc=cz;
+            s.C=MV([0 1 cx cy cz 0.5*cx^2+0.5*cy^2+0.5*cz^2 [7:32]*0],[4,1,0],"CGA");
+            s.nx=n(1);
+            s.ny=n(2);
+            s.nz=n(3);
+            s.n=MV([0 0 n(1) n(2) n(3) 1 [7:32]*0],[4,1,0],"CGA");
         end
 
             % END CIRCLE OUTER
             %-----------------------------------------------------------------------------------------
             %-----------------------------------------------------------------------------------------
             % CIRCLE DUAL, if the structure corresponds to a dual cicle
-        if ((abs(ev)>1e-6).*M_circulo_dual)==(abs(ev)>1e-6)
+        if ((abs(ev)>1e-6).*M_circulo_dual)==(abs(ev)>1e-6)& ~dipole
 
             %Undualize
             a17=  -a9;
@@ -433,29 +453,29 @@ else
             b2=B(2);
             b3=B(3);
 
-            s.CIRCLE.Algebra="CGA3";
-            s.CIRCLE.Type="Round";
-            s.CIRCLE.Representation="Dual";
+            s.Algebra="CGA3";
+            s.Type="Round";
+            s.Representation="Dual";
             if color=="b"
-                s.CIRCLE.Object="Real Circle";
+                s.Object="Real Circle";
             else
-                s.CIRCLE.Object="Imaginary Circle";
+                s.Object="Imaginary Circle";
             end
-            s.CIRCLE.radius=r;
-            s.CIRCLE.xc=cx;
-            s.CIRCLE.yc=cy;
-            s.CIRCLE.zc=cz;
-            s.CIRCLE.C=MV([0 1 cx cy cz 0.5*cx^2+0.5*cy^2+0.5*cz^2 [7:32]*0],[4,1,0],"CGA");
-            s.CIRCLE.nx=n(1);
-            s.CIRCLE.ny=n(2);
-            s.CIRCLE.nz=n(3);
-            s.CIRCLE.n=MV([0 0 n(1) n(2) n(3) 1 [7:32]*0],[4,1,0],"CGA");
+            s.radius=r;
+            s.xc=cx;
+            s.yc=cy;
+            s.zc=cz;
+            s.C=MV([0 1 cx cy cz 0.5*cx^2+0.5*cy^2+0.5*cz^2 [7:32]*0],[4,1,0],"CGA");
+            s.nx=n(1);
+            s.ny=n(2);
+            s.nz=n(3);
+            s.n=MV([0 0 n(1) n(2) n(3) 1 [7:32]*0],[4,1,0],"CGA");
         end
             % END CIRCLE DUAL
             %-----------------------------------------------------------------------------------------
             %-----------------------------------------------------------------------------------------
             % SPHERE DUAL, the MV matches the structure of dual sphere
-        if((abs(ev)>1e-6).*M_esfera_dual)==(abs(ev)>1e-6)
+        if((abs(ev)>1e-6).*M_esfera_dual)==(abs(ev)>1e-6)& ~dipole
 
             %Undualize
             a27= -a2;
@@ -496,7 +516,7 @@ else
             %-----------------------------------------------------------------------------------------
             %-----------------------------------------------------------------------------------------
             % SPHERE , the MV matches the structure of sphere
-        if((abs(ev)>1e-6).*M_esfera)==(abs(ev)>1e-6)
+        if((abs(ev)>1e-6).*M_esfera)==(abs(ev)>1e-6) & ~dipole
 
             rsq=( (a28^2 - 2*a27*a31 + a29^2 + a30^2)/a27^2 );
             if rsq>0
