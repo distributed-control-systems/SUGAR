@@ -61,11 +61,35 @@ classdef (InferiorClasses = {?sym}) MV
         r=ilaplace(self,varargin)
 
         r= abs(self)
-        r= sin(self)
-        r= cos(self)
         r= log(self)
-        r= not(self)
+        r=sin(self)
+        r=asin(self)
+        r=sinh(self)
+        r=asinh(self)
+        r=cos(self)
+        r=acos(self)
+        r=cosh(self)
+        r=acosh(self)
         r=tan(self)
+        r=atan(self)
+        r=tanh(self)
+        r=atanh(self)
+        r=cot(self)
+        r=acot(self)
+        r=coth(self)
+        r=acoth(self)
+        r=csc(self)
+        r=acsc(self)
+        r=csch(self)
+        r=acsch(self)
+        r=sec(self)
+        r=asec(self)
+        r=sech(self)
+        r=asech(self)
+        
+
+        r= not(self)
+        
         r=sqrt(obj1)
         r= and(obj1,obj2)
         r= apply(obj,f)
@@ -113,7 +137,7 @@ classdef (InferiorClasses = {?sym}) MV
         r= from_SUPER_MATRIX(self,m)
         mx= get_matrix_repr(self)
         r= to_SUPER_MATRIX(self) 
-        
+        rp= parametrize(r,ff)
 
        
     end
@@ -299,6 +323,9 @@ r=inner_product_3_3_0(a,b)
     methods (Static=true)
     function out = LogLevel(data)
          persistent level;
+         if isempty(level)
+             level=0;
+         end
          if nargin
             if class(data)=="double" 
                 if data>=0 & data <4
@@ -311,7 +338,27 @@ r=inner_product_3_3_0(a,b)
             end
          end
          out = level;
-      end
+    end
+
+    function out = allow_multivaluated_functions(data)
+         persistent allow;
+         if isempty(allow)
+             allow=0;
+         end
+         if nargin
+            if class(data)=="double" 
+                if data==0 | data ==1
+                allow = data;
+                else
+                    error("This is a true/false parameter, use 0 for false and 1 for true when setting it")
+                end
+            else
+                error("This is a true/false parameter, use 0 for false and 1 for true when setting it")
+            end
+         end
+         out = allow;
+    end
+
 function r=rand(signature)
             r=MV(rand(1,2^sum(signature)),signature);
 

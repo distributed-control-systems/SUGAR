@@ -14,12 +14,18 @@ function r= fun(self,F)
             intermediate= funm(self.matrix,F);
             r=MV(intermediate(:,1).',self.Lsignature);
             r.REPR=self.REPR;
+            if MV.allow_multivaluated_functions()
+                r=parametrize(r,char(F));
+            end
         else
             %Super matrix function...
             SUPER_MATRIX=to_SUPER_MATRIX(self);
             SUPER_EXP=funm(SUPER_MATRIX,F);
             %Reconstruct the matrix of MV
             r=from_SUPER_MATRIX(self,SUPER_EXP);
+            if MV.allow_multivaluated_functions()
+                r=parametrize(r,char(F));
+            end
         end
     end
 end
