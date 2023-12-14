@@ -4,10 +4,15 @@ function r= clean(self)
 % Is this a matrix?
 if f*c==1
     k=self.vector;
-    % We don't expect complex numbers here
-    M=abs(k)>1e-6;
-    % Rebuid the vector
-    r=MV(self.vector.*M,self.Lsignature,self.REPR);
+    if class(k)=="double"
+        % We don't expect complex numbers here
+        Mr=abs(real(k))>1e-6;
+        Mi=abs(imag(k))>1e-6;
+        % Rebuid the vector
+        r=MV(real(self.vector).*Mr+imag(self.vector).*Mi,self.Lsignature,self.REPR);
+    else
+        r=self;
+    end
 else
 
     R=self;
