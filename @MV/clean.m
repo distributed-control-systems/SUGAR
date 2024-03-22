@@ -9,7 +9,7 @@ if f*c==1
         Mr=abs(real(k))>1e-6;
         Mi=abs(imag(k))>1e-6;
         % Rebuid the vector
-        r=MV(real(self.vector).*Mr+imag(self.vector).*Mi,self.Lsignature,self.REPR);
+        r=MV(real(self.vector).*Mr+1i*imag(self.vector).*Mi,self.Lsignature,self.REPR);
     else
         r=self;
     end

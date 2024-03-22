@@ -13,6 +13,17 @@ if self.REPR=="CGA"
     % TODO, clearly, this is not going to work in a conformal algebra with
     % zero basis....
     r=self*I;
+elseif self.Lsignature(end)==0
+    %num of basis
+    S=sum(self.Lsignature);
+    %a zero vector in the right algebra
+    v=zeros(1,2^S);
+    v(end)=1;
+    % The pseudoscalar
+    I=MV(v,self.Lsignature);
+    % TODO, clearly, this is not going to work in a conformal algebra with
+    % zero basis....
+    r=self*I;
 else
     % This is a dual of an standart vector, not CGA
     % We make a complement for each component
