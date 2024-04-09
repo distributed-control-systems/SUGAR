@@ -3,12 +3,9 @@
 # SUGAR
 Wellcome to sugar lib, sugar stands for **Symbolic** and **User-friendly** Geometric Algebra Routines.
 
+Sugar is an open source engineer-friendly toolbox for Matlab licensed under the MIT License that allows computing with geometric algebras (GAs), and in particular, it supports symbolic computations, and both numeric and symbolic computations are available in high-dimensional GAs. SUGAR is specially targeted to be used in engineering applications. To this end, it has been designed to represent the geometric elements and transformations of the two and three- dimensional projective and conformal geometric algebras in an intuitive way that matches the computations found in the literature. In addition, it handles numerically and symbolically functions of multivectors such as, for instance, the exponential, logarithm, sinus and cosinus functions, among others. These advantages allow the use of SUGAR in different engineering fields such as robotics, control systems, and power electronics.
 
-**DISCLAIMER**
 
-SUGAR was created to fulfill my personal requirements for symbolic geometric algebra computations, which may not align with your specific needs. If you require additional functionality that is not currently implemented, I encourage you to implement it yourself. Please avoid burdening me with your specific requirements, as I am uninterested and unwilling to invest any of my time in solving your problems, so, you are advised. If, for any reason, you implement new functionality to the library, I encourage you to publish them, as I have done for you. 
- 
-I provide this introduction to ensure transparency about the library's capabilities. My intention is to present the information in an unbiased manner, allowing you to make an informed decision about whether it aligns with your requirements. We kindly ask you to read the accompanying documentation to evaluate if the library is suitable for your specific needs.
 
 # Basic functions
 
@@ -17,16 +14,16 @@ In the following section, we will outline the fundamental operations within the 
 ## basis(), declare a set of basis with a given signature
 This is useful for shorthand multi-vector creation, if "verbose" option is prvides then you get the info of all the variables created into the matlab workspace, for instance:
 
-	>> basis([1,0,0],"verbose")
+	>> GA([1,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
-	
+		
 	Declaring G0 for grade slicing as (1)e0 
-	Declaring G1 for grade slicing as (1)e1 
+	Declaring G1 for grade slicing as (1)e1
 
 If we want to create a basis for complex numbers
 
-	>> basis([0,1,0],"verbose")
+	>> GA([0,1,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=-1
 	
@@ -35,7 +32,7 @@ If we want to create a basis for complex numbers
 
 Or for instance, quaternion-based algebra
 
-	>> basis([2,0,0],"verbose")
+	>> GA([2,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
@@ -47,10 +44,10 @@ Or for instance, quaternion-based algebra
 
 Alterntively, you can call it without the "verbose" option, which majes it silent (no text written to the output)
 
-The effects of calling "basis" is a set of new variables declared into the workspace. Try this, clean up all variables and make a call to basis with an specific algebra to check which variables are created
+The effects of calling "GA" is a set of new variables declared into the workspace. Try this, clean up all variables and make a call to basis with an specific algebra to check which variables are created
 
 	>> clear all
-	>> basis([2,0,0],"verbose")
+	>> GA([2,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
 	Declaring e2 such that e2·e2=1
@@ -753,3 +750,11 @@ This feature also works for symbolic coefficients
 which should be interpreted by a latex engine as 
 
 $\left[\begin{array}{cc}\left(a\right)e_{1}  &  \left(1\right)e_{1}+\left(b+c\right)e_{2}  \\ \left(c\right)e_{2}  &  \left(-a\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]$
+
+
+
+**DISCLAIMER**
+
+SUGAR was created to fulfill my personal requirements for symbolic geometric algebra computations, which may not align with your specific needs. If you require additional functionality that is not currently implemented, I encourage you to implement it yourself. Please avoid burdening me with your specific requirements, as I am uninterested and unwilling to invest any of my time in solving your problems, so, you are advised. If, for any reason, you implement new functionality to the library, I encourage you to publish them, as I have done for you. 
+ 
+I provide this introduction to ensure transparency about the library's capabilities. My intention is to present the information in an unbiased manner, allowing you to make an informed decision about whether it aligns with your requirements. We kindly ask you to read the accompanying documentation to evaluate if the library is suitable for your specific needs.
