@@ -83,7 +83,7 @@ switch subs(1).type
             %lets retrive the MV components for each element of
             %the matrix
             s.type='()';
-            M=zeros(m,n);
+            M=sym(zeros(m,n));
             for i=1:m
                 for j=1:n
 
@@ -92,10 +92,28 @@ switch subs(1).type
 
                     s.subs={[subs(1).subs{1}]};
                     % care, numeric or basis-based
-
-
-
+                    elements=subs(1).subs{1};
+            c=class(elements);
+            if c=="double"
+                M(i,j)=builtin('subsref',e.vector,subs(1));
+            elseif c=="MV"
+                if class(elements.vector)=="double"
+                    MM=abs(elements.vector)>1e-6;
+                    I=find(MM);
+                    s.type='()';
+                    s.subs={I};
                     M(i,j)=builtin('subsref',e.vector,s);
+                else
+                    error("Unable to perform indexing with symbolic coeficients")
+                end
+
+
+            else
+                error("Not known indexing")
+            end
+
+
+     %%%               M(i,j)=builtin('subsref',e.vector,s);
 
                 end
             end
