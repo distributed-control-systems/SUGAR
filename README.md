@@ -11,7 +11,7 @@ Sugar is an open source engineer-friendly toolbox for Matlab licensed under the 
 
 In the following section, we will outline the fundamental operations within the sugar environment.
 
-## basis(), declare a set of basis with a given signature
+## GA(), declare a set of basis with a given signature
 This is useful for shorthand multi-vector creation, if "verbose" option is prvides then you get the info of all the variables created into the matlab workspace, for instance:
 
 	>> GA([1,0,0],"verbose")
