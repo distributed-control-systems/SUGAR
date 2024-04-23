@@ -5,13 +5,44 @@ Wellcome to sugar lib, sugar stands for **Symbolic** and **User-friendly** Geome
 
 Sugar is an open source engineer-friendly toolbox for Matlab licensed under the MIT License that allows computing with geometric algebras (GAs), and in particular, it supports symbolic computations, and both numeric and symbolic computations are available in high-dimensional GAs. SUGAR is specially targeted to be used in engineering applications. To this end, it has been designed to represent the geometric elements and transformations of the two and three- dimensional projective and conformal geometric algebras in an intuitive way that matches the computations found in the literature. In addition, it handles numerically and symbolically functions of multivectors such as, for instance, the exponential, logarithm, sinus and cosinus functions, among others. These advantages allow the use of SUGAR in different engineering fields such as robotics, control systems, and power electronics.
 
+# Installation Guide
 
+In order to add Sugar to your Matlab distribution please follow these next steps:
+
+1. **Obtaining the Repository:**
+   
+   You can clone or download the Sugar repository to a location on your computer. This can be done via the command line or directly through GitHub's interface:
+
+   - To clone using the command line, type the following command:
+     ```
+     $ git clone https://github.com/distributed-control-systems/SUGAR.git
+     ```
+   - Alternatively, you can download the repo using the dropdown menu from the green "Code" button on GitHub:
+
+     ![Code menu](./images/drop_down.png "Dropdown menu located at the Code button")
+
+	 And unzip the downloaded file to anywere in your computer.
+
+2. **Adding Sugar to Matlab:**
+
+   To integrate Sugar into Matlab, add the downloaded folder with its subfolders to your Matlab path:
+   
+   - Open the Matlab home menu and click on "Set Path":
+
+     ![Matlab Home menu](./images/matlab_home.png "Matlab home menu")
+
+   - In the dialog that appearsselect "Add with Subfolders", navigate to the Sugar folder you just downloaded and click on "Apply".
+   	![Matlab Home menu](./images/path.png "Matlab home menu")
+
+Congratulations! You have successfully installed Sugar in Matlab. To begin using Sugar and explore its functionalities, proceed with the following sections of this guide.
+
+Please note, this guide does not cover the basics of geometric algebra. For those interested in learning more about geometric algebra, we recommend visiting [The Bivector Website](https://bivector.net), which offers excellent resources for beginners.
 
 # Basic functions
 
 In the following section, we will outline the fundamental operations within the sugar environment.
 
-## GA(), declare a set of basis with a given signature
+## GA( [p,q,r] ), declare a set of basis with a given signature
 This is useful for shorthand multi-vector creation, if "verbose" option is prvides then you get the info of all the variables created into the matlab workspace, for instance:
 
 	>> GA([1,0,0],"verbose")
@@ -209,9 +240,9 @@ Lets show them by example
 
 	ans =
 
-		1     1     1     1
-		1     1    -1    -1
-		1     1     1     1
+		 1     1     1     1
+		 1     1    -1    -1
+		 1     1     1     1
 		-1    -1     1     1
 
 	>> a.BasisNames	%Set of basis of the vector's algebra

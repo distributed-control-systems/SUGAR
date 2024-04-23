@@ -17,9 +17,9 @@ function r= str(obj1)
                     else
                         val=vec(k);
                     end
-                    r=r+"+( "+val+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+( "+val+" )[\b"+Labels(k)+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 else
-                    r=r+"+( "+char(vec(k))+" )<strong>"+Labels(k)+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+( "+char(vec(k))+" )[\b"+Labels(k)+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             end
 
@@ -36,9 +36,9 @@ function r= str(obj1)
         for k=1:length(obj1.vec)
             if obj1.vec(k)~=0
                 if class(obj1.vec(k))=="double"
-                    r=r+"+("+obj1.vec(k)+")<strong>"+obj1.Basis{k}+"</strong>";%e"+strrep(obj1.Basis{k},",","");
+                    r=r+"+("+obj1.vec(k)+")[\b"+obj1.Basis{k}+"]\b ";%e"+strrep(obj1.Basis{k},",","");
                 else
-                    r=r+"+("+char(obj1.vec(k))+")<strong>"+obj1.Basis{k}+"</strong>"; %e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+("+char(obj1.vec(k))+")[\b"+obj1.Basis{k}+"]\b "; %e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             end
         end

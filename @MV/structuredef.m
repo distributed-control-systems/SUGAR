@@ -30,7 +30,26 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
         msigns{10,10,10}=0;
         signs{10,10,10}=0;
         bnames{10,10,10}=0;
+        load('@MV/pre_defined_stamps.mat', 'stamps')
+        load('@MV/pre_defined_signatures.mat', 'signatures')
+        load('@MV/pre_defined_basis.mat', 'basis')
+        load('@MV/pre_defined_msigns.mat', 'msigns')
+        load('@MV/pre_defined_signs.mat', 'signs')
+        load('@MV/pre_defined_bnames.mat', 'bnames')
     end
+    if class(sig)=='string' 
+        if sig=="DUMP"
+            save @MV/pre_defined_stamps.mat stamps
+            save @MV/pre_defined_signatures.mat signatures
+            save @MV/pre_defined_basis.mat basis
+            save @MV/pre_defined_msigns.mat msigns
+            save @MV/pre_defined_signs.mat signs
+            save @MV/pre_defined_bnames.mat bnames
+            
+        end    
+    return
+    end
+
     % Has been this algebra already computed?
     if isempty(signatures{sig(1)+1,sig(2)+1,sig(3)+1})
         % NO, let's build everything up

@@ -131,6 +131,8 @@ classdef (InferiorClasses = {?sym}) MV
         r=mrdivide(A,B)
         r=ctranspose(obj)
 
+        
+
     end
     methods (Access = private)
         submatriz = submatrix(matriz, fila, columna)
@@ -142,6 +144,8 @@ classdef (InferiorClasses = {?sym}) MV
        
     end
     methods(Static=true,Hidden=true)
+
+        r=reveal()
 
         r= outter(obj1,obj2)
 
@@ -339,7 +343,8 @@ r=inner_product_3_3_0(a,b)
          end
          out = level;
     end
-
+    
+    
     function out = allow_multivaluated_functions(data)
          persistent allow;
          if isempty(allow)

@@ -34,10 +34,10 @@ function disp(obj1)
                         val=obj1.vec(k);
                     end
                     % extend representation and pretty print the basis
-                    r=r+"+( "+val+" )*<strong>"+obj1.Basis{k}+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+( "+val+" )*[\b"+obj1.Basis{k}+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 else
                     % extend representation and pretty print the basis
-                    r=r+"+( "+char(obj1.vec(k))+" )*<strong>"+obj1.Basis{k}+"</strong>";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+( "+char(obj1.vec(k))+" )*[\b"+obj1.Basis{k}+"]\b";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             end
 

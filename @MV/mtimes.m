@@ -76,12 +76,24 @@ function r= mtimes(obj1,obj2)
                     for j=1:c2
 
                         p=MV();
-                        p.Basis=obj1(i,1).Basis;
-                        p.Lsignature=obj1(i,1).Lsignature;
-                        p.vec=(obj1(1,1).vec)*0;
-                        p.Signs=obj1(1,1).Signs;
-                        p.REPR=obj1(1,1).REPR;
-                        p.matrix=(obj1(1,1).matrix)*0;
+                        if class(obj1)=="MV"
+                            p.Basis=obj1(i,1).Basis;
+                            p.Lsignature=obj1(i,1).Lsignature;
+                            p.vec=(obj1(1,1).vec)*0;
+                            p.Signs=obj1(1,1).Signs;
+                            p.REPR=obj1(1,1).REPR;
+                            p.matrix=(obj1(1,1).matrix)*0;
+                        elseif class(obj2)=="MV"
+                            p.Basis=obj2(i,1).Basis;
+                            p.Lsignature=obj2(i,1).Lsignature;
+                            p.vec=(obj2(1,1).vec)*0;
+                            p.Signs=obj2(1,1).Signs;
+                            p.REPR=obj2(1,1).REPR;
+                            p.matrix=(obj2(1,1).matrix)*0;
+                        else
+                            error('None of the object is oc class MV')
+                            return
+                        end
                         for k=1:c1
                             p = p+obj1(i,k)*obj2(k,j);
                         end
