@@ -30,12 +30,12 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
         msigns{10,10,10}=0;
         signs{10,10,10}=0;
         bnames{10,10,10}=0;
-        load('@MV/pre_defined_stamps.mat', 'stamps')
-        load('@MV/pre_defined_signatures.mat', 'signatures')
-        load('@MV/pre_defined_basis.mat', 'basis')
-        load('@MV/pre_defined_msigns.mat', 'msigns')
-        load('@MV/pre_defined_signs.mat', 'signs')
-        load('@MV/pre_defined_bnames.mat', 'bnames')
+%         load('@MV/pre_defined_stamps.mat', 'stamps')
+%         load('@MV/pre_defined_signatures.mat', 'signatures')
+%         load('@MV/pre_defined_basis.mat', 'basis')
+%         load('@MV/pre_defined_msigns.mat', 'msigns')
+%         load('@MV/pre_defined_signs.mat', 'signs')
+%         load('@MV/pre_defined_bnames.mat', 'bnames')
     end
     if class(sig)=='string' 
         if sig=="DUMP"
@@ -52,6 +52,13 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
 
     % Has been this algebra already computed?
     if isempty(signatures{sig(1)+1,sig(2)+1,sig(3)+1})
+        if sum(sig>=10)>0
+            error('Right now there is an algebra size limit set to p<10, q<10, r<10');
+            return
+        end
+        if (sum(sig)>9)
+            warning('This is a huge algebra, it will take some time to create the first instance, be patient please')
+        end
         % NO, let's build everything up
         signatures{sig(1)+1,sig(2)+1,sig(3)+1}=1;
         % do all stuff
@@ -94,7 +101,7 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
             %now le'ts create the basis indexs
             v=1:n;
             counter=2;
-            % Basis is a cel, on each element there is an array with the
+            % Basis is a cell, on each element there is an array with the
             % numbers of the involved mother vector space basis
             Basis=cell(1,2^n);
             % The first basis is just named e0
@@ -105,9 +112,18 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
                 [f,c]=size(C);
                 for item=1:f
                     % Add them one by one to the cell of Basis
-                    b=strrep(num2str(C(item,:)),"  ",",");
+                    %b=strrep(strrep(num2str(C(item,:)),"  ",","),",,",",");
+                    % In order to manage basis numbers over 10 we use an underscore
+                    % this allows us to distinguis the basis e12 from de bivector e12
+                    % by naming e_12 and e12, it also allows the creation
+                    % of the trivector e12_12 whic corresponds to e1e2e_12,
+                    % but sadly it breaks the latex transator....  
+                    b=regexprep(num2str(C(item,:)),"[ ]{2,}",","); 
+                    %b=regexprep(bb,",\d{2,}",",_$0");
                     Basis{counter}=b;
                     counter=counter+1;
+
+                    
                 end
             end
             % Done.
@@ -119,15 +135,16 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
             matrix={};
             % Let's go over the matrix representation, one by one
             for column=1:Basis_count
+               
                 for row=1:Basis_count
                     % So, we have a product of two basis
                     Order=Basis{row}+","+Basis{column};
                     final_element="";
                     % Remove the comas on the description
                     names=split(Order,',')';
-                    % Convert everything into chars, this limits sugar to
-                    % [10 10 10] i belive
+                    % Convert everything into chars
                     names=cellfun(@str2num,convertStringsToChars(names));
+                           
                     % Basis with name 0 (scalar) conmutes with everything
                     masc=(names~=0);
                     % So we remove them
@@ -135,7 +152,7 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
                     % How many basis are implied in this computation?
                     values=unique(names,'sorted');
                     % sort them, because we use lexicographic order
-                    [ol,ic]=sort(names);
+                    %%[ol,ic]=sort(names);
                     % befor we start to swap elements we have positive sign
                     % in the product, signo means sign in spanish...
                     signo=1;
@@ -175,9 +192,9 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
 
             % Store signs into the static variable, to be able to recover
             % it later
-            matrix=cell2sym(matrix);
+            %matrix=cell2sym(matrix);
             try
-                matrix=double(matrix);
+                matrix=cell2mat(matrix);
             catch
             end
         end
@@ -186,7 +203,8 @@ function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
         % Create the basis names, just add "e" in front of the sequence of
         % numbers
         for j=1:length(Basis)
-            BasisN{j}="e"+strrep(Basis{j},",","");
+
+            BasisN{j}="e"+strrep(   regexprep(Basis{j},",\d{2,}",",_$0")   ,",","");
         end
 
         %Store everything into stativ cariables
