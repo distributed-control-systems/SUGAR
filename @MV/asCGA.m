@@ -26,11 +26,11 @@ function asCGA(obj)
                     else
                         val=vec(k);
                     end
-                    r=r+"+( "+val+" )[\b"+Labels(k)+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+( "+val+" )*[\b"+Labels(k)+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             else
                 if ~isequal(vec(k),sym(0))
-                    r=r+"+( "+char(vec(k))+" )[\b"+Labels(k)+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+( "+char(vec(k))+" )*[\b"+Labels(k)+"]\b ";%e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             end
         end

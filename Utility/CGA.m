@@ -11,8 +11,8 @@ else
 end
 
 if options=="verbose"
-    fprintf('Be patient, this will take some time...\n')
-    fprintf('\n ---- CGA BASIS -----\n')
+    %fprintf('Be patient, this will take some time...\n')
+    %fprintf('\n ---- CGA BASIS -----\n')
 end
 % fprintf('General basis declaration\n')
 
@@ -31,7 +31,7 @@ if options=="verbose"
     fprintf("Declaring "+Basis{k}+" as syntatic sugar, e0=1\n")
 end
 b.REPR="CGA";
-assignin('base',Basis{k},b)
+assignin('caller',Basis{k},b)
 elements=[elements b];
 
 for k=2:2^m
@@ -56,7 +56,7 @@ for k=2:2^m
    if options=="verbose"
     fprintf("Declaring "+Basis{k}+" such that "+Basis{k}+"·"+Basis{k}+"="+num2str(num(1))+ "\n")
    end
-    assignin('base',Basis{k},b)
+    assignin('caller',Basis{k},b)
 end
 %----------------------------------------
 
@@ -79,7 +79,7 @@ end
 v=zeros(1,2^sum(sig));
 v(end)=1;
 I=MV(v,sig,"CGA");
-assignin('base',"I",I)
+assignin('caller',"I",I)
 
 vec=ones(1,2^m);
 test=MV(vec,sig,"CGA");
@@ -92,7 +92,7 @@ for k=0:sum(sig)
    if options=="verbose"
     fprintf("Declaring G"+num2str(k)+" for grade slicing as "+str(g)+" \n")
    end
-    assignin('base',"G"+num2str(k),g)
+    assignin('caller',"G"+num2str(k),g)
 end
 if options=="verbose"
 fprintf(" \n")
@@ -127,10 +127,10 @@ normal=@(p)p*(-p.*ni)^-1;
 
 %%line   = (a,b,c)=>!(a*1e1 + b*1e2 + c*ni),
 %%circle = (x,y,r)=>!(point(x,y) - r**2/2*ni);
-assignin('base',"push",push)
-assignin('base',"pull",pull)
-assignin('base',"point",point)
-assignin('base',"normal",normal)
+assignin('caller',"push",push)
+assignin('caller',"pull",pull)
+assignin('caller',"point",point)
+assignin('caller',"normal",normal)
 if options=="verbose"
     fprintf("push and pull functions are now available \n")
 end
