@@ -32,9 +32,16 @@ classdef (InferiorClasses = {?sym}) MV
                         obj.REPR="";
                     end
                     obj.Lsignature=signature;
-                    n=sum(signature);
+                    if class(signature)=='double'
+                        n=sum(signature);
+                        nn=2^n;
+                    elseif class(signature)=='string'
+                        nn=size(signature,1);
+                    else
+                        error('Unreconized signature style');
+                    end
                     m=length(val);
-                    if 2^n==m
+                    if nn==m
                         if obj.REPR=="CGA"
                             [Matrix,Labels]=MV.CGA_matrix(signature);
                             vec=val*Matrix^-1;
