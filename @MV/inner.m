@@ -1,11 +1,19 @@
 function r= inner(obj1,obj2)
     %Inner product implementation
+
+    if class(obj1.Lsignature)~=class(obj2.Lsignature)
+        error("Multivectors must belong to the same algebra ")
+    end
     if obj1.Lsignature==obj2.Lsignature
-        n=sum(obj1.Lsignature);
+        if class(obj1.Lsignature)=='double'
+            n=sum(obj1.Lsignature);
+        else
+            n=ceil(log2(size(obj1.Lsignature,1)));
+        end
         % So we have a set of precoded products in order to perform faster
         % computations
         precoded=7;
-        if n>=precoded
+        if n>=precoded | class(obj1.Lsignature)=='string'
             % In case we do not have a precoded computation.... just
             % compute it by hand
             B=MV.Blades(obj1.Lsignature);

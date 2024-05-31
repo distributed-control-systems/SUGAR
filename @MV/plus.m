@@ -30,7 +30,7 @@ function r= plus(obj1,obj2)
         end
         if class(obj2)=="double" || class(obj2)=="sym"
             % Addition of  MV to sym/double 
-            v=obj1.vec*0;
+            v=obj1.vec*sym(0);
             v(1)=obj2;
             obj2=MV();
             obj2.Basis=obj1.Basis;
@@ -39,6 +39,9 @@ function r= plus(obj1,obj2)
             obj2.Signs=obj1.Signs;
             obj2.REPR=obj1.REPR;
             obj2.matrix=obj2.get_matrix_repr();
+        end
+        if class(obj1.Lsignature)~=class(obj2.Lsignature)
+            error("Objects comming from different algebras cannot be added")
         end
         if obj1.Lsignature==obj2.Lsignature
             % Real addition

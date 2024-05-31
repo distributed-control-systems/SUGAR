@@ -2,7 +2,11 @@ function r= grade(self,k)
 % Original grade projector.... we keep this function for compatibility
 % reasons and for cmpleteness
     % Mother vecor space size?
-    n=sum(self.Lsignature);
+    if class(self.Lsignature)=='string'
+        n=ceil(log2(size(self.Lsignature,1)));
+    else
+        n=sum(self.Lsignature);
+    end
     % Did you ask for a grade that is not in this algebra?
     if k>n
         error("There is no such a grade in this MV");

@@ -357,6 +357,9 @@ end
 
 sig_o=sig;
 sig=FINAL;
+% We should reorder the table such that everything keeps in its place...
+
+
 al="Differential GA ["+ num2str(sig_o)+ "] ["+ num2str(DTS) +"]\n";
 if nargin==2
     options="";

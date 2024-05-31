@@ -10,6 +10,9 @@ function r= mtimes(obj1,obj2)
         if  class(obj1)=="MV" && class(obj2)=="MV"
             %is it alowed with the given signatures?
 
+            if class(obj1.Lsignature)~=class(obj2.Lsignature)
+                error("Multivectors must belong to the same algebra ")
+            end
             if obj1.Lsignature==obj2.Lsignature
                 matrix=obj1.matrix*obj2.matrix;
 

@@ -1,6 +1,11 @@
 function r= eq(obj1,obj2)
     % Overloading equality function
     % The MV must belong to the same algebra
+    
+    if class(obj1.Lsignature)~=class(obj2.Lsignature)
+        error("Multivectors must belong to the same algebra ")
+    end
+
     if obj1.Lsignature==obj2.Lsignature
         % The MV must have the same components
         if(obj1.vec==obj2.vec)

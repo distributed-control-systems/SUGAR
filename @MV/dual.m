@@ -2,6 +2,11 @@ function r= dual(self)
 % This function requires some extra work, because we are using different
 % descriptions of duality, depending on the algebra, which is strange.
 
+%% TODO dual for DGA
+if class(self.Lsignature)=='string'
+    error('The dual of a differential algebra is still pending to implement');
+end
+
 if self.REPR=="CGA"
     %num of basis
     S=sum(self.Lsignature);

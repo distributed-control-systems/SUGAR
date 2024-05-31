@@ -1,9 +1,16 @@
 function r= conj(self)
     %size of the vector space 
-    K=sum(self.Lsignature);
+    %K=sum(self.Lsignature);
+    if class(self.Lsignature)=='string'
+        K=ceil(log2(size(self.Lsignature,1)));
+    else
+        K=sum(self.Lsignature);
+    end
+
     vec=self.vec*0;
     %direct defenition of conjugation
     for j=0:K
+
         el=self.grade(j)*(-1)^(j*(j+1)/2);
         vec=vec+el.vector;
     end
