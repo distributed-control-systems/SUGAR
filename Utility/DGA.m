@@ -1,4 +1,4 @@
-function KGA(sig,DTS,options)
+function DGA(sig,DTS,options)
 %%KGA(sig, DTS,options) 
 % This function creates a geometric algebra with signature [p,q,r]. 
 % p stands for number of positive basis, q for number of negative basis and
@@ -55,15 +55,16 @@ for i=1:DTS(1)
         
     end
 end
+% Alternativa....
 
 
 % These new bases do form bivectors when dimenssion is biger than 1 
 % So we still have to add the cross bases
 % Lets use THE MOST HORRIBLE trick to generate them
 % Don't do this at home, it's dangerous
-
+if DTS(1)>1 && DTS(2)>1
 %%%%%%%% TRICK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-test=MV(1:2^(sum(DTS)-1),[0 0 sum(DTS)-1]);
+test=MV(1:2^(sum(DTS)),[0 0 sum(DTS)]);
 New_mv=test.BasisNames;
 for i=sum(DTS)+1:length(New_mv)-1
     index=char(strrep(New_mv{i+1},"e",""));
@@ -88,6 +89,12 @@ for i=sum(DTS)+1:length(New_mv)-1
     
 end
 %%%%%%%% END TRICK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+end
+
+len = arrayfun( @(jj) length(char(regexprep(Extra(jj),'\d+','')))+str2double("0."+strrep(Extra(jj),"D","")) ,1:size(Extra,2));
+[ ~, ix ] = sort( len );
+Extra=Extra(ix);
+
 % and its related cayley table ....
 %Extra_cayley=[]
 for i=1:length(Extra) %rows
@@ -195,14 +202,22 @@ for i=1:length(CAL(2:end,1))
             start=regexp(Extra_cross(j),'D+\d+');
             text=char(Extra_cross(j));
 
-            result=CAL(row,column)+text(start:end);
-        
-            Extra_cayley_cross_12(i,j)=result;
-            
+            if CAL(row,column)=="0 "
+                Extra_cayley_cross_12(i,j)="0";
+                Extra_cayley_cross_21(j,i)="0";
+            else
+                result=CAL(row,column)+text(start:end);
+                Extra_cayley_cross_12(i,j)=result;
+           
             % we have to cross e1 trough text(start:end) and change the
             % sign due to the transpose...
             %first, how mani bases will i cross in text(start:end)
             
+            
+
+                
+
+
             num_diff_bases=length(strrep(regexprep(text(start:end),'\d',''),"e","")); %number of Ds
             % Extreme care must be taken, this will fail wheneber the bases
             % go beyound 10...
@@ -216,8 +231,10 @@ for i=1:length(CAL(2:end,1))
             else
                 sign="";
             end
+
             result=CAL(column,row)+text(start:end);
             Extra_cayley_cross_21(j,i)=strrep(sign+result,"--","");
+            end
     end
 end
 
@@ -292,6 +309,23 @@ for i=1:length(Extra_cross)
     end
 end
 
+%be aware... if sig was [0 0 0] then there is no Extra_cayley_cross_12
+if ~exist('Extra_cayley_cross_12')
+    Extra_cayley_cross_12=[];
+    Extra_cayley_cross_21=[];
+end
+if ~exist('Extra_cayley_cross_13')
+    Extra_cayley_cross_13=[];
+    Extra_cayley_cross_31=[];
+end
+if ~exist('Extra_cayley_cross_32')
+    Extra_cayley_cross_32=[];
+    Extra_cayley_cross_23=[];
+end
+if ~exist('Extra_cayley_cross')
+    Extra_cayley_cross=[];
+    Extra_cayley_cross=[];
+end
 % Finally we have all the combinations!!!
 % Build the table
 FINAL=[CAL                                    [Extra_cross;Extra_cayley_cross_12 ] [Extra;Extra_cayley_cross_13]
@@ -301,6 +335,8 @@ FINAL=[CAL                                    [Extra_cross;Extra_cayley_cross_12
 % Last round, remove those nasty e0
 for i=2:size(FINAL,1)
     for j=2:size(FINAL,2)
+
+
          fn=strrep(FINAL(i,j),"e0","");
          if fn=="-" || fn==""
 
@@ -311,7 +347,13 @@ for i=2:size(FINAL,1)
     end
 end
 
-
+for i=1:size(FINAL,1)
+    for j=1:size(FINAL,2)
+        if FINAL(i,j)==""
+            FINAL(i,j)="e0"
+        end
+    end
+end
 
 sig_o=sig;
 sig=FINAL;
@@ -349,6 +391,9 @@ end
         %algebra=algebra+ "\t[\b"+ Basis{k}+"]\b \n";
         assignin('caller',Basis{k},b)
     end
+
+
+   
 
     
 
