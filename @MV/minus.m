@@ -2,9 +2,9 @@ function r= minus(obj1,obj2)
     [f,c]=size(obj1);
     if f==1 && c==1
         if class(obj1)=="double" || class(obj1)=="sym"
-            %v=obj2.vec*0;
+            v=obj2.vec*0;
             %v(1)=obj1;
-            obj1=MV([obj1 zeros(1,2^sum(obj2.Lsignature)-1)],obj2.Lsignature,obj2.REPR);
+            obj1=MV([obj1 v(2:end)],obj2.Lsignature,obj2.REPR);
 %             obj1.Basis=obj2.Basis;
 %             obj1.Lsignature=obj2.Lsignature;
 %             obj1.vec=v;
@@ -12,8 +12,7 @@ function r= minus(obj1,obj2)
 %             obj1.REPR=obj2.REPR;
 %             obj1.matrix=obj1.get_matrix_repr();
 %             %obj1=MV(v,obj2.Lsignature);
-        end
-        if class(obj2)=="double" || class(obj2)=="sym"
+        elseif class(obj2)=="double" || class(obj2)=="sym"
             v=obj1.vec*0;
             v(1)=obj2;
             obj2=MV();
@@ -25,8 +24,11 @@ function r= minus(obj1,obj2)
             obj2.matrix=obj2.get_matrix_repr();
 
             %obj2=MV(v,obj1.Lsignature);
-        end
-        if obj1.Lsignature==obj2.Lsignature
+        else
+             if class(obj1.Lsignature)~=class(obj2.Lsignature)
+                error("Multivectors must belong to the same algebra ")
+            end
+            if obj1.Lsignature==obj2.Lsignature
             r=MV();
             r.Basis=obj1.Basis;
             r.Lsignature=obj1.Lsignature;
@@ -37,6 +39,7 @@ function r= minus(obj1,obj2)
             %r=MV(obj1.vec+obj2.vec,obj1.Lsignature);
         else
             error("Objects comming from different algebras cannot be added")
+        end
         end
     else
         for i=1:f
