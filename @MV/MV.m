@@ -93,10 +93,7 @@ classdef (InferiorClasses = {?sym}) MV
         r=asec(self)
         r=sech(self)
         r=asech(self)
-        
-
         r= not(self)
-        
         r=sqrt(obj1)
         r= and(obj1,obj2)
         r= apply(obj,f)
@@ -104,6 +101,7 @@ classdef (InferiorClasses = {?sym}) MV
         r= clean(self)
         r= collect(self)
         r= conj(self)
+        r=tangent(self,k)
         determinante = det(self)
         disp(obj1)
         r= dual(self)

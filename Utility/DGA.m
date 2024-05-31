@@ -9,7 +9,7 @@ function DGA(sig,DTS,options)
 % maximum derivative order of these variables. The user has the
 % responsability to name this variables. 
 % Example:
-% KGA([2 0 0],[2,2]) creates the euclidean plane coordinates and adds extra
+% DGA([2 0 0],[2,2]) creates the euclidean plane coordinates and adds extra
 % basis to compute its tangent space. The user may declare the symbolic
 % vriables x and y to represent such coordinates and the MV variables
 % X=x+D1
