@@ -6,8 +6,6 @@ function r= minus(obj1,obj2)
             %v(1)=obj1;
             obj1=MV([obj1 v(2:end)],obj2.Lsignature,obj2.REPR);
 
-
-
 %             obj1.Basis=obj2.Basis;
 %             obj1.Lsignature=obj2.Lsignature;
 %             obj1.vec=v;

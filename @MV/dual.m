@@ -4,8 +4,11 @@ function r= dual(self)
 
 %% TODO dual for DGA
 if class(self.Lsignature)=='string'
-    error('The dual of a differential algebra is still pending to implement');
-end
+    %error('The dual of a differential algebra is still pending to implement');
+    %first choice
+    [stamp,sign]=self.dualizer(self.Lsignature);
+
+else
 
 if self.REPR=="CGA"
     %num of basis
@@ -38,5 +41,6 @@ else
     r=MV(self.vec(stamp).*sign,self.Lsignature);
 end
 r.REPR=self.REPR;
+end
 end
 

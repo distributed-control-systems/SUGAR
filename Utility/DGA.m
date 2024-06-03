@@ -46,7 +46,7 @@ CAL=arrayfun(@(x) char(x),tb);
 CAL=strrep(CAL,"( 1 )*","");
 CAL=strrep(CAL,"( -1 )*","-");
 
-%Now... we have to suplement the table with the extra bases.... firs we
+%Now... we have to suplement the table with the extra bases.... first we
 %must create them
 Extra=[];
 for i=1:DTS(1)
@@ -55,42 +55,33 @@ for i=1:DTS(1)
         
     end
 end
-% Alternativa....
-
-
-% These new bases do form bivectors when dimenssion is biger than 1 
-% So we still have to add the cross bases
-% Lets use THE MOST HORRIBLE trick to generate them
-% Don't do this at home, it's dangerous
-if DTS(1)>1 && DTS(2)>1
-%%%%%%%% TRICK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-test=MV(1:2^(sum(DTS)),[0 0 sum(DTS)]);
-New_mv=test.BasisNames;
-for i=sum(DTS)+1:length(New_mv)-1
-    index=char(strrep(New_mv{i+1},"e",""));
-    mv="";
-    ind=[-1];
-    for j=1:length(index)
-        bb=char(Extra(str2double(index(j))));
-        if sum(ind==str2double(bb(end)))==0
-        mv=mv+Extra(str2double(index(j)));
-        ind=[ind str2double(bb(end))];
-        else
-            mv="";
-            break
-            
+% and their crossings 
+Extra2=[];
+for k=1:DTS(1)
+    C = nchoosek(Extra,k);
+    % Get all possible combinations
+    [f,c]=size(C);
+    for item=1:f
+        
+        elemento='';
+        last=0;
+        for i=1:k
+            nuevo_elemento=char(C(item,i));
+            if last==nuevo_elemento(end)
+                elemento=[elemento(1:end-1) nuevo_elemento];
+            else
+                elemento=[elemento nuevo_elemento];
+            end
+            last=nuevo_elemento(end);
+        end
+        if isempty(regexp(elemento+"","D{"+num2str(DTS(2)+1)+",}", 'once'))
+            Extra2=[Extra2 elemento+""];
         end
     end
-    if mv~=""
-        if (length(char(regexprep(mv,'[\d+]','')))<=DTS(2))
-            Extra=[Extra mv];
-        end
-    end
-    
-end
-%%%%%%%% END TRICK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
 
+
+Extra=Extra2;
 len = arrayfun( @(jj) length(char(regexprep(Extra(jj),'\d+','')))+str2double("0."+strrep(Extra(jj),"D","")) ,1:size(Extra,2));
 [ ~, ix ] = sort( len );
 Extra=Extra(ix);
@@ -102,9 +93,11 @@ for i=1:length(Extra) %rows
         
         mv=Extra(i)+Extra(j);
         %lets count the derivative order
-        if (length(char(regexprep(mv,'[\d+]','')))>DTS(2))
-            result="0";
-        else
+        
+        
+         % if ~isempty(regexp(mv,"D{"+num2str(DTS(2))+",}\d"))
+         %     result="0";
+         % else
             %lets count Ds before numbers
             %Ds=0;
             num=0;
@@ -124,8 +117,13 @@ for i=1:length(Extra) %rows
                     result=result+ char(ones(1,structure(k))*'D')+num2str(k);
                 end
             end
+        %end
+
+        if isempty(regexp(result,"D{"+num2str(DTS(2)+1)+",}\d", 'once'))
+            Extra_cayley(i,j)=result;
+        else
+            Extra_cayley(i,j)="0";
         end
-        Extra_cayley(i,j)=result;
     end
 end
 
@@ -152,11 +150,11 @@ for i=1:length(Extra_cross)
         e1=elements_Extra_cross_cayley{i};
         e2=elements_Extra_cross_cayley{j};
         %where is e1(1) in the original cayey table
-        row=CAL(:,1)==e1(1);
+        row_c=CAL(:,1)==e1(1);
         %where is e2(1) in the original cayey table
-        column=CAL(1,:)==e2(1);
+        column_c=CAL(1,:)==e2(1);
 
-        result=CAL(row,column);
+        result=CAL(row_c,column_c);
 
         %where is e1(2) in the Extra_cayley table
         row=(Extra==e1(2));
@@ -166,8 +164,8 @@ for i=1:length(Extra_cross)
         %is it 0?
         if Extra_cayley(row,column)=="0"
             result="0";
-        elseif CAL(row,column)=="0"
-            result="0"
+        elseif CAL(row_c,column_c)=="0"
+            result="0";
         else
             % conmutativity of elements 
             %how many basis in e1(2)?
@@ -309,6 +307,8 @@ for i=1:length(Extra_cross)
     end
 end
 
+
+
 %be aware... if sig was [0 0 0] then there is no Extra_cayley_cross_12
 if ~exist('Extra_cayley_cross_12')
     Extra_cayley_cross_12=[];
@@ -328,10 +328,17 @@ if ~exist('Extra_cayley_cross')
 end
 % Finally we have all the combinations!!!
 % Build the table
-FINAL=[CAL                                    [Extra_cross;Extra_cayley_cross_12 ] [Extra;Extra_cayley_cross_13]
-       [Extra_cross' Extra_cayley_cross_21 ]  Extra_cayley_cross                    Extra_cayley_cross_23 
-       [Extra' Extra_cayley_cross_31]        Extra_cayley_cross_32                Extra_cayley           ];
-        
+FINAL=[ CAL                                    [Extra_cross;Extra_cayley_cross_12 ] [Extra;Extra_cayley_cross_13]
+        [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross                    Extra_cayley_cross_23 
+        [Extra' Extra_cayley_cross_31]          Extra_cayley_cross_32                 Extra_cayley           ];
+
+% Don't forget the pseudoscalar!!!!
+I=CAL(1,end);
+for i=1:DTS(1)
+    I=I+"D"+num2str(i);
+end
+I
+
 % Last round, remove those nasty e0
 for i=2:size(FINAL,1)
     for j=2:size(FINAL,2)
@@ -350,13 +357,25 @@ end
 for i=1:size(FINAL,1)
     for j=1:size(FINAL,2)
         if FINAL(i,j)==""
-            FINAL(i,j)="e0"
+            FINAL(i,j)="e0";
         end
     end
 end
 
 sig_o=sig;
 sig=FINAL;
+
+
+pos=sig(1,:)==I;
+copy_matrix=sig(:,:);
+sig(end,:)=copy_matrix(pos,:);
+sig(pos,:)=copy_matrix(end,:);
+copy_matrix=sig(:,:);
+
+sig(:,end)=copy_matrix(:,pos);
+sig(:,pos)=copy_matrix(:,end);
+
+sig
 % We should reorder the table such that everything keeps in its place...
 
 
