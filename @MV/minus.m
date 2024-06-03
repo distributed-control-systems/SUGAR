@@ -5,6 +5,9 @@ function r= minus(obj1,obj2)
             v=obj2.vec*0;
             %v(1)=obj1;
             obj1=MV([obj1 v(2:end)],obj2.Lsignature,obj2.REPR);
+
+
+
 %             obj1.Basis=obj2.Basis;
 %             obj1.Lsignature=obj2.Lsignature;
 %             obj1.vec=v;
@@ -24,23 +27,24 @@ function r= minus(obj1,obj2)
             obj2.matrix=obj2.get_matrix_repr();
 
             %obj2=MV(v,obj1.Lsignature);
-        else
+        %else
+        end
              if class(obj1.Lsignature)~=class(obj2.Lsignature)
                 error("Multivectors must belong to the same algebra ")
             end
             if obj1.Lsignature==obj2.Lsignature
-            r=MV();
-            r.Basis=obj1.Basis;
-            r.Lsignature=obj1.Lsignature;
-            r.vec=obj1.vec-obj2.vec;
-            r.Signs=obj1.Signs;
-            r.REPR=obj1.REPR;
-            r.matrix=r.get_matrix_repr();
+                r=MV();
+                r.Basis=obj1.Basis;
+                r.Lsignature=obj1.Lsignature;
+                r.vec=obj1.vec-obj2.vec;
+                r.Signs=obj1.Signs;
+                r.REPR=obj1.REPR;
+                r.matrix=r.get_matrix_repr();
             %r=MV(obj1.vec+obj2.vec,obj1.Lsignature);
-        else
-            error("Objects comming from different algebras cannot be added")
-        end
-        end
+            else
+                error("Objects comming from different algebras cannot be added")
+            end
+        %end
     else
         for i=1:f
             for j=1:c
