@@ -43,8 +43,9 @@ vec=vec+"]";
 M=eval(vec);
 tb=M.'*M;
 CAL=arrayfun(@(x) char(x),tb);
-CAL=strrep(CAL,"( 1 )*","");
-CAL=strrep(CAL,"( -1 )*","-");
+CAL=strrep(CAL,"\( 1 \)\*","");
+CAL=strrep(CAL,"\( -1 \)\*","-");
+CAL=strrep(CAL,"",""); %trange control symbol...
 
 %Now... we have to suplement the table with the extra bases.... first we
 %must create them
@@ -356,7 +357,7 @@ end
 
 for i=1:size(FINAL,1)
     for j=1:size(FINAL,2)
-        if FINAL(i,j)==""
+        if FINAL(i,j)==" "||FINAL(i,j)==""
             FINAL(i,j)="e0";
         end
     end

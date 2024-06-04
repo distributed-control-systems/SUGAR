@@ -301,6 +301,9 @@
                 matrix(1:sc,1:sc)={0}; % The matrix holding the map from the vector to the matrix representation
                 %signs
                 % We must take some care with the signs...
+                matrix_of_coefficients(1:sc,1:sc)=1
+                
+
 
                 for i=1:sc
                     matrix{i,1}=i; % the first coumn is the identity map
@@ -308,22 +311,26 @@
 
                 for j=2:sc %columns
                     for i=1:sc %rows
-                        element=regexprep(sig(i,j),'^-','');
-
-                        if element==sig(i,j)
-                            signo=1;
+                        sgn=regexp(sig(i,j),'^-','match');
+                        element=regexp(sig(i,j),'[(A-Za-z)+\d+]+','match')
+                        if length(element)>1
+                            matrix_of_coefficients(i,j)=str2double(element(1));
+                            base=element(2);
                         else
-                            signo=-1;
+                            base=element;
                         end
-                        
-                        index =find(sig(:,1)==element);
-                        
+                        if isempty(sgn)
+                            signo=matrix_of_coefficients(i,j);
+                        else
+                            signo=-matrix_of_coefficients(i,j);
+                        end
+
+                        index =find(sig(:,1)==base);
                         if isempty(index) 
                             %There is no mapping
                         else
                             matrix{index,j}=signo*i;
                         end
-                        
                     end
                 end
                 % the matrix is complete
