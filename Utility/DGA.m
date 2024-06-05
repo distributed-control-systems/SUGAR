@@ -1,5 +1,5 @@
 function DGA(sig,DTS,options)
-%%KGA(sig, DTS,options) 
+%%DGA(sig, DTS,options) 
 % This function creates a geometric algebra with signature [p,q,r]. 
 % p stands for number of positive basis, q for number of negative basis and
 % r for number of degenerate bases.
@@ -43,8 +43,8 @@ vec=vec+"]";
 M=eval(vec);
 tb=M.'*M;
 CAL=arrayfun(@(x) char(x),tb);
-CAL=strrep(CAL,"\( 1 \)\*","");
-CAL=strrep(CAL,"\( -1 \)\*","-");
+CAL=strrep(CAL,"( 1 )*","");
+CAL=strrep(CAL,"( -1 )*","-");
 CAL=strrep(CAL,"",""); %trange control symbol...
 
 %Now... we have to suplement the table with the extra bases.... first we
@@ -57,7 +57,7 @@ for i=1:DTS(1)
     end
 end
 % and their crossings 
-Extra2=[];
+Extra2=["hola"];
 for k=1:DTS(1)
     C = nchoosek(Extra,k);
     % Get all possible combinations
@@ -76,13 +76,16 @@ for k=1:DTS(1)
             last=nuevo_elemento(end);
         end
         if isempty(regexp(elemento+"","D{"+num2str(DTS(2)+1)+",}", 'once'))
+            if sum(Extra2==elemento)==0
             Extra2=[Extra2 elemento+""];
+            end
+
         end
     end
 end
 
 
-Extra=Extra2;
+Extra=Extra2(2:end);
 len = arrayfun( @(jj) length(char(regexprep(Extra(jj),'\d+','')))+str2double("0."+strrep(Extra(jj),"D","")) ,1:size(Extra,2));
 [ ~, ix ] = sort( len );
 Extra=Extra(ix);
@@ -104,24 +107,39 @@ for i=1:length(Extra) %rows
             num=0;
             mv=char(mv);
             structure=zeros(DTS(1),1);
+            structure2=zeros(DTS(1),2);
+            acum=1;
             for k=1:length(mv)
                 if mv(k)=='D'
                     num=num+1;
                 else
+                    
                     structure(str2double(mv(k)))=structure(str2double(mv(k)))+num;
+                    structure2(str2double(mv(k)),acum)=num;
+                    acum=acum+1;
                     num=0;
                 end
             end
+
             result="";
+            
+            coef=1;
+
             for k=1:DTS(1)
                 if structure(k)>0
-                    result=result+ char(ones(1,structure(k))*'D')+num2str(k);
+                    coef=coef*(    factorial(sum(structure2(k,:)))/(factorial(structure2(k,1))*factorial(structure2(k,2))));
+                    result=  result+ char(ones(1,structure(k))*'D')+num2str(k);
                 end
             end
         %end
-
+           
         if isempty(regexp(result,"D{"+num2str(DTS(2)+1)+",}\d", 'once'))
-            Extra_cayley(i,j)=result;
+            if coef>1
+                num2str(coef)+"*"+result;
+            Extra_cayley(i,j)=num2str(coef)+"*"+result;
+            else
+                Extra_cayley(i,j)=result;
+            end
         else
             Extra_cayley(i,j)="0";
         end
@@ -181,7 +199,13 @@ for i=1:length(Extra_cross)
             else
                 sign="-";
             end
-            result=strrep(sign+result+Extra_cayley(row,column),"--","");
+            % cuidado.... extra_cayley viene con coeficientes.....
+            RR=regexp(Extra_cayley(row,column),"\*",'split');
+            if length(RR)==1
+                result=strrep(sign+result+RR,"--","");
+            else
+                result=strrep(sign+RR(1)+"*"+result+RR(2),"--","");
+            end
         end
 
         Extra_cayley_cross(i,j)=result;
@@ -197,7 +221,7 @@ for i=1:length(CAL(2:end,1))
             e2=regexprep(Extra_cross(j),'D+\d+','');
             e1=CAL(row,1);
             column=CAL(1,:)==e2;
-            %Lets avoid the conmutativity by now and lets see what happens
+            
             start=regexp(Extra_cross(j),'D+\d+');
             text=char(Extra_cross(j));
 
@@ -283,7 +307,12 @@ for i=1:length(Extra_cross)
             if e2=="0"
                 Extra_cayley_cross_23(i,j)="0";
             else
-                Extra_cayley_cross_23(i,j)=e1+e2;
+                RR=regexp(e2,"\*",'split');
+                if length(RR)==1
+                    Extra_cayley_cross_23(i,j)=e1+e2;
+                else
+                    Extra_cayley_cross_23(i,j)=RR(1)+"*"+e1+RR(2);
+                end
             end
             
             % Once again we have to count swaps of basis....
@@ -302,7 +331,15 @@ for i=1:length(Extra_cross)
             if e2=="0"
                 Extra_cayley_cross_32(j,i)="0";
             else
-                Extra_cayley_cross_32(j,i)=strrep(sign+e1+e2,"--","");
+                
+                if length(RR)==1
+                    Extra_cayley_cross_32(j,i)=strrep(sign+e1+e2,"--","");
+                else
+                    Extra_cayley_cross_32(i,j)=strrep(sign+RR(1)+"*"+e1+RR(2),"--","");
+                end
+
+
+                
             end
 
     end
@@ -332,6 +369,11 @@ end
 FINAL=[ CAL                                    [Extra_cross;Extra_cayley_cross_12 ] [Extra;Extra_cayley_cross_13]
         [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross                    Extra_cayley_cross_23 
         [Extra' Extra_cayley_cross_31]          Extra_cayley_cross_32                 Extra_cayley           ];
+
+FINAL=[ CAL                                    [Extra;Extra_cayley_cross_13] [Extra_cross;Extra_cayley_cross_12 ] 
+    [Extra' Extra_cayley_cross_31] Extra_cayley Extra_cayley_cross_32  
+        [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross_23  Extra_cayley_cross                    
+                                             ];
 
 % Don't forget the pseudoscalar!!!!
 I=CAL(1,end);
@@ -376,7 +418,7 @@ copy_matrix=sig(:,:);
 sig(:,end)=copy_matrix(:,pos);
 sig(:,pos)=copy_matrix(:,end);
 
-sig
+
 % We should reorder the table such that everything keeps in its place...
 
 

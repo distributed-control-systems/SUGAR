@@ -301,7 +301,7 @@
                 matrix(1:sc,1:sc)={0}; % The matrix holding the map from the vector to the matrix representation
                 %signs
                 % We must take some care with the signs...
-                matrix_of_coefficients(1:sc,1:sc)=1
+                matrix_of_coefficients(1:sc,1:sc)=1;
                 
 
 
@@ -312,24 +312,29 @@
                 for j=2:sc %columns
                     for i=1:sc %rows
                         sgn=regexp(sig(i,j),'^-','match');
-                        element=regexp(sig(i,j),'[(A-Za-z)+\d+]+','match')
+                        element=regexp(sig(i,j),'[(A-Za-z)+\d+]+','match');
+                        coeff=1;
                         if length(element)>1
-                            matrix_of_coefficients(i,j)=str2double(element(1));
+                            coeff=str2double(element(1));
                             base=element(2);
                         else
                             base=element;
                         end
-                        if isempty(sgn)
-                            signo=matrix_of_coefficients(i,j);
-                        else
-                            signo=-matrix_of_coefficients(i,j);
-                        end
+                        
+
 
                         index =find(sig(:,1)==base);
                         if isempty(index) 
                             %There is no mapping
                         else
-                            matrix{index,j}=signo*i;
+
+                            
+                            matrix{index,j}=i;
+                            if isempty(sgn)
+                            matrix_of_coefficients(index,j)=coeff;
+                        else
+                            matrix_of_coefficients(index,j)=-coeff;
+                        end
                         end
                     end
                 end
@@ -339,12 +344,12 @@
                 catch
                 end
                
-
+                
               Cstamps{end+1}=abs(double(matrix));
               Csignatures{end+1}=sig;
               Cbasis{end+1}=cellstr(sig(:,1)');
     
-              Cmsigns{end+1}=sign(matrix);
+              Cmsigns{end+1}=matrix_of_coefficients;
               Csigns{end+1}=Signs;
               Cbnames{end+1}=cellstr(sig(:,1)');
               
