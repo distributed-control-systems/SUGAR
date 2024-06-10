@@ -8,7 +8,7 @@ classdef (InferiorClasses = {?sym}) MV
         matrix
         Signs
     end
-    properties (GetAccess=private,SetAccess=private)
+    properties (GetAccess=private,SetAccess=public)
         Basis
         vec
     end
