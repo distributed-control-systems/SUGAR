@@ -335,7 +335,7 @@ for i=1:length(Extra_cross)
                 if length(RR)==1
                     Extra_cayley_cross_32(j,i)=strrep(sign+e1+e2,"--","");
                 else
-                    Extra_cayley_cross_32(i,j)=strrep(sign+RR(1)+"*"+e1+RR(2),"--","");
+                    Extra_cayley_cross_32(j,i)=strrep(sign+RR(1)+"*"+e1+RR(2),"--","");
                 end
 
 
@@ -366,9 +366,9 @@ if ~exist('Extra_cayley_cross')
 end
 % Finally we have all the combinations!!!
 % Build the table
-FINAL=[ CAL                                    [Extra_cross;Extra_cayley_cross_12 ] [Extra;Extra_cayley_cross_13]
-        [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross                    Extra_cayley_cross_23 
-        [Extra' Extra_cayley_cross_31]          Extra_cayley_cross_32                 Extra_cayley           ];
+% FINAL=[ CAL                                    [Extra_cross;Extra_cayley_cross_12 ] [Extra;Extra_cayley_cross_13]
+%         [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross                    Extra_cayley_cross_23 
+%         [Extra' Extra_cayley_cross_31]          Extra_cayley_cross_32                 Extra_cayley           ];
 
 FINAL=[ CAL                                    [Extra;Extra_cayley_cross_13] [Extra_cross;Extra_cayley_cross_12 ] 
     [Extra' Extra_cayley_cross_31] Extra_cayley Extra_cayley_cross_32  

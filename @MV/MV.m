@@ -135,6 +135,8 @@ classdef (InferiorClasses = {?sym}) MV
         v= vector(obj)
         r=mrdivide(A,B)
         r=ctranspose(obj)
+        r=select(self,str)
+        r=shift(self,str)
 
         
 
@@ -145,6 +147,8 @@ classdef (InferiorClasses = {?sym}) MV
         mx= get_matrix_repr(self)
         r= to_SUPER_MATRIX(self) 
         rp= parametrize(r,ff)
+        r=regexp(obj,str)
+        r=regexprep(obj,str1,str2)
 
        
     end
