@@ -56,39 +56,50 @@ for i=1:DTS(1)
         
     end
 end
-% and their crossings 
-Extra2=["hola"];
-for k=1:DTS(1)
-    C = nchoosek(Extra,k);
-    % Get all possible combinations
-    [f,c]=size(C);
-    for item=1:f
-        
-        elemento='';
-        last=0;
-        for i=1:k
-            nuevo_elemento=char(C(item,i));
-            if last==nuevo_elemento(end)
-                elemento=[elemento(1:end-1) nuevo_elemento];
-            else
-                elemento=[elemento nuevo_elemento];
-            end
-            last=nuevo_elemento(end);
-        end
-        if isempty(regexp(elemento+"","D{"+num2str(DTS(2)+1)+",}", 'once'))
-            if sum(Extra2==elemento)==0
-            Extra2=[Extra2 elemento+""];
-            end
 
+% and their crossings up to level DTS(2)
+if DTS(2)>1
+    Extra2=Extra;
+    for k=1:DTS(1)
+        C = nchoosek( Extra,DTS(2));
+        % Get all possible combinations
+        [f,c]=size(C);
+        for item=1:f
+
+            elemento='';
+            last=0;
+            for i=1:k
+                nuevo_elemento=char(C(item,i));
+                if last==nuevo_elemento(end)
+                    elemento=[elemento(1:end-1) nuevo_elemento];
+                else
+                    elemento=[elemento nuevo_elemento];
+                end
+                last=nuevo_elemento(end);
+            end
+            if isempty(regexp(elemento+"","D{"+num2str(DTS(2)+1)+",}", 'once'))
+                
+                if (strlength(elemento+"")-strlength(strrep(elemento+"","D","")))<=DTS(2)
+
+                    if sum(Extra2==elemento+"")==0
+                        Extra2=[Extra2 elemento+""];
+                    end
+                end
+
+            end
         end
     end
+else
+    Extra2=Extra;
 end
 
 
-Extra=Extra2(2:end);
-len = arrayfun( @(jj) length(char(regexprep(Extra(jj),'\d+','')))+str2double("0."+strrep(Extra(jj),"D","")) ,1:size(Extra,2));
-[ ~, ix ] = sort( len );
-Extra=Extra(ix);
+
+
+Extra=Extra2;
+% len = arrayfun( @(jj) length(char(regexprep(Extra(jj),'\d+','')))+str2double("0."+strrep(Extra(jj),"D","")) ,1:size(Extra,2));
+% [ ~, ix ] = sort( len );
+% Extra=Extra(ix);
 
 % and its related cayley table ....
 %Extra_cayley=[]
@@ -121,6 +132,12 @@ for i=1:length(Extra) %rows
                 end
             end
 
+            
+
+
+            %%%
+
+
             result="";
             
             coef=1;
@@ -132,17 +149,42 @@ for i=1:length(Extra) %rows
                 end
             end
         %end
-           
+        %y el signo, esto son formas diferenciales....su producto exterior no conmuta?
+        a=Extra(i);
+        b=Extra(j);
+        %if Extra(i)+Extra(j)
+        A=split(a+b,"")';
+        An=double(A(2:end-1));
+        Anan=isnan(An);
+        Af=fillmissing(An,'next');
+        Au=Af(Anan);
+        [As,idx]=sort(Au);
+        % now count permutations
+        counter=0;
+        for kkk=1:length(As)
+            counter=counter+sum(idx(kkk:end)<idx(kkk));
+        end
+           sign=(-1)^counter;
+        if sign==-1
+            s="-";
+        else
+            s="";
+        end
+
         if isempty(regexp(result,"D{"+num2str(DTS(2)+1)+",}\d", 'once'))
             if coef>1
-                num2str(coef)+"*"+result;
-            Extra_cayley(i,j)=num2str(coef)+"*"+result;
+                %num2str(coef)+"*"+result;
+            Extra_cayley(i,j)=s+num2str(coef)+"*"+result;
             else
-                Extra_cayley(i,j)=result;
+                Extra_cayley(i,j)=s+result;
             end
         else
             Extra_cayley(i,j)="0";
         end
+        if sum(Anan)>DTS(2)
+            Extra_cayley(i,j)="0";
+        end
+
     end
 end
 
@@ -152,8 +194,8 @@ Extra_cross=[];
 elements_Extra_cross_cayley={};
 %Every extra element may end up multiplied by any of the already defined basis,
 % so...even more elements to the basis definition 
-for i=1:length(CAL(2:end,1))
-    for j=1:length(Extra)
+for j=1:length(Extra)
+    for i=1:length(CAL(2:end,1))
         Extra_cross=[Extra_cross CAL(i+1,1)+Extra(j)];
         elements_Extra_cross_cayley{end+1}=[CAL(i+1,1),Extra(j)];
     end
@@ -197,17 +239,24 @@ for i=1:length(Extra_cross)
             if s==1
                 sign="";
             else
-                sign="-";
+                sign="";
             end
             % cuidado.... extra_cayley viene con coeficientes.....
             RR=regexp(Extra_cayley(row,column),"\*",'split');
             if length(RR)==1
-                result=strrep(sign+result+RR,"--","");
+                result=sign+result+RR;
+                
             else
                 result=strrep(sign+RR(1)+"*"+result+RR(2),"--","");
             end
         end
-
+        
+        if contains(result,"*-")
+                    result="-"+strrep(result,"*-","*");
+        end
+        
+            
+            
         Extra_cayley_cross(i,j)=result;
     end
 end
@@ -250,7 +299,7 @@ for i=1:length(CAL(2:end,1))
             
             s=(-1)^total;
             if s==-1
-                sign="-";
+                sign="";
             else
                 sign="";
             end
@@ -281,7 +330,7 @@ for i=1:length(CAL(2:end,1))
             if s==1
                 sign="";
             else
-                sign="-";
+                sign="";
             end
             result=CAL(i+1,1)+e2;
 
@@ -326,7 +375,7 @@ for i=1:length(Extra_cross)
             if s==1
                 sign="";
             else
-                sign="-";
+                sign="";
             end
             if e2=="0"
                 Extra_cayley_cross_32(j,i)="0";
@@ -372,17 +421,23 @@ end
 
 FINAL=[ CAL                                    [Extra;Extra_cayley_cross_13] [Extra_cross;Extra_cayley_cross_12 ] 
     [Extra' Extra_cayley_cross_31] Extra_cayley Extra_cayley_cross_32  
-        [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross_23  Extra_cayley_cross                    
-                                             ];
+        [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross_23  Extra_cayley_cross       ] ;
+           
+% CAL                                    
+% Extra
+% Extra_cayley_cross_13
+% Extra_cross
+% Extra_cayley_cross_12 
+% Extra_cayley_cross_31
+% Extra_cayley
+% Extra_cayley_cross_32  
+% Extra_cross
+% Extra_cayley_cross_21 
+% Extra_cayley_cross_23
+% Extra_cayley_cross       
 
-% Don't forget the pseudoscalar!!!!
-I=CAL(1,end);
-for i=1:DTS(1)
-    I=I+"D"+num2str(i);
-end
-I
 
-% Last round, remove those nasty e0
+% Last round, remove those nasty e0 anf 
 for i=2:size(FINAL,1)
     for j=2:size(FINAL,2)
 
@@ -404,19 +459,31 @@ for i=1:size(FINAL,1)
         end
     end
 end
+for i=1:size(FINAL,1)
+    for j=1:size(FINAL,2)
+        
+            FINAL(i,j)=strrep(FINAL(i,j),"--","");
+            FINAL(i,j)=strrep(FINAL(i,j),"-","-1*");
+        
+    end
+end
+
+
+FINAL
 
 sig_o=sig;
 sig=FINAL;
 
+% It could be a good thing to reorder the table
 
-pos=sig(1,:)==I;
-copy_matrix=sig(:,:);
-sig(end,:)=copy_matrix(pos,:);
-sig(pos,:)=copy_matrix(end,:);
-copy_matrix=sig(:,:);
-
-sig(:,end)=copy_matrix(:,pos);
-sig(:,pos)=copy_matrix(:,end);
+% pos=sig(1,:)==I;
+% copy_matrix=sig(:,:);
+% sig(end,:)=copy_matrix(pos,:);
+% sig(pos,:)=copy_matrix(end,:);
+% copy_matrix=sig(:,:);
+% 
+% sig(:,end)=copy_matrix(:,pos);
+% sig(:,pos)=copy_matrix(:,end);
 
 
 % We should reorder the table such that everything keeps in its place...

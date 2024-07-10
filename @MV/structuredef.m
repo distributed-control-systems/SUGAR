@@ -326,11 +326,12 @@
                         index =find(sig(:,1)==base);
                         if isempty(index) 
                             %There is no mapping
+                            
                         else
 
                             
                             matrix{index,j}=i;
-                            if isempty(sgn)
+                        if isempty(sgn)
                             matrix_of_coefficients(index,j)=coeff;
                         else
                             matrix_of_coefficients(index,j)=-coeff;
