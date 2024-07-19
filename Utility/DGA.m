@@ -242,7 +242,8 @@ for i=1:length(Extra_cross)
                 sign="";
             end
             % cuidado.... extra_cayley viene con coeficientes.....
-            RR=regexp(Extra_cayley(row,column),"\*",'split');
+            e2=strrep(Extra_cayley(row,column),"-","-1*");
+            RR=regexp(e2,"\*",'split');
             if length(RR)==1
                 result=sign+result+RR;
                 
@@ -254,10 +255,15 @@ for i=1:length(Extra_cross)
         if contains(result,"*-")
                     result="-"+strrep(result,"*-","*");
         end
-        
+        if contains(result,"--1*")
+                    result=strrep(result,"--1*","");
+        end
+        if contains(result,"-1*")
+                    result=strrep(result,"-1*","-");
+        end
             
             
-        Extra_cayley_cross(i,j)=result;
+        Extra_cayley_cross(i,j)= result;
     end
 end
 
@@ -352,7 +358,9 @@ for i=1:length(Extra_cross)
             %which row do I find e1_remain?
             row=Extra==e1_remain;
              column=j;
-            e2=Extra_cayley(row,column);
+             %Extra_cayley(row,column)
+            e2=strrep(Extra_cayley(row,column),"-","-1*");
+            %e2
             if e2=="0"
                 Extra_cayley_cross_23(i,j)="0";
             else
@@ -422,7 +430,7 @@ end
 FINAL=[ CAL                                    [Extra;Extra_cayley_cross_13] [Extra_cross;Extra_cayley_cross_12 ] 
     [Extra' Extra_cayley_cross_31] Extra_cayley Extra_cayley_cross_32  
         [Extra_cross' Extra_cayley_cross_21 ]   Extra_cayley_cross_23  Extra_cayley_cross       ] ;
-           
+% fprintf("---------------------------------------------")           
 % CAL                                    
 % Extra
 % Extra_cayley_cross_13
@@ -434,7 +442,9 @@ FINAL=[ CAL                                    [Extra;Extra_cayley_cross_13] [Ex
 % Extra_cross
 % Extra_cayley_cross_21 
 % Extra_cayley_cross_23
-% Extra_cayley_cross       
+% Extra_cayley_cross 
+% FINAL
+% fprintf("---------------------------------------------")           
 
 
 % Last round, remove those nasty e0 anf 
@@ -463,7 +473,9 @@ for i=1:size(FINAL,1)
     for j=1:size(FINAL,2)
         
             FINAL(i,j)=strrep(FINAL(i,j),"--","");
-            FINAL(i,j)=strrep(FINAL(i,j),"-","-1*");
+            %FINAL(i,j)=strrep(FINAL(i,j),"-","-1*");
+            FINAL(i,j)=strrep(FINAL(i,j),"-e","-1*e");
+            FINAL(i,j)=strrep(FINAL(i,j),"-D","-1*D");
         
     end
 end
