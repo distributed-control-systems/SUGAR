@@ -159,6 +159,7 @@ There are two ways to declare a multi-vector, the first one is to provide the co
 	 ( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
 This way of declaring multivectors is usefull in some cases, but it turns out to be dificult for big algebras.	 
 The second one is to use a shorthand notation after calling the basis function
+	
 	>> basis([2,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
