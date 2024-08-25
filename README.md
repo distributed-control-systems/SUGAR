@@ -111,6 +111,7 @@ Which can be used in order to compose vectors or multivectors. Let's inspect the
 	( 1 )e12
 
 you can operate thesse variables in different ways
+
 	>> e1*e2
 
 	ans = 
@@ -132,6 +133,7 @@ you can operate thesse variables in different ways
 
 	( 1 )e2+( 1 )e12
 And the algebra basic properties behave as expected
+
 	>> e1*e1
 
 	ans = 
