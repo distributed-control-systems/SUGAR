@@ -1,7 +1,7 @@
 ![alt "Image of the workspace after executing the basis([2,0,0]) command"](./images/sugar.svg "Image of the workspace after executing the basis([2,0,0]) command")
 
 # SUGAR
-Wellcome to sugar lib, sugar stands for **Symbolic** and **User-friendly** Geometric Algebra Routines.
+Wellcome to sugar lib, sugar stands for **Symbolic** and **User-friendly** Geometric Algebra Routines. This paper comes with an accompanying paper (doi of the preprint version at arXiv: [2403.16634](https://arxiv.org/abs/2403.16634))
 
 Sugar is an open source engineer-friendly toolbox for Matlab licensed under the MIT License that allows computing with geometric algebras (GAs), and in particular, it supports symbolic computations, and both numeric and symbolic computations are available in high-dimensional GAs. SUGAR is specially targeted to be used in engineering applications. To this end, it has been designed to represent the geometric elements and transformations of the two and three- dimensional projective and conformal geometric algebras in an intuitive way that matches the computations found in the literature. In addition, it handles numerically and symbolically functions of multivectors such as, for instance, the exponential, logarithm, sinus and cosinus functions, among others. These advantages allow the use of SUGAR in different engineering fields such as robotics, control systems, and power electronics.
 
