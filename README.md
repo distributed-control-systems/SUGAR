@@ -61,12 +61,12 @@ If we want to create a basis for complex numbers
 	Declaring G0 for grade slicing as (1)e0 
 	Declaring G1 for grade slicing as (1)e1 
 
-Or for instance, quaternion-based algebra
+Or, for instance, quaternion-based algebra
 
-	>> GA([2,0,0],"verbose")
+	>> GA([0,2,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
-	Declaring e1 such that e1·e1=1
-	Declaring e2 such that e2·e2=1
+	Declaring e1 such that e1·e1=-1
+	Declaring e2 such that e2·e2=-1
 	Declaring e12 such that e12·e12=-1
 	
 	Declaring G0 for grade slicing as (1)e0 
@@ -111,6 +111,7 @@ Which can be used in order to compose vectors or multivectors. Let's inspect the
 	( 1 )e12
 
 you can operate thesse variables in different ways
+
 	>> e1*e2
 
 	ans = 
@@ -132,6 +133,7 @@ you can operate thesse variables in different ways
 
 	( 1 )e2+( 1 )e12
 And the algebra basic properties behave as expected
+
 	>> e1*e1
 
 	ans = 
@@ -159,6 +161,7 @@ There are two ways to declare a multi-vector, the first one is to provide the co
 	 ( 1 )e0+( 1 )e1+( 2 )e2+( 3 )e12
 This way of declaring multivectors is usefull in some cases, but it turns out to be dificult for big algebras.	 
 The second one is to use a shorthand notation after calling the basis function
+	
 	>> basis([2,0,0],"verbose")
 	Declaring e0 as syntatic sugar, e0=1
 	Declaring e1 such that e1·e1=1
