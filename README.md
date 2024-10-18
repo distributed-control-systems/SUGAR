@@ -785,10 +785,3 @@ which should be interpreted by a latex engine as
 
 $\left[\begin{array}{cc}\left(a\right)e_{1}  &  \left(1\right)e_{1}+\left(b+c\right)e_{2}  \\ \left(c\right)e_{2}  &  \left(-a\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]$
 
-
-
-**DISCLAIMER**
-
-SUGAR was created to fulfill my personal requirements for symbolic geometric algebra computations, which may not align with your specific needs. If you require additional functionality that is not currently implemented, I encourage you to implement it yourself. Please avoid burdening me with your specific requirements, as I am uninterested and unwilling to invest any of my time in solving your problems, so, you are advised. If, for any reason, you implement new functionality to the library, I encourage you to publish them, as I have done for you. 
- 
-I provide this introduction to ensure transparency about the library's capabilities. My intention is to present the information in an unbiased manner, allowing you to make an informed decision about whether it aligns with your requirements. We kindly ask you to read the accompanying documentation to evaluate if the library is suitable for your specific needs.

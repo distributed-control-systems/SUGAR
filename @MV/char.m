@@ -52,15 +52,26 @@ function r=char(obj1)
     else
         
         % TODO 
-        r="";
-%         for i=1:f
-%             for j=1:c
-%                 r=obj1(i,j).str();
-%                 fprintf(r)
-%                 fprintf("    ");
-%             end
-%             fprintf("\n");
-%         end
+        r="[";
+% We have a matrix of MV
+        % Let's go one by one printing its value
+        % TODO we do not respect column sizes here, as a result the output
+        % is really bloated for MV of real diferent sizes
+        for i=1:f
+            for j=1:c
+                r=r+obj1(i,j).char();
+                if j<c
+                    r=r+",";
+                end
+                %fprintf(r)
+                %fprintf("    ");
+            end
+            if i<f
+                r=r+";";
+            end
+            %fprintf("\n");
+        end
+        r=r+"]";
     end
 end
 

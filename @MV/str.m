@@ -36,9 +36,9 @@ function r= str(obj1)
         for k=1:length(obj1.vec)
             if obj1.vec(k)~=0
                 if class(obj1.vec(k))=="double"
-                    r=r+"+("+obj1.vec(k)+")[\b"+obj1.Basis{k}+"]\b ";%e"+strrep(obj1.Basis{k},",","");
+                    r=r+"+("+obj1.vec(k)+")*[\b"+obj1.Basis{k}+"]\b ";%e"+strrep(obj1.Basis{k},",","");
                 else
-                    r=r+"+("+char(obj1.vec(k))+")[\b"+obj1.Basis{k}+"]\b "; %e"+strrep(obj1.Basis{k}+"</strong>",",","");
+                    r=r+"+("+char(obj1.vec(k))+")*[\b"+obj1.Basis{k}+"]\b "; %e"+strrep(obj1.Basis{k}+"</strong>",",","");
                 end
             end
         end
