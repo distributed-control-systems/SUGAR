@@ -8,6 +8,12 @@ function r = GAsym(name, sig)
     % Initialize a multivector 'b' using the function MV 
     % The multivector is created with a dimension of 2^sum(sig) 
     % and 'sig' as additional parameters.
+    nargin
+    if nargin==1
+        e=evalin("caller","e0");
+        sig=e.Lsignature;
+    end
+
     b = MV(ones(1, 2^sum(sig)), sig);
     
     % Get the basis names from the multivector 'b'
