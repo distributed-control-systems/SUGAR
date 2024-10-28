@@ -30,8 +30,7 @@ abc2GA=@(ra,rb,rc)         3/2*(ra+rb+rc)/3 * e0 ...
                             + 3/2*(ra-rc)/3 * e1...
                  + sqrt(3)/2*(ra-2*rb+rc)/3 * e2...
                   - sqrt(3)/2*(ra+rb+rc)/3 * e12;
-% Truncate big numbers when working with symbolic variables
-truncate=@(x)MV(vpa(x.vector,2),x.Lsignature);
+
 
 %% Modeling Parameters in GA
 
@@ -88,15 +87,15 @@ disp('========================================== ')
 %% Simulation 
 tfinal=0.1;
 t=linspace(0,tfinal,1e2);
-
 f=50;
 w=2*pi*f;
-vthafun=cos(w*t);
-vthbfun=sin(w*t);
 
-valphafun=va_c*cos(w*t)+va_s*sin(w*t);
-vbetafun=vb_c*cos(w*t)+vb_s*sin(w*t);
+% Transform components into functions in order to perform the final plot
+valphafun=matlabFunction(v2(e0));
+vbetafun=matlabFunction(v2(e2));
 
+valpha_data=valphafun(t,w);
+vbeta_data=vbetafun(t,w);
 
 %% Simulations
 c=2/3;
