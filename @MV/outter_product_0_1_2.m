@@ -1,4 +1,30 @@
 function r=outter_product_0_1_2(a,b)
+
+
+% OUTTER_PRODUCT_0_1_2 - Computes the outter product of two multivectors in the (0,1,2) algebra.
+%
+% Syntax:
+%   r = outter_product_0_1_2(a, b)
+%
+% Description:
+%   This function calculates the outter product of two multivectors in the
+%   (0,1,2) algebra, where each input is represented with a specific number of components.
+%   It returns the result as an array of specified length.
+%
+% Input:
+%   a - (MV) A multivector in the (0,1,2) algebra with a specific number of components. Accessed as a.vector.
+%   b - (MV) A multivector in the (0,1,2) algebra with a specific number of components. Accessed as b.vector.
+%
+% Output:
+%   r - (1xN array) The result of the inner product, represented as an array of specified length.
+%
+% Example:
+%   a = MV([...], [0,1,2]);
+%   b = MV([...], [0,1,2]);
+%   r = outter_product_0_1_2(a.vector, b.vector);
+%   disp(r); % Displays the result
+
+
    pCell = num2cell(a);
    [a1, a2, a3, a4, a5, a6, a7, a8]=pCell{:};
    pCell = num2cell(b);
@@ -12,4 +38,5 @@ function r=outter_product_0_1_2(a,b)
       a3*b4 - a4*b3 + a1*b7 + a7*b1,...
       a1*b8 + a2*b7 - a3*b6 + a4*b5 + a5*b4 - a6*b3 + a7*b2 + a8*b1];
 end
+
 

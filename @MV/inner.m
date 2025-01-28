@@ -1,4 +1,36 @@
 function r= inner(obj1,obj2)
+
+
+% INNER - Computes the inner product of two multivectors.
+%
+% Syntax:
+%   r = inner(obj1, obj2)
+%   r=obj1.*obj2
+%
+% Description:
+%   This function calculates the inner product of two multivectors
+%   that belong to the same algebra. It utilizes both precoded
+%   computations for efficiency with smaller dimensions and a
+%   manual computation approach for larger dimensions.
+%
+% Input:
+%   obj1 - (MV) The first multivector involved in the inner product.
+%   obj2 - (MV) The second multivector involved in the inner product.
+%
+% Output:
+%   r - (MV) The resulting multivector after applying the inner product.
+%
+% Example:
+%   mv1 = MV([1, 2, 3], [1, 1, 0]);
+%   mv2 = MV([4, 5, 6], [1, 1, 0]);
+%   inner_product_result = inner(mv1, mv2);  % Computes the inner product
+%
+% Note:
+%   The function checks if both multivectors belong to the same algebra
+%   and performs the inner product calculation based on the algebra's
+%   structure. It also handles special cases for conformal geometric algebra (CGA).
+
+
     %Inner product implementation
     if obj1.Lsignature==obj2.Lsignature
         n=sum(obj1.Lsignature);

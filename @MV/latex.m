@@ -1,4 +1,34 @@
 function r= latex(obj1)
+
+
+% LATEX - Generates the LaTeX representation of a multivector.
+%
+% Syntax:
+%   r = latex(obj1)
+%
+% Description:
+%   This function creates a LaTeX string representation of a multivector
+%   or a matrix of multivectors. It is designed to facilitate easy
+%   inclusion of multivector representations in LaTeX documents.
+%
+% Input:
+%   obj1 - (MV) The multivector object for which the LaTeX representation
+%           is to be generated.
+%
+% Output:
+%   r - (string) The LaTeX representation of the multivector.
+%
+% Example:
+%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   latex_representation = latex(mv);  % Gets the LaTeX representation
+%   disp(latex_representation); % Displays the LaTeX string
+%
+% Note:
+%   The function checks whether the input is a single multivector or a
+%   matrix of multivectors and generates the corresponding LaTeX format
+%   accordingly.
+
+
     % Nice function to get the Latex representation of a MV. It save some
     % time tiping in a document
     [f,c]=size(obj1);
@@ -33,5 +63,6 @@ function r= latex(obj1)
         r=r+"\end{array}\right]";
     end
 end
+
 
 

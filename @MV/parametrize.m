@@ -1,4 +1,38 @@
 function r=parametrize(obj,ff)
+
+
+% PARAMETRIZE - Parametrizes the vector of a multivector, especially useful
+% for handling multivectors with complex components.
+%
+% Syntax:
+%   r = parametrize(obj, ff)
+%
+% Description:
+%   This function checks whether the components of the multivector are
+%   complex and parametrizes them accordingly. If the vector has an imaginary
+%   part, it creates a symbolic multivector `Z` such that `Z*Z + 1 = 0`.
+%   The result is returned as a new multivector. This is typically useful
+%   when solving for complex-valued solutions in the algebra.
+%
+% Input:
+%   obj - (MV) A multivector object to be parametrized.
+%   ff - (Function) A function handle in string format that represents the
+%        function to be parametrized.
+%
+% Output:
+%   r - (MV) The parametrized multivector.
+%
+% Example:
+%   mv = MV([1, 2, 3, 4], [2, 0]);
+%   result = parametrize(mv, '@(x,x_)log(x)');
+%   disp(result);  % Displays the parametrized multivector
+%
+% Note:
+%   This function supports both real and symbolic values for the multivector's
+%   components. If the imaginary part is present, the function creates a symbolic
+%   representation for the solution.
+
+
 [f,c]=size(obj);
 if f*c==1
 if class(imag(obj.vector))=="double"

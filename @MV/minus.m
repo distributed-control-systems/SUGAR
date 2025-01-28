@@ -1,4 +1,34 @@
 function r= minus(obj1,obj2)
+
+
+% MINUS - Subtracts one multivector from another.
+%
+% Syntax:
+%   r = minus(obj1, obj2)
+%
+% Description:
+%   This function performs subtraction between two multivectors or
+%   between a multivector and a scalar. If either operand is a scalar,
+%   it is converted to a multivector before performing the subtraction.
+%
+% Input:
+%   obj1 - (MV or scalar) The first multivector or scalar.
+%   obj2 - (MV or scalar) The second multivector or scalar to be subtracted.
+%
+% Output:
+%   r - (MV) The resulting multivector after subtraction.
+%
+% Example:
+%   mv1 = MV([3, 5], [0, 1, 0]);
+%   mv2 = MV([1, 2], [0, 1, 0]);
+%   result = minus(mv1, mv2);  % Subtracts mv2 from mv1
+%   disp(result); % Displays the resulting multivector
+%
+% Note:
+%   The function ensures that both multivectors belong to the same algebra
+%   and handles conversions of scalars to multivectors as necessary.
+
+
     [f,c]=size(obj1);
     if f==1 && c==1
         if class(obj1)=="double" || class(obj1)=="sym"
@@ -46,5 +76,6 @@ function r= minus(obj1,obj2)
         end
     end
 end
+
 
 

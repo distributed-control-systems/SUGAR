@@ -1,4 +1,30 @@
 function r=inner_product_1_0_3(a,b)
+
+
+% INNER_PRODUCT_1_0_3 - Computes the inner product of two multivectors in the (1,0,3) algebra.
+%
+% Syntax:
+%   r = inner_product_1_0_3(a, b)
+%
+% Description:
+%   This function calculates the inner product of two multivectors in the
+%   (1,0,3) algebra, where each input is represented with a specific number of components.
+%   It returns the result as an array of specified length.
+%
+% Input:
+%   a - (MV) A multivector in the (1,0,3) algebra with a specific number of components. Accessed as a.vector.
+%   b - (MV) A multivector in the (1,0,3) algebra with a specific number of components. Accessed as b.vector.
+%
+% Output:
+%   r - (1xN array) The result of the inner product, represented as an array of specified length.
+%
+% Example:
+%   a = MV([...], [1, 0, 3]);
+%   b = MV([...], [1, 0, 3]);
+%   r = inner_product_1_0_3(a.vector, b.vector);
+%   disp(r); % Displays the result
+
+
    pCell = num2cell(a);
    [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16]=pCell{:};
    pCell = num2cell(b);
@@ -20,4 +46,5 @@ function r=inner_product_1_0_3(a,b)
       a1*b15 + a15*b1 + a2*b16 - a16*b2,...
       a1*b16 + a16*b1];
 end
+
 

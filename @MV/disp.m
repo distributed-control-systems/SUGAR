@@ -1,4 +1,30 @@
 function disp(obj1)
+
+
+% DISP - Displays the value of a multivector on the screen.
+%
+% Syntax:
+%   disp(obj1)
+%
+% Description:
+%   This function is required by MATLAB to print the value of a multivector
+%   object on the screen. It handles the representation of the multivector
+%   and considers any necessary basis changes for CGA (Conformal Geometric
+%   Algebra) objects before displaying them.
+%
+% Input:
+%   obj1 - (MV) The multivector object to be displayed.
+%
+% Example:
+%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   disp(mv); % Displays the multivector's value
+%
+% Note:
+%   The function checks whether the object is a single multivector or a
+%   matrix of multivectors and processes accordingly. It uses a dedicated
+%   printing method for CGA objects.
+
+
     % This is the function required by matlab to print on the screen the
     % value of a class.
     
@@ -64,4 +90,5 @@ function disp(obj1)
         end
     end
 end
+
 

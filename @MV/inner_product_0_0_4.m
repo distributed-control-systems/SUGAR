@@ -1,4 +1,30 @@
 function r=inner_product_0_0_4(a,b)
+
+
+% INNER_PRODUCT_0_0_4 - Computes the inner product of two multivectors in the (0,0,4) algebra.
+%
+% Syntax:
+%   r = inner_product_0_0_4(a, b)
+%
+% Description:
+%   This function calculates the inner product of two multivectors in the
+%   (0,0,4) algebra, where each input is represented with sixteen components.
+%   It returns the result as a sixteen-element array.
+%
+% Input:
+%   a - (1x16 array) A multivector in the (0,0,4) algebra with sixteen components.
+%   b - (1x16 array) A multivector in the (0,0,4) algebra with sixteen components.
+%
+% Output:
+%   r - (1x16 array) The result of the inner product, represented as a sixteen-element array.
+%
+% Example:
+%   a = MV([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [0, 0, 4]);
+%   b = MV([16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [0, 0, 4]);
+%   r = inner_product_0_0_4(a.vector, b.vector);
+%   disp(r); % Displays the result
+
+
    pCell = num2cell(a);
    [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16]=pCell{:};
    pCell = num2cell(b);
@@ -20,4 +46,5 @@ function r=inner_product_0_0_4(a,b)
       a1*b15 + a15*b1,...
       a1*b16 + a16*b1];
 end
+
 

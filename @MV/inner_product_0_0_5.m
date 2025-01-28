@@ -1,4 +1,32 @@
 function r=inner_product_0_0_5(a,b)
+
+
+% INNER_PRODUCT_0_0_5 - Computes the inner product of two multivectors in the (0,0,5) algebra.
+%
+% Syntax:
+%   r = inner_product_0_0_5(a, b)
+%
+% Description:
+%   This function calculates the inner product of two multivectors in the
+%   (0,0,5) algebra, where each input is represented with thirty-two components.
+%   It returns the result as a thirty-two-element array.
+%
+% Input:
+%   a - (MV) A multivector in the (0,0,5) algebra with thirty-two components. Accessed as a.vector.
+%   b - (MV) A multivector in the (0,0,5) algebra with thirty-two components. Accessed as b.vector.
+%
+% Output:
+%   r - (1x32 array) The result of the inner product, represented as a thirty-two-element array.
+%
+% Example:
+%   a = MV([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, ...
+%            17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], [0, 0, 5]);
+%   b = MV([32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, ...
+%            16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [0, 0, 5]);
+%   r = inner_product_0_0_5(a.vector, b.vector);
+%   disp(r); % Displays the result
+
+
    pCell = num2cell(a);
    [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32]=pCell{:};
    pCell = num2cell(b);
@@ -36,4 +64,5 @@ function r=inner_product_0_0_5(a,b)
       a1*b31 + a31*b1,...
       a1*b32 + a32*b1];
 end
+
 

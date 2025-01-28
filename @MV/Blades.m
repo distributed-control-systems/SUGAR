@@ -1,4 +1,34 @@
 function B= Blades(sig)
+
+
+% BLADES - Computes and returns the blade elements associated with a given algebra.
+%
+% Syntax:
+%   B = Blades(sig)
+%
+% Description:
+%   This static function generates and retrieves the blade elements of the
+%   multivector's algebra represented by the signature `sig`. The blade selection
+%   is done using the matrix representation of the multivector, employing
+%   pointwise multiplication.
+%
+% Input:
+%   sig - (1x3 array) The signature of the algebra in the form [p, q, r],
+%         where p, q, and r denote the dimensionality of the algebra.
+%
+% Output:
+%   B - (cell array) A cell array containing the blade elements corresponding
+%       to the given signature.
+%
+% Example:
+%   blades = Blades([2, 1, 0]);
+%   disp(blades); % Displays the blade elements for the specified algebra
+%
+% Note:
+%   The function utilizes persistent variables to cache the computed blades
+%   for each signature. This avoids redundant calculations in subsequent calls.
+
+
     % Special (STATIC) function to select the elements of a matrix representation
     % Given a matrix representation of a MV, the blade selection can be
     % done using thesse matrices , just point wise multiplication
@@ -61,5 +91,6 @@ function B= Blades(sig)
     % Return the blade
     B=blades{sig(1)+1,sig(2)+1,sig(3)+1};
 end
+
 
 

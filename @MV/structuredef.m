@@ -1,4 +1,51 @@
     function [Basis,Stamp,Msigns,Signs]= structuredef(sig)
+
+
+% STRUCTUREDEF Define the algebraic structure for multivectors.
+%
+% SYNTAX:
+%   [Basis, Stamp, Msigns, Signs] = structuredef(sig)
+%
+% DESCRIPTION:
+%   This function initializes and stores the structure of possible
+%   geometric algebra (GA) or conformal geometric algebra (CGA)
+%   configurations in persistent variables for efficient reuse.
+%   It handles both p,q,r-defined algebras and Cayley table-defined algebras.
+%
+% INPUT:
+%   sig : A signature vector [p, q, r] for GA or a Cayley table matrix
+%         defining the algebra structure.
+%
+% OUTPUT:
+%   Basis  : Cell array containing the basis elements of the algebra.
+%   Stamp  : Matrix representation for transforming multivectors.
+%   Msigns : Matrix of signs representing multiplication rules.
+%   Signs  : Vector of squared blade values for the basis elements.
+%
+% NOTES:
+%   - For p,q,r algebras, the basis and matrix representation are
+%     constructed from the signature.
+%   - For Cayley table-defined algebras, the basis and matrix representation
+%     are derived directly from the table.
+%   - The function uses persistent variables to store precomputed data,
+%     ensuring efficiency during repeated calls.
+%
+% EXAMPLES:
+%   % Define a p,q,r algebra
+%   [Basis, Stamp, Msigns, Signs] = structuredef([3, 2, 1]);
+%
+%   % Define an algebra using a Cayley table
+%   cayleyTable = ["1" "e1" "e2"; "e1" "-1" "e12"; "e2" "-e12" "1"];
+%   [Basis, Stamp, Msigns, Signs] = structuredef(cayleyTable);
+%
+% REFERENCES:
+%   - Geometric Algebra for Physicists, Chris Doran and Anthony Lasenby
+%   - Applications of Clifford Algebras in Engineering, Mathematics,
+%     and Physics
+%
+% See also MV, CGA_matrix
+
+
         % THIS IS THE HEART OF SUGAR
         % All the structure is set up in this static function. We save all
         % posible algebras structures in static variables. In this way, every
@@ -358,4 +405,5 @@
             error("The provided information is not a p,q,r algebra nor a Cayley table")
         end
     end
+
 

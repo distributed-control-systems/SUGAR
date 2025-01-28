@@ -1,4 +1,32 @@
 function r=char(obj1)
+
+
+% CHAR - Custom implementation of the char method for displaying multivector values.
+%
+% Syntax:
+%   r = char(obj1)
+%
+% Description:
+%   This function is required by MATLAB to print the value of a multivector
+%   (MV) object on the screen. It handles the representation of the multivector
+%   and considers the basis change for CGA (Conformal Geometric Algebra)
+%   objects before displaying them.
+%
+% Input:
+%   obj1 - (MV) The multivector object to be converted to a string representation.
+%
+% Output:
+%   r - (string) The string representation of the multivector.
+%
+% Example:
+%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   disp(char(mv)); % Displays the multivector's value
+%
+% Note:
+%   The function takes care to apply any necessary transformations if the
+%   multivector is represented in CGA.
+
+
     % This is the function required by matlab to print on the screen the
     % value of a class.
     
@@ -74,4 +102,5 @@ function r=char(obj1)
         r=r+"]";
     end
 end
+
 
