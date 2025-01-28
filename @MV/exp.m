@@ -1,4 +1,32 @@
 function r= exp(self)
+
+
+% EXP - Computes the exponential of a multivector.
+%
+% Syntax:
+%   r = exp(self)
+%
+% Description:
+%   This function calculates the exponential of a multivector using its
+%   matrix representation. It handles both single multivectors and matrices
+%   of multivectors, utilizing matrix exponentiation methods.
+%
+% Input:
+%   self - (MV) The multivector object for which the exponential is to be computed.
+%
+% Output:
+%   r - (MV) The resulting multivector after applying the exponential function.
+%
+% Example:
+%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   exp_mv = exp(mv);  % Computes the exponential of the multivector
+%   disp(exp_mv); % Displays the resulting multivector
+%
+% Note:
+%   This function does not use the "fun" application method because
+%   the exponential function is computed directly using matrix exponentiation.
+
+
     % Exponential function of a MV
     % This is the only function that is not asking for "fun" application
     if class(self)~="MV"
@@ -19,4 +47,5 @@ function r= exp(self)
         end
     end
 end
+
 

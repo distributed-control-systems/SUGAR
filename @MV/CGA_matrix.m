@@ -1,4 +1,36 @@
 function [M,new_basis_names]= CGA_matrix(sig)
+
+
+% CGA_MATRIX - Computes the change of basis matrix for Conformal Geometric Algebra (CGA).
+%
+% Syntax:
+%   [M, new_basis_names] = CGA_matrix(sig)
+%
+% Description:
+%   This function generates a change of basis matrix for the geometric algebra
+%   specified by the signature `sig`. It computes how to transform the standard
+%   basis into the CGA basis, allowing for representation in the conformal
+%   framework.
+%
+% Input:
+%   sig - (1x3 array) The signature of the algebra in the form [p, q, r],
+%         where p, q, and r denote the dimensionality of the algebra.
+%
+% Output:
+%   M - (matrix) The change of basis matrix that transforms the standard basis
+%       into the CGA basis.
+%   new_basis_names - (cell array) The names of the new basis elements in the CGA basis.
+%
+% Example:
+%   [M, labels] = CGA_matrix([3, 1, 0]);
+%   disp(M); % Displays the change of basis matrix
+%   disp(labels); % Displays the names of the new basis
+%
+% Note:
+%   The function uses persistent variables to cache previously computed results
+%   for efficiency, avoiding redundant calculations.
+
+
     % So , how do you perform a basis change in a geometric algebra?
     % Maybe there are more clever ways to do this, but I got here after
     % hours thinking, it works.
@@ -126,4 +158,5 @@ function [M,new_basis_names]= CGA_matrix(sig)
     M=Ms{sig(1)+1,sig(2)+1,sig(3)+1};
     new_basis_names=labels{sig(1)+1,sig(2)+1,sig(3)+1};
 end
+
 

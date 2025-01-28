@@ -1,4 +1,29 @@
 function asCGA(obj)
+
+
+% AS_CGA - Displays the multivector in the CGA (Conformal Geometric Algebra) basis.
+%
+% Syntax:
+%   asCGA(obj)
+%
+% Description:
+%   This function performs a basis change to represent the multivector (MV)
+%   in the conformal geometric algebra basis. It computes the necessary
+%   transformation matrix and the corresponding basis labels, and then
+%   displays the multivector in this new basis.
+%
+% Input:
+%   obj - (MV) The multivector object that is to be displayed in the CGA basis.
+%
+% Example:
+%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   mv.asCGA(); % Displays the multivector in the CGA basis
+%
+% Note:
+%   The function checks if the object is a single multivector or an array of
+%   multivectors and processes accordingly.
+
+
     % This function performs a basis change in order to diplay the MV in
     % cga basis
 
@@ -56,5 +81,6 @@ function asCGA(obj)
     end
 
 end
+
 
 

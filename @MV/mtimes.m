@@ -1,4 +1,35 @@
 function r= mtimes(obj1,obj2)
+
+
+% MTIMES - Multiplies two multivectors or a multivector with a scalar.
+%
+% Syntax:
+%   r = mtimes(obj1, obj2)
+%
+% Description:
+%   This function performs multiplication between two multivectors or
+%   between a multivector and a scalar. It can handle different types
+%   of multiplication, including multivector-multivector,
+%   multivector-scalar, and scalar-multivector.
+%
+% Input:
+%   obj1 - (MV or scalar) The first operand, which can be a multivector or a scalar.
+%   obj2 - (MV or scalar) The second operand, which can be a multivector or a scalar.
+%
+% Output:
+%   r - (MV) The resulting multivector after multiplication.
+%
+% Example:
+%   mv1 = MV([1, 2], [1, 0]);
+%   mv2 = MV([3, 4], [1, 0]);
+%   result = mtimes(mv1, mv2);  % Multiplies mv1 by mv2
+%   disp(result); % Displays the resulting multivector
+%
+% Note:
+%   The function checks the types of the inputs and applies the appropriate
+%   multiplication logic based on their classes and dimensions.
+
+
     % Determine product kind,
     % Matrix-Matrix,Matrix-scalar,scalar-Matrix, scalar-scalar
     [f1,c1]=size(obj1);
@@ -107,4 +138,5 @@ function r= mtimes(obj1,obj2)
         end
     end
 end
+
 

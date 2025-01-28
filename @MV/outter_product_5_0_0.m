@@ -1,4 +1,30 @@
 function r=outter_product_5_0_0(a,b)
+
+
+% OUTTER_PRODUCT_5_0_0 - Computes the outter product of two multivectors in the (5,0,0) algebra.
+%
+% Syntax:
+%   r = outter_product_5_0_0(a, b)
+%
+% Description:
+%   This function calculates the outter product of two multivectors in the
+%   (5,0,0) algebra, where each input is represented with a specific number of components.
+%   It returns the result as an array of specified length.
+%
+% Input:
+%   a - (MV) A multivector in the (5,0,0) algebra with a specific number of components. Accessed as a.vector.
+%   b - (MV) A multivector in the (5,0,0) algebra with a specific number of components. Accessed as b.vector.
+%
+% Output:
+%   r - (1xN array) The result of the inner product, represented as an array of specified length.
+%
+% Example:
+%   a = MV([...], [5,0,0]);
+%   b = MV([...], [5,0,0]);
+%   r = outter_product_5_0_0(a.vector, b.vector);
+%   disp(r); % Displays the result
+
+
    pCell = num2cell(a);
    [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32]=pCell{:};
    pCell = num2cell(b);
@@ -36,4 +62,5 @@ function r=outter_product_5_0_0(a,b)
       a11*b16 - a12*b15 + a13*b14 + a14*b13 - a15*b12 + a16*b11 + a3*b26 - a4*b25 + a5*b24 - a6*b23 + a23*b6 - a24*b5 + a25*b4 - a26*b3 + a1*b31 + a31*b1,...
       a1*b32 + a2*b31 - a3*b30 + a4*b29 - a5*b28 + a6*b27 + a7*b26 - a8*b25 + a9*b24 - a10*b23 + a11*b22 - a12*b21 + a13*b20 + a14*b19 - a15*b18 + a16*b17 + a17*b16 - a18*b15 + a19*b14 + a20*b13 - a21*b12 + a22*b11 - a23*b10 + a24*b9 - a25*b8 + a26*b7 + a27*b6 - a28*b5 + a29*b4 - a30*b3 + a31*b2 + a32*b1];
 end
+
 

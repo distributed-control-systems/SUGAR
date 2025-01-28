@@ -1,4 +1,33 @@
 function r= plus(obj1,obj2)
+
+
+% PLUS - Overload of addition for multivectors (MV) or MV matrices.
+%
+% Syntax:
+%   r = obj1 + obj2
+%
+% Description:
+%   This function overloads the addition operator for multivectors (MV)
+%   or matrices of MVs. It supports addition of scalars to MVs, MVs to MVs,
+%   and handles the case where the MVs belong to different algebras.
+%
+% Input:
+%   obj1 - (MV) The first multivector to add.
+%   obj2 - (MV) The second multivector to add.
+%
+% Output:
+%   r - (MV) The resulting multivector after addition.
+%
+% Example:
+%   mv1 = MV([1, 2, 3, 4], [2, 0]);
+%   mv2 = MV([4, 5, 6, 7], [2, 0]);
+%   mv3 = mv1 + mv2;  % Adds two multivectors.
+%
+% Notes:
+%   - This function also supports the addition of scalars to MVs.
+%   - If the multivectors belong to different algebras, an error will be raised.
+
+
     % Overload of addition of MV or MV matrizes
     % Get the size
     [f,c]=size(obj1);
@@ -61,4 +90,5 @@ function r= plus(obj1,obj2)
         end
     end
 end
+
 

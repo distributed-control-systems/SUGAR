@@ -1,4 +1,35 @@
 function r= from_SUPER_MATRIX(self,M)
+
+
+% FROM_SUPER_MATRIX - Recovers the matrix of multivectors from a supermatrix representation.
+%
+% Syntax:
+%   r = from_SUPER_MATRIX(self, M)
+%
+% Description:
+%   This function reconstructs a matrix of multivectors from its corresponding
+%   supermatrix representation. The function iterates over the elements of the
+%   supermatrix and builds the multivector matrix accordingly.
+%
+% Input:
+%   self - (MV) The multivector object representing the original structure.
+%   M - (matrix) The supermatrix that contains the expanded representation
+%       of the multivectors.
+%
+% Output:
+%   r - (MV) The reconstructed matrix of multivectors.
+%
+% Example:
+%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   superMatrix = to_SUPER_MATRIX(mv);  % Convert to supermatrix
+%   recovered_mv = from_SUPER_MATRIX(mv, superMatrix);  % Rebuild multivector matrix
+%   disp(recovered_mv); % Displays the reconstructed multivector matrix
+%
+% Note:
+%   The function assumes that the dimensions of the supermatrix correspond
+%   to the algebraic structure of the multivectors.
+
+
     % This function recovers the matrix of MVs from a supermatrix
     % decription
     [rows,columns]=size(self);
@@ -18,5 +49,6 @@ function r= from_SUPER_MATRIX(self,M)
         end
     end
 end
+
 
 

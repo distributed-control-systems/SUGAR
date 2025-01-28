@@ -1,4 +1,12 @@
 function f= precoded_outter_product_function(sig)
+
+
+% This function returns the right implementetion for outter product
+% Takes as argument the signature and returns a handler to the right
+% function
+% A persistent variable in order to know which function to use
+
+
     % This function returns the right implementetion for outter product
     % Takes as argument the signature and returns a handler to the right
     % function
@@ -18,4 +26,5 @@ function f= precoded_outter_product_function(sig)
 end
 f=functions{sig(1)+1,sig(2)+1,sig(3)+1};
 end
+
 

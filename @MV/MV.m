@@ -1,4 +1,32 @@
 classdef (InferiorClasses = {?sym}) MV
+
+
+% This class provides functionality to create, manipulate, and perform operations on multivectors
+% in the context of geometric (Clifford) algebra.
+%
+% Properties:
+%   REPR          - (string) Representation identifier for the multivector.
+%   Lsignature    - Signature of the geometric algebra, defining the structure of the multivector.
+%   matrix        - Matrix representation of the multivector in the algebra.
+%   Signs         - Sign information relevant to the multivector structure.
+%   Basis         - Basis elements of the algebra, private access.
+%   vec           - Vector representation of the multivector, private access.
+%
+% Methods:
+%   MV            - Constructor for initializing an MV object based on input values and algebra signature.
+%   laplace       - Computes the Laplace transform of the multivector.
+%   ilaplace      - Computes the inverse Laplace transform.
+%   abs, log, sin, cos, etc. - Various trigonometric and hyperbolic functions applied to the multivector.
+%   clean, collect, conj - Functions for manipulating and simplifying the multivector.
+%   inverse       - Computes the inverse of the multivector.
+%   plot          - Visual representation of the multivector.
+%   rand          - Generates a random multivector for a given signature.
+%   CGA_matrix    - Generates the conformal geometric algebra matrix for a given signature.
+%   structuredef  - Defines the algebraic structure based on the provided signature.
+%   LogLevel      - Sets or retrieves the log level for debugging or output control.
+%   allow_multivaluated_functions - Enables or disables multi-valuated functions.
+
+
     properties 
 
         REPR=""
@@ -386,3 +414,4 @@ function r=rand(signature)
 
     end
 end
+

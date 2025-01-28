@@ -1,4 +1,31 @@
 function structure= full_algebra_basis_coefs(sig)
+
+
+% FULL_ALGEBRA_BASIS_COEFS - Computes the basis combinations for a given algebra.
+%
+% Syntax:
+%   structure = full_algebra_basis_coefs(sig)
+%
+% Description:
+%   This function generates the combinations of basis names for a given
+%   algebra based on its signature. The combinations are computed without
+%   repetition and are arranged in lexicographic order. The results are cached
+%   for efficient retrieval in subsequent calls.
+%
+% Input:
+%   sig - (1x3 array) The signature of the algebra in the form [p, q, r].
+%
+% Output:
+%   structure - (cell array) The computed basis combinations for the algebra.
+%
+% Example:
+%   basis_structure = full_algebra_basis_coefs([2, 1, 0]);
+%
+% Note:
+%   The function uses persistent variables to cache results for previously
+%   computed signatures to improve efficiency.
+
+
     % So, once you have an Algebra, which are the basis names that we must
     % print on the screen? This function computes such combinations
 
@@ -25,4 +52,5 @@ function structure= full_algebra_basis_coefs(sig)
     end
     structure=structures{sig(1)+1,sig(2)+1,sig(3)+1};
 end
+
 

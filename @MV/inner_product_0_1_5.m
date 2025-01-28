@@ -1,4 +1,38 @@
 function r=inner_product_0_1_5(a,b)
+
+
+% INNER_PRODUCT_0_1_5 - Computes the inner product of two multivectors in the (0,1,5) algebra.
+%
+% Syntax:
+%   r = inner_product_0_1_5(a, b)
+%
+% Description:
+%   This function calculates the inner product of two multivectors in the
+%   (0,1,5) algebra, where each input is represented with sixty-four components.
+%   It returns the result as a sixty-four-element array.
+%
+% Input:
+%   a - (MV) A multivector in the (0,1,5) algebra with sixty-four components. Accessed as a.vector.
+%   b - (MV) A multivector in the (0,1,5) algebra with sixty-four components. Accessed as b.vector.
+%
+% Output:
+%   r - (1x64 array) The result of the inner product, represented as a sixty-four-element array.
+%
+% Example:
+%   a = MV([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, ...
+%            17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, ...
+%            31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, ...
+%            45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, ...
+%            59, 60, 61, 62, 63, 64], [0, 1, 5]);
+%   b = MV([64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, ...
+%            48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, ...
+%            33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, ...
+%            19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, ...
+%            3, 2, 1], [0, 1, 5]);
+%   r = inner_product_0_1_5(a.vector, b.vector);
+%   disp(r); % Displays the result
+
+
    pCell = num2cell(a);
    [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61, a62, a63, a64]=pCell{:};
    pCell = num2cell(b);
@@ -68,4 +102,5 @@ function r=inner_product_0_1_5(a,b)
       a1*b63 + a63*b1 - a2*b64 + a64*b2,...
       a1*b64 + a64*b1];
 end
+
 
