@@ -17,7 +17,7 @@ M_punto_f_dual=[0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
 M_recta_dual = [0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
 M_plano_dual = [0   0   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
 
-
+dipole=false;
 
 ev=element.vector;
 pCell = num2cell(ev);
