@@ -400,6 +400,24 @@ In any case there is a multi-vector method to retrive a grade, namely
 	( y )e1+( z )e2
 
 ## Basic multi-vector operations
+
+### Table of operators
+| Name | Ascii | operator |
+|:----------|:----------:|:----------:|
+| Addition of A and B||A+B|
+| Substrac B from A||A-B|
+| Geometric product of A and B  |    | A*B   |
+| Inner Product of A and B  |    | A.*B   |
+| Outer Product of A and B  |    | A.^B   |
+| Scalar power of A to k| | A^k|
+| Vee of A and B| dual(A.dual*B.dual) | A&B|
+| Dual of A| A.dual or dual(A)| |
+| Reverse of A| A.reverse or reverse(A)| ~A|
+| Conjugate of A| A.conjugate or conjugate(A)|A'|
+| Inverse of A| inv(A)|A^-1|
+
+
+### Learn by example basic operations
 Plus and Minus operations are allowed among multi-vectors
 
 	>> basis([1,1,0],"verbose")
@@ -600,48 +618,57 @@ But, as you should know, you may encounter multi vectors that don't have inverse
 
 There are other cases where this situation may reproduce. Specially on algebras or multi vectors with negative basis.
 
-## Powers of multi-vectors to multi-vectors
-
-Look into next section 
-
-
 ## Functions of multi-vectors
-Sugar allows you to compute (the **slow** part of sugar) a function of a multi-vector. The way to do it is to use the method "apply()" which gets as argument a lambda function. For instance, using the well-known algebra CL([0,1,0]) for the complex numbers, lets compute the exponential of a function:
 
+SUGAR provides a **comprehensive set of mathematical functions** for **multivectors (MV)**, supporting both **numeric and symbolic** computations. This enables users to apply familiar **trigonometric, exponential, logarithmic, and other mathematical operations** directly to multivectors, making complex algebraic manipulations straightforward.
 
-	>> syms a b x y real
-	>> basis([0,1,0])
-	Declaring e0 as syntactic sugar, e0=1
-	Declaring e1 such that e1·e1=-1
-	>> y=e1*b
-	
-	y = 
-	
-	 ( b )*e1
-	>> y.apply(@(x)exp(x))
-	
-	ans = 
-	
-	 ( cos(b) )*e0 ( sin(b) )*e1
+---
 
+### **Basic Functions for Multivectors**
 
-But in CL([1,0,0]) the same operation turns out to be
+SUGAR supports the following fundamental functions for **multivectors**:
 
-	>> basis([1,0,0])
-	Declaring e0 as syntactic sugar, e0=1
-	Declaring e1 such that e1·e1=1
-	>> y=e1*b
-	
-	y = 
-	
-	 ( b )*e1
-	>> y.apply(@(x)exp(x))
-	
-	ans = 
-	
-	 ( cosh(b) )*e0 ( sinh(b) )*e1
+- **Trigonometric Functions**: `sin`, `cos`, `tan`, `cot`, `sec`, `csc`
+- **Hyperbolic Functions**: `sinh`, `cosh`, `tanh`, `coth`, `sech`, `csch`
+- **Exponential and Logarithmic Functions**: `exp`, `log`
+- **Power Functions**: `sqrt`, `^` (power operator)
 
-General functions on multi-vectors are allowed, but the expressions may become really nasty.
+Each of these functions is **fully overloaded** to operate on **multivectors** just as they would on standard MATLAB scalars or vectors.
+
+---
+
+### **Applying Functions to Multivectors**
+
+#### **Direct Function Calls**
+Many mathematical functions can be **directly applied** to multivectors:
+
+```matlab
+GA([2,0,0]); % Define a geometric algebra
+A = e1 + e2; % Declare a simple multivector
+B = sin(A);   % Compute the sine of A
+C = exp(A);   % Compute the exponential of A
+```
+
+These functions are **symbolically evaluated** whenever possible, but they can also be computed numerically when the multivector has numeric coefficients.
+
+---
+
+#### **Custom Function Application: `apply()` Method**
+For **more advanced function definitions**, SUGAR allows users to **apply custom functions** to each element of a multivector using the `apply()` method:
+
+```matlab
+syms x;
+GA([0,1,0]); % Define complex numbers algebra
+A = e1 * x;
+B = A.apply(@(x) exp(x));
+```
+
+**Output:**
+```
+( cos(x) )e0 + ( sin(x) )e1
+```
+
+This is particularly useful when working with **symbolic calculations**.
 
 Using double lambda functions we can declare our own functions on multi-vectors, take care to avoid shading standard Matlab functions. For instance:
 
@@ -783,5 +810,5 @@ This feature also works for symbolic coefficients
 
 which should be interpreted by a latex engine as 
 
-$\left[\begin{array}{cc}\left(a\right)e_{1}  &  \left(1\right)e_{1}+\left(b+c\right)e_{2}  \\ \left(c\right)e_{2}  &  \left(-a\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]$
+$$\left[\begin{array}{cc}\left(a\right)e_{1}  &  \left(1\right)e_{1}+\left(b+c\right)e_{2}  \\ \left(c\right)e_{2}  &  \left(-a\right)e_{1}+\left(1\right)e_{2}  \\ \end{array}\right]$$
 
