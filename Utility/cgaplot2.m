@@ -1,4 +1,35 @@
 function cgaplot2(element)
+% CGAPLOT2  Plots a Conformal Geometric Algebra (CGA) element in 2D.
+%
+%   CGAPLOT2(ELEMENT) visualizes a CGA element in a 2D plot. The function
+%   detects and plots various geometric primitives, including:
+%
+%     - Points (outer and dual representations)
+%     - Flat points and flat point duals
+%     - Lines and dual lines
+%     - Dipoles
+%     - Circles and dual circles
+%
+%   The function automatically classifies the CGA element and renders the
+%   corresponding geometric object.
+%
+%   Input:
+%     - ELEMENT: A CGA multivector containing the element to be plotted.
+%
+%   Features:
+%     - Detects and classifies CGA elements based on their structure.
+%     - Supports both round and flat structures.
+%     - Assigns color coding: blue for standard elements, red for dual forms.
+%
+%   Example:
+%     CGA(2)  % Create a cga2 algebra
+%     element = point([1,2]);  % Create a CGA point
+%     cgaplot2(element);        % Plot it
+%
+%   This function is designed for Conformal Geometric Algebra (CGA) and is 
+%   useful in geometric computing applications.
+%
+% See also CGA, GA, MV
 persistent cos_p
 persistent sin_p
 if isempty(cos_p)

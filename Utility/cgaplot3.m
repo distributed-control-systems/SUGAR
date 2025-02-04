@@ -1,4 +1,43 @@
 function cgaplot3(element)
+% CGAPLOT3  Plots a Conformal Geometric Algebra (CGA) element in 3D.
+%
+%   CGAPLOT3(ELEMENT) visualizes a CGA element in a 3D plot. The function
+%   automatically detects and plots different geometric primitives, including:
+%
+%     - Points (outer and dual representations)
+%     - Flat points and their duals
+%     - Lines and dual lines
+%     - Planes and dual planes
+%     - Dipoles (inner and dual representations)
+%     - Circles and dual circles
+%     - Spheres and dual spheres
+%
+%   The function classifies the CGA element and renders the corresponding
+%   geometric object in a 3D space.
+%
+%   Input:
+%     - ELEMENT: A CGA multivector representing the geometric entity.
+%
+%   Features:
+%     - Detects and classifies CGA elements based on their algebraic structure.
+%     - Supports both **round** (circles, spheres, dipoles) and **flat**
+%       (points, lines, planes) structures.
+%     - Assigns color coding:
+%       - **Blue** for standard elements.
+%       - **Red** for dual representations.
+%     - Holds previous plots if `hold on` is active.
+%
+%   Example:
+%     CGA(3)  % Create a 3D conformal algebra
+%     element = point([1,2,3]);  % Create a CGA point
+%     cgaplot3(element);         % Plot it
+%
+%   Notes:
+%     - This function is optimized for **3D Conformal Geometric Algebra (CGA)**.
+%     - It utilizes **implicit function plots** (`fimplicit3`) for planes.
+%     - Spheres are visualized with a shading effect.
+%
+% See also CGA, GA, MV, CGAPLOT2
 persistent cos_p
 persistent sin_p
 persistent X Y Z

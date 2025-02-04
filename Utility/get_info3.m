@@ -1,5 +1,46 @@
 function s=get_info3(element)
-
+% GET_INFO3  Extracts and classifies information from a CGA element in 3D.
+%
+%   S = GET_INFO3(ELEMENT) analyzes a given Conformal Geometric Algebra (CGA)
+%   element in 3D and returns a structured output containing relevant information.
+%
+%   The function automatically classifies the element as **flat** or **round** and
+%   determines its representation (outer or dual). It extracts parameters such as:
+%
+%     - **Points (flat or round, outer or dual representation)**
+%     - **Lines (flat or dual representation)**
+%     - **Planes (flat or dual representation)**
+%     - **Dipoles (real or imaginary)**
+%     - **Circles (real or imaginary, outer or dual representation)**
+%     - **Spheres (real or imaginary, outer or dual representation)**
+%
+%   Input:
+%     - ELEMENT: A CGA multivector representing the geometric entity in 3D.
+%
+%   Output:
+%     - S: A structure containing:
+%         - `Algebra`: `"CGA3"`
+%         - `Type`: `"Flat"` or `"Round"`
+%         - `Representation`: `"Outer"` or `"Dual"`
+%         - `Object`: `"Point"`, `"Line"`, `"Plane"`, `"Dipole"`, `"Circle"`, `"Sphere"`
+%         - Geometric parameters (`x`, `y`, `z`, `radius`, `normal`, etc.)
+%         - Corresponding CGA multivector representation (`P`, `C`, `n`, etc.)
+%
+%   Features:
+%     - Detects and classifies CGA elements based on their algebraic structure.
+%     - Supports both **round** (spheres, circles, dipoles, points) and **flat**
+%       (planes, lines, points) structures.
+%     - Differentiates between **real** and **imaginary** geometric objects.
+%     - Provides all computed parameters in a structured format.
+%
+%   Example:
+%     info = get_info3(element);  % Get classification and parameters
+%
+%   Notes:
+%     - This function does not plot the element; it only extracts information.
+%     - Designed for **3D Conformal Geometric Algebra (CGA3)**.
+%
+% See also CGA, GA, MV, CGAPLOT3
 %% ROUND STRUCTURES
 M_punto=       [0   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0];
 M_punto_dual = [0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   0];

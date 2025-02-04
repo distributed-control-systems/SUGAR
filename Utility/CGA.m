@@ -1,4 +1,30 @@
 function CGA(signature,options)
+% CGA  Declares a Conformal Geometric Algebra (CGA) in the current workspace.
+%
+%   CGA(SIGNATURE) initializes the Conformal Geometric Algebra ℝ{SIGNATURE+[1,1,0]}.
+%   SIGNATURE is a vector defining the metric signature of the base space.
+%   The two new basis, e+ and e- are combined into n0 and ni to allow the
+%   user to work in natural coordinates.
+%   CGA(SIGNATURE, 'verbose') enables detailed output, displaying the declared 
+%   basis elements and their properties.
+%
+%   Output:
+%     - Basis multivectors assigned to the workspace.
+%     - Grade slicing variables G0, G1, ..., Gn for extracting components.
+%     - Pseudoscalar I for the CGA space.
+%     - Functions push() and pull() for conformal transformations.
+%
+%   Example:
+%     CGA([3,0,0]);  % Declares ℝ{4,1,0} for 3D space
+%     CGA([3,0,0], 'verbose');  % Declares with detailed output
+%
+%   Additional functions:
+%     - push(X) : Embeds a Euclidean point X into CGA.
+%     - pull(P) : Extracts Euclidean coordinates from a CGA point P.
+%     - point(COORD) : Generates a CGA point from Euclidean coordinates.
+%     - normal(P) : Computes the normal direction of a CGA point.
+%
+% See also GA, MV
 if nargin==1
     options="";
 end

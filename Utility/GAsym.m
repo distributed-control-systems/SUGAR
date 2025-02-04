@@ -1,14 +1,29 @@
 function r = GAsym(name, sig)
-    % This function takes two input arguments:
-    % name: a string that represents the base name for symbolic variables
-    % sig: an array of integers used to define the structure or dimensions
-    % The function constructs a symbolic expression based on a multivector
-    % and returns the resulting expression as 'r'.
-    
-    % Initialize a multivector 'b' using the function MV 
-    % The multivector is created with a dimension of 2^sum(sig) 
-    % and 'sig' as additional parameters.
-    nargin
+% GAsym  Creates a symbolic multivector in a Geometric Algebra.
+%
+%   R = GAsym(NAME, SIG) generates a symbolic multivector using the basis
+%   elements of a Geometric Algebra defined by the signature SIG. The 
+%   symbolic coefficients are prefixed by NAME.
+%
+%   R = GAsYM(NAME) infers the signature from the existing algebra in the
+%   workspace (assumed to be stored in `e0`).
+%
+%   Inputs:
+%     - NAME: A string representing the prefix for symbolic variables.
+%     - SIG : A vector defining the signature of the Geometric Algebra.
+%
+%   Output:
+%     - R: A symbolic multivector constructed using the algebra basis.
+%
+%   Features:
+%     - Uses `MV` to construct a multivector with symbolic coefficients.
+%     - Generates basis names dynamically and assigns symbolic variables.
+%     - Supports automatic signature detection from an existing algebra.
+%
+%   Example:
+%     r = GAsym('a', [3,1,0]);  % Creates a symbolic multivector in ℝ{3,1,0}
+%
+% See also GA, MV
     if nargin==1
         e=evalin("caller","e0");
         sig=e.Lsignature;

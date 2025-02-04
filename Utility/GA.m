@@ -1,4 +1,26 @@
 function GA(sig,options)
+% GA  Declares a Geometric Algebra in the current workspace.
+%
+%   GA(SIG) initializes the Geometric Algebra ℝ{SIG} and assigns basis 
+%   multivectors to the caller's workspace. SIG is a vector defining 
+%   the metric signature.
+%
+%   GA(SIG, 'verbose') enables detailed output, displaying the declared 
+%   basis elements and their properties.
+%
+%   Output:
+%     - Basis multivectors assigned to the workspace.
+%     - Grade slicing variables G0, G1, ..., Gn for extracting components.
+%     - Algebra information stored in 'algebra' and 'algebra_info'.
+%
+%   Example:
+%     GA([1 1 1]);  % Declares ℝ{1,1,1}
+%     GA([1 1 1], 'verbose');  % Declares with detailed output
+%
+%   The basis elements can be accessed as variables in the workspace.
+%   Grade slicing can be done using A(Gx) or A{Gx}.
+%
+% See also MV, CGA
 al="ℝ{"+ num2str(sig)+"}\n";
 algebra="The actual Algebra is ℝ{"+ num2str(sig)+"} where:\n";
 if nargin==1

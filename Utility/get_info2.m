@@ -1,4 +1,44 @@
 function s=get_info2(element)
+% GET_INFO2  Extracts and classifies information from a CGA element in 2D.
+%
+%   S = GET_INFO2(ELEMENT) analyzes the given Conformal Geometric Algebra (CGA)
+%   element and returns a structured output containing relevant information.
+%
+%   The function automatically classifies the element as **flat** or **round** and
+%   determines its representation (outer or dual). It extracts parameters such as:
+%
+%     - **Points (flat or round, outer or dual representation)**
+%     - **Lines (flat or dual representation)**
+%     - **Dipoles (real or imaginary)**
+%     - **Circles (real or imaginary, outer or dual representation)**
+%
+%   Input:
+%     - ELEMENT: A CGA multivector representing the geometric entity.
+%
+%   Output:
+%     - S: A structure containing:
+%         - `Algebra`: `"CGA2"`
+%         - `Type`: `"Flat"` or `"Round"`
+%         - `Representation`: `"Outer"` or `"Dual"`
+%         - `Object`: `"Point"`, `"Line"`, `"Dipole"`, `"Circle"`
+%         - Geometric parameters (`x`, `y`, `radius`, etc.)
+%         - Corresponding CGA multivector representation (`P` or `C`)
+%
+%   Features:
+%     - Detects and classifies CGA elements based on their algebraic structure.
+%     - Supports both **round** (circles, dipoles, points) and **flat** (lines, points) structures.
+%     - Differentiates between **real** and **imaginary** geometric objects.
+%     - Provides all computed parameters in a structured format.
+%
+%   Example:
+%     info = get_info2(element);  % Get classification and parameters
+%
+%   Notes:
+%     - This function does not plot the element; it only extracts information.
+%     - Designed for **2D Conformal Geometric Algebra (CGA2)**.
+%
+% See also CGA, GA, MV, CGAPLOT2
+
 persistent cos_p
 persistent sin_p
 if isempty(cos_p)
