@@ -54,12 +54,12 @@ function [Basis, Stamp, Msigns, Signs] = structuredef(sig)
         signs{20,20,20}      = 0;
         bnames{20,20,20}     = 0;
 
-        % load('@MV/pre_defined_stamps.mat', 'stamps')
-        % load('@MV/pre_defined_signatures.mat', 'signatures')
-        % load('@MV/pre_defined_basis.mat', 'basis')
-        % load('@MV/pre_defined_msigns.mat', 'msigns')
-        % load('@MV/pre_defined_signs.mat', 'signs')
-        % load('@MV/pre_defined_bnames.mat', 'bnames')
+        load('@MV/pre_defined_stamps.mat', 'stamps')
+        load('@MV/pre_defined_signatures.mat', 'signatures')
+        load('@MV/pre_defined_basis.mat', 'basis')
+        load('@MV/pre_defined_msigns.mat', 'msigns')
+        load('@MV/pre_defined_signs.mat', 'signs')
+        load('@MV/pre_defined_bnames.mat', 'bnames')
 
         % Cayley-defined data
         Cstamps      = {};
