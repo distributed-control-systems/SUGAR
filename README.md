@@ -24,6 +24,8 @@ In order to add Sugar to your Matlab distribution please follow these next steps
 	 And unzip the downloaded file to anywere in your computer.
 
 2. **Adding Sugar to Matlab:**
+   
+   **Method 1: GUI based**
 
    To integrate Sugar into Matlab, add the downloaded folder with its subfolders to your Matlab path:
    
@@ -33,6 +35,14 @@ In order to add Sugar to your Matlab distribution please follow these next steps
 
    - In the dialog that appearsselect "Add with Subfolders", navigate to the Sugar folder you just downloaded and click on "Apply".
    	![Matlab Home menu](./images/path.png "Matlab home menu")
+
+**Method 2: command line based**
+In the Matlab command window type
+```matlab
+>> addpath(genpath('sugar_foldr_name'));
+>> savepath;
+```
+where sugar_folder_name is the absolute path name of the folder to which you downloaded SUGAR.
 
 Congratulations! You have successfully installed Sugar in Matlab. To begin using Sugar and explore its functionalities, proceed with the following sections of this guide.
 
