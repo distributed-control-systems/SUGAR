@@ -1,10 +1,10 @@
-function r= outter(obj1,obj2)
+function r= outer(obj1,obj2)
 
 
 % OUTTER - Computes the outer product of two multivectors.
 %
 % Syntax:
-%   r = outter(obj1, obj2)
+%   r = outer(obj1, obj2)
 %
 % Description:
 %   This function calculates the outer product between two multivectors or
@@ -22,7 +22,7 @@ function r= outter(obj1,obj2)
 % Example:
 %   mv1 = MV([1, 2, 3, 4], [2, 0]);
 %   mv2 = MV([5, 6, 7, 8], [2, 0]);
-%   result = outter(mv1, mv2);  % Computes the outer product of mv1 and mv2
+%   result = outer(mv1, mv2);  % Computes the outer product of mv1 and mv2
 %   disp(result);  % Displays the resulting multivector
 %
 % Note:
@@ -32,7 +32,7 @@ function r= outter(obj1,obj2)
 %   when dealing with small algebras.
 
 
-    % TODO add options to perform a matrix outter product
+    % TODO add options to perform a matrix outer product
 
     %Outer product implementation
     % Sometimes people try to make otter with a scalar

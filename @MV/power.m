@@ -25,11 +25,11 @@ function r= power(obj1,obj2)
 %
 % Notes:
 %   - This overload allows for multivector outer products using the .^ operator.
-%   - The operator computes the outer product of the two MVs using the `outter` function.
+%   - The operator computes the outer product of the two MVs using the `outer` function.
 
 
-    %Overload .^ to outter product 
-    r=MV.outter(obj1,obj2);
+    %Overload .^ to outer product 
+    r=MV.outer(obj1,obj2);
 end
 
 

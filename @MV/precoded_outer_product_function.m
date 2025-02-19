@@ -1,13 +1,13 @@
 function f= precoded_outer_product_function(sig)
 
 
-% This function returns the right implementetion for outter product
+% This function returns the right implementetion for outer product
 % Takes as argument the signature and returns a handler to the right
 % function
 % A persistent variable in order to know which function to use
 
 
-    % This function returns the right implementetion for outter product
+    % This function returns the right implementetion for outer product
     % Takes as argument the signature and returns a handler to the right
     % function
     % A persistent variable in order to know which function to use

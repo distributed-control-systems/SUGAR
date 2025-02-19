@@ -1,13 +1,13 @@
 function r=outer_product_0_0_4(a,b)
 
 
-% OUTTER_PRODUCT_0_0_4 - Computes the outter product of two multivectors in the (0,0,4) algebra.
+% OUTTER_PRODUCT_0_0_4 - Computes the outer product of two multivectors in the (0,0,4) algebra.
 %
 % Syntax:
 %   r = outer_product_0_0_4(a, b)
 %
 % Description:
-%   This function calculates the outter product of two multivectors in the
+%   This function calculates the outer product of two multivectors in the
 %   (0,0,4) algebra, where each input is represented with a specific number of components.
 %   It returns the result as an array of specified length.
 %

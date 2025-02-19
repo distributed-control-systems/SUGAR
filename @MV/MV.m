@@ -180,7 +180,7 @@ classdef (InferiorClasses = {?sym}) MV
 
         r=reveal()
 
-        r= outter(obj1,obj2)
+        r= outer(obj1,obj2)
 
     r=outer_product_0_0_0(a,b)
 r=outer_product_0_0_1(a,b)

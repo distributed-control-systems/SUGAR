@@ -1,13 +1,13 @@
 function r=outer_product_3_2_1(a,b)
 
 
-% OUTTER_PRODUCT_3_2_1 - Computes the outter product of two multivectors in the (3,2,1) algebra.
+% OUTTER_PRODUCT_3_2_1 - Computes the outer product of two multivectors in the (3,2,1) algebra.
 %
 % Syntax:
 %   r = outer_product_3_2_1(a, b)
 %
 % Description:
-%   This function calculates the outter product of two multivectors in the
+%   This function calculates the outer product of two multivectors in the
 %   (3,2,1) algebra, where each input is represented with a specific number of components.
 %   It returns the result as an array of specified length.
 %

@@ -1,13 +1,13 @@
 function r=outer_product_1_0_3(a,b)
 
 
-% OUTTER_PRODUCT_1_0_3 - Computes the outter product of two multivectors in the (1,0,3) algebra.
+% OUTTER_PRODUCT_1_0_3 - Computes the outer product of two multivectors in the (1,0,3) algebra.
 %
 % Syntax:
 %   r = outer_product_1_0_3(a, b)
 %
 % Description:
-%   This function calculates the outter product of two multivectors in the
+%   This function calculates the outer product of two multivectors in the
 %   (1,0,3) algebra, where each input is represented with a specific number of components.
 %   It returns the result as an array of specified length.
 %
