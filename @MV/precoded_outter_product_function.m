@@ -1,4 +1,4 @@
-function f= precoded_outter_product_function(sig)
+function f= precoded_outer_product_function(sig)
 
 
 % This function returns the right implementetion for outter product
@@ -18,7 +18,7 @@ function f= precoded_outter_product_function(sig)
         for i=0:6
             for j=0:6-i
                 for k=0:6-i-j
-                    functions{i+1,j+1,k+1}=eval("@MV.outter_product_"+num2str(i)+"_"+num2str(j)+"_"+num2str(k));
+                    functions{i+1,j+1,k+1}=eval("@MV.outer_product_"+num2str(i)+"_"+num2str(j)+"_"+num2str(k));
                 end
             end
     end

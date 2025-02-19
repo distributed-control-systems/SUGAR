@@ -68,7 +68,7 @@ function r= outter(obj1,obj2)
             r=MV(v,obj1.Lsignature);
         % In case that this is precoded use the precoded function
         elseif n<precoded
-            f=MV.precoded_outter_product_function(obj1.Lsignature);
+            f=MV.precoded_outer_product_function(obj1.Lsignature);
             v=f(obj1.vec,obj2.vec);
             r=MV(v,obj1.Lsignature);
         end
