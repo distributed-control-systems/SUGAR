@@ -16,7 +16,7 @@ function r=outer_product_5_0_1(a,b)
 %   b - (MV) A multivector in the (5,0,1) algebra with a specific number of components. Accessed as b.vector.
 %
 % Output:
-%   r - (1xN array) The result of the inner product, represented as an array of specified length.
+%   r - (1xN array) The result of the outer product, represented as an array of specified length.
 %
 % Example:
 %   a = MV([...], [5,0,1]);

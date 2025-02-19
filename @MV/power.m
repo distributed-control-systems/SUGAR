@@ -29,7 +29,7 @@ function r= power(obj1,obj2)
 
 
     %Overload .^ to outer product 
-    r=MV.outer(obj1,obj2);
+    r= MV.outer(obj1,obj2);%
 end
 
 

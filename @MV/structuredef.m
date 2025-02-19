@@ -44,22 +44,22 @@ function [Basis, Stamp, Msigns, Signs] = structuredef(sig)
     persistent bnames    Cbnames;
 
     % ---------------------------------------------------------------------
-    % INITIALIZATION (same as your original code)
+    % INITIALIZATION 
     % ---------------------------------------------------------------------
     if isempty(signatures)
-        stamps{10,10,10}     = 0;
-        signatures{10,10,10} = 0;
-        basis{10,10,10}      = 0;
-        msigns{10,10,10}     = 0;
-        signs{10,10,10}      = 0;
-        bnames{10,10,10}     = 0;
+        stamps{20,20,20}     = 0;
+        signatures{20,20,20} = 0;
+        basis{20,20,20}      = 0;
+        msigns{20,20,20}     = 0;
+        signs{20,20,20}      = 0;
+        bnames{20,20,20}     = 0;
 
-        load('@MV/pre_defined_stamps.mat', 'stamps')
-        load('@MV/pre_defined_signatures.mat', 'signatures')
-        load('@MV/pre_defined_basis.mat', 'basis')
-        load('@MV/pre_defined_msigns.mat', 'msigns')
-        load('@MV/pre_defined_signs.mat', 'signs')
-        load('@MV/pre_defined_bnames.mat', 'bnames')
+        % load('@MV/pre_defined_stamps.mat', 'stamps')
+        % load('@MV/pre_defined_signatures.mat', 'signatures')
+        % load('@MV/pre_defined_basis.mat', 'basis')
+        % load('@MV/pre_defined_msigns.mat', 'msigns')
+        % load('@MV/pre_defined_signs.mat', 'signs')
+        % load('@MV/pre_defined_bnames.mat', 'bnames')
 
         % Cayley-defined data
         Cstamps      = {};
@@ -69,18 +69,18 @@ function [Basis, Stamp, Msigns, Signs] = structuredef(sig)
         Csigns       = {};
         Cbnames      = {};
     end
-%         if class(sig)=='string' 
-%             if sig=="DUMP"
-%                 save @MV/pre_defined_stamps.mat stamps
-%                 save @MV/pre_defined_signatures.mat signatures
-%                 save @MV/pre_defined_basis.mat basis
-%                 save @MV/pre_defined_msigns.mat msigns
-%                 save @MV/pre_defined_signs.mat signs
-%                 save @MV/pre_defined_bnames.mat bnames
-%                 
-%             end    
-%         return
-%         end
+        if class(sig)=='string' 
+            if sig=="DUMP"
+                save('@MV/pre_defined_stamps.mat', 'stamps', '-v7.3');
+                save('@MV/pre_defined_signatures.mat', 'signatures', '-v7.3');
+                save('@MV/pre_defined_basis.mat', 'basis', '-v7.3');
+                save('@MV/pre_defined_msigns.mat', 'msigns', '-v7.3');
+                save('@MV/pre_defined_signs.mat', 'signs', '-v7.3');
+                save('@MV/pre_defined_bnames.mat', 'bnames', '-v7.3');
+
+            end    
+        return
+        end
 
     [sr, sc] = size(sig);
 
@@ -90,7 +90,7 @@ function [Basis, Stamp, Msigns, Signs] = structuredef(sig)
     if sr==1  
         if isempty(signatures{sig(1)+1, sig(2)+1, sig(3)+1})
             % Check some constraints
-            if any(sig >= 10)
+            if any(sig >= 20)
                 error('Currently limited to p<10, q<10, r<10.');
             end
             if sum(sig) > 9
@@ -123,7 +123,7 @@ function [Basis, Stamp, Msigns, Signs] = structuredef(sig)
         Signs  = signs{sig(1)+1, sig(2)+1, sig(3)+1};
 
     % ---------------------------------------------------------------------
-    % CASE 2: Cayley table (untouched from your original code)
+    % CASE 2: Cayley table 
     % ---------------------------------------------------------------------
     elseif sr==sc
         cayley_exists = 0;
