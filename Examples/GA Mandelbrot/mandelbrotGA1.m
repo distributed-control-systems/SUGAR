@@ -1,6 +1,6 @@
 function mandelbrotGA1(n, niter)
 % MANDELBROTGA1 Mandelbrot plot in Geometric Algebra when p + q + r = 1.
-% This function generates a Mandelbrot set plot using a 2-dimensional
+% This function generates a Mandelbrot set plot using a 1-dimensional
 % algebra, equivalent to using complex numbers.
 %
 % Parameters:

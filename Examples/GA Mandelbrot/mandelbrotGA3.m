@@ -1,6 +1,6 @@
 function mandelbrotGA3(n, niter, p1, p2, p3, p4, p5, p6)
 % MANDELBROTGA3 Mandelbrot plot in Geometric Algebra when p + q + r = 3.
-% This function generates a Mandelbrot set plot using a plane within a 4-dimensional
+% This function generates a Mandelbrot set plot using a plane within a 3-dimensional
 % algebra, but additional parameters are needed to select the plotting plane.
 %
 % Parameters:

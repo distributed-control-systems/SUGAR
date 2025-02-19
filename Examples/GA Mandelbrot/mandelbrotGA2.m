@@ -1,6 +1,6 @@
 function mandelbrotGA2(n, niter, p1, p2)
 % MANDELBROTGA2 Mandelbrot plot in Geometric Algebra when p + q + r = 2.
-% This function generates a Mandelbrot set plot using a plane within a 4-dimensional
+% This function generates a Mandelbrot set plot using a plane within a 2-dimensional
 % algebra. Extra parameters are required to select the plotting plane.
 %
 % Parameters:
