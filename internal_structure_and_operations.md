@@ -1,18 +1,18 @@
-# How Are Multivectors Represented in Sugar?
+# How are multivectors represented in SUGAR?
 
-In Sugar, **multivectors (MV)** are internally represented as **matrices**. This means that when you add two multivectors, Sugar is actually performing matrix addition. Similarly, when you apply a function to a multivector, a known formula is applied to its corresponding matrix. This approach ensures that multivector operations remain consistent and efficient while leveraging MATLAB’s built-in matrix computation capabilities.
+In SUGAR, **multivectors (MV)** are internally represented as **matrices**. This means that when one adds two multivectors, SUGAR is actually performing matrix addition. Similarly, when one applies a function to a multivector, a known formula is applied to its corresponding matrix representation. This approach ensures that multivector operations remain consistent and efficient while leveraging MATLAB’s built-in matrix computation capabilities.
 
-## Why Use Matrices?
+## Why use matrices?
 
-The primary reason for using matrices is efficiency. Since MATLAB is optimized for matrix computations, this representation enables us to perform calculations much more effectively. Rather than designing a separate computational framework for multivectors, Sugar takes advantage of MATLAB’s strengths, ensuring highly efficient and reliable operations.
+The primary reason for using matrices is efficiency. Since MATLAB is optimized for matrix computations, this representation enables us to perform calculations much more effectively. Rather than designing a separate computational framework for multivectors, SUGAR takes advantage of MATLAB’s strengths. 
 
-Moreover, the matrices used in Sugar (with specific structural signs) belong to the space $\mathbb{R}^{2^{(p+q+r)}\times 2^{(p+q+r)}}$, which is **isomorphic** to the Clifford algebra **𝒞𝐿(p, q, r)** over the real numbers. In simpler terms, we can perform all operations on multivectors using matrix algebra while preserving their geometric properties. This is crucial, as geometric algebra relies on specific transformations and structures that must be maintained for accurate mathematical modeling.
+Moreover, the matrices used in SUGAR (with specific structural signs) belong to the space $\mathbb{R}^{2^{(p+q+r)}\times 2^{(p+q+r)}}$, which is **isomorphic** to the Clifford algebra **𝒞𝐿(p, q, r)** over the real numbers. In simpler terms, one can perform all operations on multivectors using matrix algebra while preserving their geometric properties. 
 
-Additionally, this approach allows us to leverage **symbolic computation** when necessary. When working with **symbolic multivectors**, Sugar ensures that matrix representations align with symbolic algebraic structures, allowing for analytical solutions and algebraic simplifications without numerical approximation errors.
+Finally, this approach allows us to leverage **symbolic computations** when necessary. When working with **symbolic multivectors**, SUGAR ensures that matrix representations align with symbolic algebraic structures, allowing for analytical solutions and algebraic simplifications without numerical approximation errors.
 
-## How Can You View the Matrix Representation?
+## How can you view the matrix representation?
 
-By default, the underlying matrix representation is hidden as it is managed internally. However, if you're curious, you can explicitly request it. The following example demonstrates how:
+By default, the underlying matrix representation is hidden as it is managed internally. However, if you are curious, you can explicitly request it. The following example demonstrates how:
 
 ```matlab
 >> GA([2 0 0]) % Create an algebra with 2 positive basis elements
@@ -29,7 +29,7 @@ ans =
 
 Each coefficient of the multivector corresponds to a specific location in the matrix. This structured approach ensures that all multivector operations can be efficiently performed using standard **matrix arithmetic**.
 
-## Why Is This Useful?
+## Why is this useful?
 
 Since MATLAB is fundamentally designed for **matrix computations**, this approach enables engineers to seamlessly integrate geometric algebra into their workflows. Sugar is built to help engineers and researchers **understand and apply** geometric algebra efficiently, and what better way to do so than by leveraging MATLAB’s powerful matrix operations?
 
