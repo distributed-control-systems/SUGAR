@@ -162,14 +162,16 @@ In addition, the algebra basic properties behave as expected:
 Note that *e0* denotes the scalar part of a multivector, which in GA literature is simply represented by 1. If there is only the *e0* component, then the expression is a scalar of the field over which the algebra has been initialized (typically the field of real or complex numbers).
 
 ## Declaring multivectors
-There are two ways to declare a multivector, the first one is to provide the complete set of coefficients of the multivector and the signature ([p,q,r]) of the algebra to which it belongs:
+There are two ways of declaring a multivector, the first one is to provide the complete set of coefficients of the multivector and the signature ([p,q,r]) of the algebra to which it belongs:
 
 	>> MV([1 1 2 3],[2,0,0])
 
 	ans = 
 	
 	 ( 1 )*e0+( 1 )*e1+( 2 )*e2+( 3 )*e12
-This way of declaring multivectors is usefull in some cases, but it turns out to be dificult for hihg-dimensional algebras.	 
+
+This way of declaring multivectors is useful in some cases, but it turns out to be difficult for high-dimensional algebras (as the user might get confused when defining the coefficients and not seeing to which basis elements they are attached). However, it does prevent declaring and storing a large number of variables in the MATLAB workspace, which could be useful when working with high-dimensional algebras.
+
 The second one is to use a shorthand notation after initializing the algebra and its basis elements:
 	
 	>> GA([2,0,0],"verbose")
@@ -187,7 +189,8 @@ The second one is to use a shorthand notation after initializing the algebra and
 	ans = 
 
 	( 1 )*e0+( 1 )*e1+( 2 )*e2+( 3 )*e12
-which turns out to be the same multivector as before.
+
+which turns out to be the same multivector as before. This second way gives the full information about the basis elements of the algebra and therefore allows for an intuitive definition of multivectors. However, for large algebras, it creates a large number of variables, which are all store in the workspace of Matlab.
 
 This multivector can be assigned to a variable into the workspace:
 
