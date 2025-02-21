@@ -30,7 +30,7 @@ function r=mrdivide(A,B)
 %   the inverse of the multivector before performing the multiplication.
 
 
-if class(B)=="double"
+if class(B)=="double" | class(B)=="sym"
         r=1/B*A;
 elseif class(B)=="MV"
 
