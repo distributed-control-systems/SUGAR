@@ -52,6 +52,6 @@
 %   >> help sugar.function_name
 %
 %
-% Authors: Manel Velasco, Pau Martí, Isiah Zaplana and Arnau Doria
+% Authors: Manel Velasco, Isiah Zaplana, Arnau Dória-Cerezo and Pau Martí
 % Organization: Universitat Politècnica de Catalunya
 % Date: 04/02/2025
