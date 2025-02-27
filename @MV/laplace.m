@@ -23,7 +23,8 @@ function r=laplace(self,varargin)
 %           transform.
 %
 % Example:
-%   mv = MV([1, 2, 3], [1, 1, 0]);
+%   syms t
+%   mv = MV([t, 2*t, sin(t), t], [1, 1, 0]);
 %   result_mv = laplace(mv, 's');  % Computes the Laplace transform
 %   disp(result_mv); % Displays the resulting multivector
 %

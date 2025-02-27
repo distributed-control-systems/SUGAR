@@ -39,8 +39,8 @@ function B= Blades(sig)
     persistent signatures
     persistent blades
     if isempty (signatures)
-        blades{10,10,10}=0;
-        signatures{10,10,10}=0;
+        blades{16,16,16}=0;
+        signatures{16,16,16}=0;
     end
 
     % Have we computed the matrices for this algebra?

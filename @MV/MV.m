@@ -163,6 +163,7 @@ classdef (InferiorClasses = {?sym}) MV
         v= vector(obj)
         r=mrdivide(A,B)
         r=ctranspose(obj)
+        r=limit(self,varargin)
 
         
 
