@@ -35,7 +35,7 @@ function r = GAsym(name, sig)
     names = b.BasisNames;
     
     % Initialize a symbolic variable 'k' for the first element
-    k = sym([name, '0']);  % Create a symbolic variable based on the name and append '0'
+    k = sym(name+ "0", 'real');  % Create a symbolic variable based on the name and append '0'
     
     % Multiply the first element of the multivector 'b' with the symbolic variable
     V = k * b{1};
